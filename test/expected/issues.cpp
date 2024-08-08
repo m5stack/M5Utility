@@ -55,9 +55,9 @@ TEST(Expected, Issue26) {
 }
 
 struct foo {
-    foo()      = default;
-    foo(foo &) = delete;
-    foo(foo &&) {};
+    foo()            = default;
+    foo(const foo &) = delete;
+    foo(foo &&) noexcept {};
 };
 
 TEST(Expected, Issue29) {
