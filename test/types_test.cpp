@@ -45,7 +45,7 @@ TEST(Utility, Types_U16) {
     EXPECT_EQ(bg4.u8[1], 0x34);
     EXPECT_EQ(lt4.u8[0], 0x34);
     EXPECT_EQ(lt4.u8[1], 0x12);
-    
+
     // Assignment
     big_uint16_t bg5;
     little_uint16_t lt5;

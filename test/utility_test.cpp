@@ -1,9 +1,10 @@
 /*
+ * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ *
+ * SPDX-License-Identifier: MIT
+ */
+/*
   UnitTest for M5Utility
-
-  SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
-
-  SPDX-License-Identifier: MIT
 */
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
@@ -308,17 +309,12 @@ TEST(Utility, comatibility) {
         constexpr unsigned long wait{20};
         auto start = clock::now();
         m5::utility::delay(wait);
-        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
-                           clock::now() - start)
-                           .count();
-        auto elapsed2 = std::chrono::duration_cast<std::chrono::microseconds>(
-                            clock::now() - start)
-                            .count();
+        auto elapsed  = std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - start).count();
+        auto elapsed2 = std::chrono::duration_cast<std::chrono::microseconds>(clock::now() - start).count();
         // printf("-----> %lld %lld\n", elapsed, elapsed2);
 #if defined(ARDUINO)
-        EXPECT_GE(
-            elapsed,
-            wait - 1);  //  Arduino delay may return before the specified time.
+        EXPECT_GE(elapsed,
+                  wait - 1);  //  Arduino delay may return before the specified time.
 #else
         EXPECT_GE(elapsed, wait);
 #endif
@@ -328,9 +324,7 @@ TEST(Utility, comatibility) {
     {
         auto start = clock::now();
         m5::utility::delayMicroseconds(1);
-        auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(
-                           clock::now() - start)
-                           .count();
+        auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(clock::now() - start).count();
         EXPECT_GE(elapsed, 1);
     }
 }

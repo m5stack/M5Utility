@@ -1,9 +1,10 @@
 /*
+ * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ *
+ * SPDX-License-Identifier: MIT
+ */
+/*
   UnitTest for M5Utility
-
-  SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
-
-  SPDX-License-Identifier: MIT
 */
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
@@ -22,8 +23,7 @@ TEST(Utility, Conversion) {
             {0x07, 7},
         };
         for (auto&& e : table) {
-            EXPECT_EQ(m5::utility::unsigned_to_signed<4>(e.first), e.second)
-                << e.first;
+            EXPECT_EQ(m5::utility::unsigned_to_signed<4>(e.first), e.second) << e.first;
         }
     }
 
@@ -40,8 +40,7 @@ TEST(Utility, Conversion) {
             {0x7F, 127},
         };
         for (auto&& e : table) {
-            EXPECT_EQ(m5::utility::unsigned_to_signed<8>(e.first), e.second)
-                << e.first;
+            EXPECT_EQ(m5::utility::unsigned_to_signed<8>(e.first), e.second) << e.first;
         }
     }
 
@@ -60,8 +59,7 @@ TEST(Utility, Conversion) {
             {0x0100, 256},
         };
         for (auto&& e : table) {
-            EXPECT_EQ(m5::utility::unsigned_to_signed<10>(e.first), e.second)
-                << e.first;
+            EXPECT_EQ(m5::utility::unsigned_to_signed<10>(e.first), e.second) << e.first;
         }
     }
 
@@ -80,8 +78,7 @@ TEST(Utility, Conversion) {
             {0x00040000, 262144},
         };
         for (auto&& e : table) {
-            EXPECT_EQ(m5::utility::unsigned_to_signed<20>(e.first), e.second)
-                << e.first;
+            EXPECT_EQ(m5::utility::unsigned_to_signed<20>(e.first), e.second) << e.first;
         }
     }
 
@@ -100,8 +97,7 @@ TEST(Utility, Conversion) {
             {0x0000200000000000ULL, 35184372088832},
         };
         for (auto&& e : table) {
-            EXPECT_EQ(m5::utility::unsigned_to_signed<47>(e.first), e.second)
-                << e.second;
+            EXPECT_EQ(m5::utility::unsigned_to_signed<47>(e.first), e.second) << e.second;
         }
     }
 }

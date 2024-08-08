@@ -25,16 +25,11 @@ struct CRCType {
 // https://crccalc.com/?crc=0123456789abcdef&method=crc8&datatype=hex&outtype=0
 CRCType crc8_table[] = {
     // name, result, poly, init, refIn, refOut, xorout
-    {"CRC-8", 0x1E, 0x07, 0x00, false, false, 0x00},
-    {"CRC-8/CDMA2000", 0xF0, 0x9B, 0xFF, false, false, 0x00},
-    {"CRC-8/DARC", 0x4E, 0x39, 0x00, true, true, 0x00},
-    {"CRC-8/DVB-S2", 0x7D, 0xD5, 0x00, false, false, 0x00},
-    {"CRC-8/EBU", 0x17, 0x1D, 0xFF, true, true, 0x00},
-    {"CRC-8/I-CODE", 0x6C, 0x1D, 0xFD, false, false, 0x00},
-    {"CRC-8/ITU", 0x4B, 0x07, 0x00, false, false, 0x55},
-    {"CRC-8/MAXIM", 0xDD, 0x31, 0x00, true, true, 0x00},
-    {"CRC-8/ROHC", 0xFC, 0x07, 0xFF, true, true, 0x00},
-    {"CRC-8/WCDMA", 0x22, 0x9B, 0x00, true, true, 0x00},
+    {"CRC-8", 0x1E, 0x07, 0x00, false, false, 0x00},     {"CRC-8/CDMA2000", 0xF0, 0x9B, 0xFF, false, false, 0x00},
+    {"CRC-8/DARC", 0x4E, 0x39, 0x00, true, true, 0x00},  {"CRC-8/DVB-S2", 0x7D, 0xD5, 0x00, false, false, 0x00},
+    {"CRC-8/EBU", 0x17, 0x1D, 0xFF, true, true, 0x00},   {"CRC-8/I-CODE", 0x6C, 0x1D, 0xFD, false, false, 0x00},
+    {"CRC-8/ITU", 0x4B, 0x07, 0x00, false, false, 0x55}, {"CRC-8/MAXIM", 0xDD, 0x31, 0x00, true, true, 0x00},
+    {"CRC-8/ROHC", 0xFC, 0x07, 0xFF, true, true, 0x00},  {"CRC-8/WCDMA", 0x22, 0x9B, 0x00, true, true, 0x00},
 };
 
 CRCType crc16_table[] = {
@@ -102,17 +97,15 @@ TEST(Utility, CRC16) {
 // Test whether calculation from the whole and calculation from split chunks are
 // equivalent
 TEST(Utility, Chunk) {
-    constexpr uint8_t d8[32] = {0x04, 0x67, 0xfc, 0x4d, 0xf4, 0xe7, 0x9c, 0x3b,
-                                0x05, 0xb8, 0xad, 0x31, 0x97, 0xb1, 0x21, 0x72,
-                                0x59, 0x5d, 0x80, 0x26, 0x66, 0x0c, 0x12, 0xa9,
-                                0x53, 0xa6, 0x70, 0x87, 0x91, 0x5d, 0xa4, 0x9a};
+    constexpr uint8_t d8[32] = {0x04, 0x67, 0xfc, 0x4d, 0xf4, 0xe7, 0x9c, 0x3b, 0x05, 0xb8, 0xad,
+                                0x31, 0x97, 0xb1, 0x21, 0x72, 0x59, 0x5d, 0x80, 0x26, 0x66, 0x0c,
+                                0x12, 0xa9, 0x53, 0xa6, 0x70, 0x87, 0x91, 0x5d, 0xa4, 0x9a};
     ;
 
     // CRC8
     for (auto&& e : crc8_table) {
         SCOPED_TRACE(e.name);
-        uint8_t crc_all = CRC8::calculate(d8, m5::stl::size(d8), e.init, e.poly,
-                                          e.refIn, e.refOut, e.xorout);
+        uint8_t crc_all = CRC8::calculate(d8, m5::stl::size(d8), e.init, e.poly, e.refIn, e.refOut, e.xorout);
 
         CRC8 crc(e.init, e.poly, e.refIn, e.refOut, e.xorout);
         uint8_t crc_chunk{};
@@ -133,8 +126,7 @@ TEST(Utility, Chunk) {
     // CRC16
     for (auto&& e : crc16_table) {
         SCOPED_TRACE(e.name);
-        uint16_t crc_all = CRC16::calculate(
-            d8, m5::stl::size(d8), e.init, e.poly, e.refIn, e.refOut, e.xorout);
+        uint16_t crc_all = CRC16::calculate(d8, m5::stl::size(d8), e.init, e.poly, e.refIn, e.refOut, e.xorout);
 
         CRC16 crc(e.init, e.poly, e.refIn, e.refOut, e.xorout);
         uint16_t crc_chunk{};

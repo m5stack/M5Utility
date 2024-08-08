@@ -1,9 +1,10 @@
 /*
+ * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ *
+ * SPDX-License-Identifier: MIT
+ */
+/*
   UnitTest for M5Utility
-
-  SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
-
-  SPDX-License-Identifier: MIT
 */
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
@@ -39,7 +40,7 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf[0], 1);
     EXPECT_EQ(rbuf.front(), 1);
     EXPECT_EQ(rbuf.back(), 1);
-    //M5_LOGW("1> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+    // M5_LOGW("1> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
 
     // H
     // |   |   |   |   |
@@ -54,7 +55,7 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf.size(), 0U);
     EXPECT_FALSE(rbuf.front());
     EXPECT_FALSE(rbuf.back());
-    //M5_LOGW("2> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+    // M5_LOGW("2> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
 
     //     H
     // | 2 |   |   |   |
@@ -66,7 +67,7 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf[0], 2);
     EXPECT_EQ(rbuf.front(), 2);
     EXPECT_EQ(rbuf.back(), 2);
-    //M5_LOGW("3> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+    // M5_LOGW("3> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
 
     // H
     // |   |   |   |   |
@@ -81,7 +82,7 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf.size(), 0U);
     EXPECT_FALSE(rbuf.front());
     EXPECT_FALSE(rbuf.back());
-    //M5_LOGW("3> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+    // M5_LOGW("3> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
 
     //         H
     // | 4 | 5 | 6 | 3 |
@@ -92,21 +93,21 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf.size(), 1U);
     EXPECT_EQ(rbuf.front(), 3);
     EXPECT_EQ(rbuf.back(), 3);
-    
+
     rbuf.push_back(4);  // to back
     EXPECT_FALSE(rbuf.empty());
     EXPECT_FALSE(rbuf.full());
     EXPECT_EQ(rbuf.size(), 2U);
     EXPECT_EQ(rbuf.front(), 3);
     EXPECT_EQ(rbuf.back(), 4);
-    
+
     rbuf.push_back(5);  // to back
     EXPECT_FALSE(rbuf.empty());
     EXPECT_FALSE(rbuf.full());
     EXPECT_EQ(rbuf.size(), 3U);
     EXPECT_EQ(rbuf.front(), 3);
     EXPECT_EQ(rbuf.back(), 5);
-    
+
     rbuf.push_front(6);  // to front
     EXPECT_FALSE(rbuf.empty());
     EXPECT_TRUE(rbuf.full());
@@ -117,8 +118,8 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf[3], 5);
     EXPECT_EQ(rbuf.front(), 6);
     EXPECT_EQ(rbuf.back(), 5);
-    //M5_LOGW("4> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
-    
+    // M5_LOGW("4> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+
     //     H
     // | 4 | 7 | 6 | 3 |
     //     T
@@ -132,8 +133,8 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf[3], 4);
     EXPECT_EQ(rbuf.front(), 7);
     EXPECT_EQ(rbuf.back(), 4);
-    //M5_LOGW("5> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
-    
+    // M5_LOGW("5> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+
     //         H
     // | 4 | 8 | 6 | 3 |
     //         T
@@ -147,8 +148,8 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf[3], 8);
     EXPECT_EQ(rbuf.front(), 6);
     EXPECT_EQ(rbuf.back(), 8);
-    //M5_LOGW("5> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
-    
+    // M5_LOGW("5> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+
     //         H
     // |   |   |   |   |
     //         T
@@ -164,8 +165,8 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf.size(), 0U);
     EXPECT_FALSE(rbuf.front());
     EXPECT_FALSE(rbuf.back());
-    //M5_LOGW("6> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
-    
+    // M5_LOGW("6> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+
     //             H
     // | 11| 12| 13| 10 |
     //             T
@@ -183,8 +184,8 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf[3], 13);
     EXPECT_EQ(rbuf.front(), 10);
     EXPECT_EQ(rbuf.back(), 13);
-    //M5_LOGW("7> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
-    
+    // M5_LOGW("7> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+
     //             H
     // |   |   | 13|   |
     //         T
@@ -200,7 +201,7 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf.size(), 1U);
     EXPECT_EQ(rbuf.front(), 13);
     EXPECT_EQ(rbuf.back(), 13);
-    //M5_LOGW("8> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+    // M5_LOGW("8> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
 
     //         H
     // |   |   |   |   |
@@ -211,8 +212,8 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf.size(), 0U);
     EXPECT_FALSE(rbuf.front());
     EXPECT_FALSE(rbuf.back());
-    //M5_LOGW("9> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
-    
+    // M5_LOGW("9> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+
     // H
     // |111|111|111|111|
     // T
@@ -225,7 +226,7 @@ void cb_basic_test() {
     EXPECT_EQ(rbuf[3], 111);
     EXPECT_EQ(rbuf.front(), 111);
     EXPECT_EQ(rbuf.back(), 111);
-    //M5_LOGW("A> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
+    // M5_LOGW("A> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
 }
 
 void cb_constructor_test() {
@@ -384,8 +385,7 @@ void cb_iterator_test() {
         EXPECT_EQ(e, c--);
     }
     c = 9;
-    std::for_each(std::begin(rb), std::end(rb),
-                  [&c](const int& e) { EXPECT_EQ(e, c--); });
+    std::for_each(std::begin(rb), std::end(rb), [&c](const int& e) { EXPECT_EQ(e, c--); });
 
     c = 6;
     for (auto it = rb.cend(); it != rb.cbegin(); /**/) {
