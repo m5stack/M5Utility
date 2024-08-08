@@ -2,5 +2,5 @@
 #include <m5_utility/stl/expected.hpp>
 
 TEST(Expected, Noexcept) {
-    //TODO
+    // TODO
 }

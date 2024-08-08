@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-//#include <stdexcept>
+// #include <stdexcept>
 
-//#define TL_ASSERT(cond) if (!(cond)) { throw std::runtime_error(std::string("assertion failure")); }
+// #define TL_ASSERT(cond) if (!(cond)) { throw std::runtime_error(std::string("assertion failure")); }
 
 #include <m5_utility/stl/expected.hpp>
 #if 0

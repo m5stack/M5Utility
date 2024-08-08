@@ -3,16 +3,21 @@
 #include <type_traits>
 
 namespace issues {
-struct foo{
-    int& v() { return i; }
+struct foo {
+    int& v() {
+        return i;
+    }
     int i = 0;
 };
+}  // namespace issues
+int& x(int& i) {
+    i = 42;
+    return i;
 }
-int& x(int& i) { i = 42; return i;}
 
 TEST(Optional, issue14) {
     m5::stl::optional<issues::foo> f = issues::foo{};
-    auto v = f.map(&issues::foo::v).map(x);
+    auto v                           = f.map(&issues::foo::v).map(x);
     static_assert(std::is_same<decltype(v), m5::stl::optional<int&>>::value, "Must return a reference");
     EXPECT_TRUE(f->i == 42);
     EXPECT_TRUE(*v == 42);
@@ -21,13 +26,14 @@ TEST(Optional, issue14) {
 
 struct fail_on_copy_self {
     int value;
-    fail_on_copy_self(int v) : value(v) {}
+    fail_on_copy_self(int v) : value(v) {
+    }
     fail_on_copy_self(const fail_on_copy_self& other) : value(other.value) {
         EXPECT_TRUE(&other != this);
     }
 };
 
-TEST(Optional,issue15) {
+TEST(Optional, issue15) {
     m5::stl::optional<fail_on_copy_self> o = fail_on_copy_self(42);
 
     o = o;
@@ -35,8 +41,8 @@ TEST(Optional,issue15) {
 }
 
 TEST(Optional, issue33) {
-    int i = 0;
-    int j = 0;
+    int i                     = 0;
+    int j                     = 0;
     m5::stl::optional<int&> a = i;
     a.emplace(j);
     *a = 42;
