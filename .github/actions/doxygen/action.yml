@@ -1,0 +1,70 @@
+name: 'Doxygen GitHub Pages Deploy Action'
+author: 'Jonah Lawrence, GOB'
+description: 'Make docs with Doxygen then deploy the generated HTML to GitHub pages'
+branding:
+  icon: "upload-cloud"
+  color: "purple"
+
+inputs:
+  github_token:
+    description: 'A GitHub token for pushing to the repo. Example: https://git.io/passing-token'
+    required: true
+  branch:
+    description: 'Branch name for pushing GitHub pages files'
+    required: true
+    default: "gh-pages"
+  folder:
+    description: 'Folder where Doxygen will generate the HTML build files'
+    required: true
+    default: "docs/html"
+  config_file:
+    description: 'Path of the Doxygen configuration file'
+    required: true
+    default: "docs/Doxyfile"
+  target_folder:
+    description: 'Directory on the deployment branch for pushing the build files'
+    required: false
+  doxygen_version:
+    description: 'Version of Doxygen to install'
+    required: false
+    default: "1.11.0"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: "true"
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y wget graphviz
+      shell: bash
+
+    - name: Install Doxygen v${{ inputs.doxygen_version }}
+      run: |
+        transformed_version=$(echo "${{ inputs.doxygen_version }}" | tr '.' '_')
+        wget https://github.com/doxygen/doxygen/releases/download/Release_${transformed_version}/doxygen-${{ inputs.doxygen_version }}.linux.bin.tar.gz
+        tar -xzf doxygen-${{ inputs.doxygen_version }}.linux.bin.tar.gz
+        sudo mv doxygen-${{ inputs.doxygen_version }}/bin/doxygen /usr/local/bin/doxygen
+      shell: bash
+
+    - name: Install pcregrep
+      run: sudo apt-get install -y pcregrep
+      shell: bash
+
+    - name: Generate Doxygen Documentation by my shell script
+      run: sh docs/doxy.sh
+      shell: bash
+      
+    - name: Create .nojekyll (ensures pages with underscores work on gh pages)
+      run: touch ${{ inputs.folder }}/.nojekyll
+      shell: bash
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        token: ${{ inputs.github_token }}
+        branch: ${{ inputs.branch }}
+        folder: ${{ inputs.folder }}
+        target-folder: ${{ inputs.target_folder }}
