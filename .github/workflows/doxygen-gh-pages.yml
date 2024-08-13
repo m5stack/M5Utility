@@ -1,13 +1,11 @@
-name: Doxygen GitHub Pages Deploy Action
-
+name: Deploy Doxygen docuemnt on GitHub Pages
 on:
   workflow_dispatch:
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: .github/actions/doxygen
+      - uses: .github/actions/doxygen@develop
         with:
           doxygen_version: 1.11.0
           github_token: ${{ secrets.GITHUB_TOKEN }}
