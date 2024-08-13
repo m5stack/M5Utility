@@ -7,8 +7,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: m5stack/M5Utility/.github/actions/doxygen@develop
+      - uses: .github/actions/doxygen
         with:
+          doxygen_version: 1.11.0
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: docs/html

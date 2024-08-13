@@ -1,6 +1,6 @@
 name: 'Doxygen GitHub Pages Deploy Action'
-author: 'Jonah Lawrence'
-description: 'Make docs with Doxygen then deploy the generated HTML to GitHub pages.(https://github.com/DenverCoder1/doxygen-github-pages-action)'
+author: 'Jonah Lawrence, GOB'
+description: 'Make docs with Doxygen then deploy the generated HTML to GitHub pages'
 branding:
   icon: "upload-cloud"
   color: "purple"
@@ -20,21 +20,33 @@ inputs:
   config_file:
     description: 'Path of the Doxygen configuration file'
     required: true
-    default: "Doxyfile"
+    default: "docs/Doxyfile"
   target_folder:
     description: 'Directory on the deployment branch for pushing the build files'
     required: false
+  doxygen_version:
+    description: 'Version of Doxygen to install'
+    required: false
+    default: "1.11.0"
 
 runs:
   using: "composite"
   steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: "true"
 
-    - name: Install Doxygen
-      run: sudo apt-get install doxygen graphviz -y
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y wget graphviz
+      shell: bash
+
+    - name: Install Doxygen v${{ inputs.doxygen_version }}
+      run: |
+        transformed_version=$(echo "${{ inputs.doxygen_version }}" | tr '.' '_')
+        wget https://github.com/doxygen/doxygen/releases/download/Release_${transformed_version}/doxygen-${{ inputs.doxygen_version }}.linux.bin.tar.gz
+        tar -xzf doxygen-${{ inputs.doxygen_version }}.linux.bin.tar.gz
+        sudo mv doxygen-${{ inputs.doxygen_version }}/bin/doxygen /usr/local/bin/doxygen
       shell: bash
 
     - name: Install pcregrep
