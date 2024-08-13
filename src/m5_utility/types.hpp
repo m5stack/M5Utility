@@ -49,8 +49,10 @@ union U16 {
     //! @brief Stored in order of high and low
     constexpr U16(const uint8_t high, const uint8_t low) : u8{high, low} {
     }
-    constexpr U16(const U16&) = default;  //!< @brief as default
-    constexpr U16(U16&& o)    = default;  //!< @brief as default
+
+    constexpr U16(const U16&) = default;
+
+    constexpr U16(U16&& o) noexcept = default;
     ///@}
 
     ///@name Assignment

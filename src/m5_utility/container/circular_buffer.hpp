@@ -31,8 +31,10 @@ class CircularBufferIterator {
 
     CircularBufferIterator(CB& cb, std::size_t tail) : _cb(&cb), _idx(tail) {
     }
-    CircularBufferIterator(const CircularBufferIterator& o)            = default;
-    CircularBufferIterator& operator=(const CircularBufferIterator& o) = default;
+
+    CircularBufferIterator(const CircularBufferIterator&) = default;
+
+    CircularBufferIterator& operator=(const CircularBufferIterator&) = default;
 
     inline typename CB::const_reference operator*() {
         return this->_cb->_buf[_idx % _cb->capacity()];
