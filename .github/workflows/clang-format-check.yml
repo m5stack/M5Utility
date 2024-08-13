@@ -10,7 +10,7 @@ jobs:
           - check: 'src'
             exclude: '(optional|expected)'
           - check: 'examples'
-            exclude: ''
+            exclude: '(optional|expected)'
           - check: 'test'
             exclude: '(optional|expected)'
     steps:
