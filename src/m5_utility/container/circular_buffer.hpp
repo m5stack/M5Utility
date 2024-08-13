@@ -143,7 +143,8 @@ class CircularBuffer {
     }
 
     CircularBuffer(const CircularBuffer&) = default;
-    CircularBuffer(CircularBuffer&&)      = default;
+
+    CircularBuffer(CircularBuffer&&) noexcept = default;
     ///@}
 
     /// @name Assignment
@@ -407,7 +408,8 @@ class FixedCircularBuffer : public CircularBuffer<T> {
     FixedCircularBuffer(FixedCircularBuffer&&)      = default;
 
     FixedCircularBuffer& operator=(const FixedCircularBuffer&) = default;
-    FixedCircularBuffer& operator=(FixedCircularBuffer&&)      = default;
+
+    FixedCircularBuffer& operator=(FixedCircularBuffer&&) noexcept = default;
 };
 
 }  // namespace container

@@ -58,7 +58,9 @@ union U16 {
     ///@name Assignment
     ///@{
     U16& operator=(const U16&) = default;
-    U16& operator=(U16&&)      = default;
+
+    U16& operator=(U16&&) noexcept = default;
+
     template <bool PELittle = m5::endian::little>
     U16& operator=(const uint16_t v) {
         set<PELittle>(v);

@@ -8,7 +8,7 @@ jobs:
       matrix:
         path:
           - check: 'src'
-            exclude: ''
+            exclude: '(optional|expected)'
           - check: 'examples'
             exclude: ''
           - check: 'test'
