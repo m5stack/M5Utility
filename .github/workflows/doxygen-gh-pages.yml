@@ -8,12 +8,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout develop branch
-        uses: actions/checkout@v2
-        with:
-          ref: develop
       - name: Make document
-        uses: ./.github/actions/doxygen
+        uses: m5stack/M5Utility/.github/actions/doxygen@develop
         with:
           doxygen_version: 1.11.0
           github_token: ${{ secrets.GITHUB_TOKEN }}
