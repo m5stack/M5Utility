@@ -1,6 +1,11 @@
 name: Deploy Doxygen docuemnt on GitHub Pages
 on:
-  workflow_dispatch:
+#  workflow_dispatch:
+  on:  [push]
+# on: [released]
+# branches:
+#   - main
+#   - master
 jobs:
   deploy:
     runs-on: ubuntu-latest
