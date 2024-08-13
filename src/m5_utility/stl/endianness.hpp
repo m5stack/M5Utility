@@ -72,17 +72,13 @@ enum class endian { little = 0x44, big = 0x11, native = ref8 };
 namespace endian {
 ///@name endian type
 ///@{
-constexpr bool little =
-    m5::stl::endian::native ==
-    m5::stl::endian::little;  //!< @brief true if little endian.
-constexpr bool big = m5::stl::endian::native ==
-                     m5::stl::endian::big;  //!< @brief true if big endian.
-constexpr bool other = !little && !big;     //!< @brief true if other endian.
+constexpr bool little = m5::stl::endian::native == m5::stl::endian::little;  //!< @brief true if little endian.
+constexpr bool big    = m5::stl::endian::native == m5::stl::endian::big;     //!< @brief true if big endian.
+constexpr bool other  = !little && !big;                                     //!< @brief true if other endian.
 ///@}
 
 static_assert(little || big || other, "Unable to determine endianness");
-static_assert(((int)little + (int)big + (int)other) == 1,
-              "Endian matches more than one");
+static_assert(((int)little + (int)big + (int)other) == 1, "Endian matches more than one");
 }  // namespace endian
 }  // namespace m5
 

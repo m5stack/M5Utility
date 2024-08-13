@@ -28,24 +28,17 @@ template <size_t LowerBits, typename T>
 class BitSegment {
    public:
     ///@cond
-    using base_type = typename std::remove_const<
-        typename std::remove_reference<T>::type>::type;
+    using base_type              = typename std::remove_const<typename std::remove_reference<T>::type>::type;
     constexpr static bool SIGNED = std::is_signed<base_type>::value;
-    static_assert(std::is_integral<base_type>::value,
-                  "Base type must be integral");
+    static_assert(std::is_integral<base_type>::value, "Base type must be integral");
     static_assert(LowerBits > 0, "LowerBits must be not zero");
-    static_assert(LowerBits <= (sizeof(base_type) * 8 - (SIGNED ? 1 : 0)),
-                  "LowerBits too large");
-    using unsigned_type = typename std::make_unsigned<base_type>::type;
-    constexpr static unsigned_type UPPER_BITS =
-        sizeof(unsigned_type) * 8U - LowerBits - (SIGNED ? 1 : 0);
-    constexpr static unsigned_type LOWER_BITS =
-        static_cast<unsigned_type>(LowerBits);
+    static_assert(LowerBits <= (sizeof(base_type) * 8 - (SIGNED ? 1 : 0)), "LowerBits too large");
+    using unsigned_type                        = typename std::make_unsigned<base_type>::type;
+    constexpr static unsigned_type UPPER_BITS  = sizeof(unsigned_type) * 8U - LowerBits - (SIGNED ? 1 : 0);
+    constexpr static unsigned_type LOWER_BITS  = static_cast<unsigned_type>(LowerBits);
     constexpr static unsigned_type UPPER_SHIFT = LOWER_BITS;
-    constexpr static unsigned_type UPPER_MASK =
-        ((unsigned_type)1 << UPPER_BITS) - 1;
-    constexpr static unsigned_type LOWER_MASK =
-        ((unsigned_type)1 << LOWER_BITS) - 1;
+    constexpr static unsigned_type UPPER_MASK  = ((unsigned_type)1 << UPPER_BITS) - 1;
+    constexpr static unsigned_type LOWER_MASK  = ((unsigned_type)1 << LOWER_BITS) - 1;
     ///@endcond
 
     ///@name Constructor
@@ -105,8 +98,7 @@ class BitSegment {
     ///@{
     /*! @brief Set the value of upper segment */
     inline void upper(const unsigned_type v) {
-        _v = (_v & ~(UPPER_MASK << UPPER_SHIFT)) |
-             ((v & UPPER_MASK) << UPPER_SHIFT);
+        _v = (_v & ~(UPPER_MASK << UPPER_SHIFT)) | ((v & UPPER_MASK) << UPPER_SHIFT);
     }
     //! @brief Set the value of lower segment
     inline void lower(const unsigned_type v) {
@@ -126,33 +118,27 @@ class BitSegment {
 /// @related m5::utility::BitSegment
 ///@{
 template <size_t LowerBits, typename T>
-bool operator==(const BitSegment<LowerBits, T>& a,
-                const BitSegment<LowerBits, T>& b) {
+bool operator==(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
     return a.raw() == b.raw();
 }
 template <size_t LowerBits, typename T>
-bool operator!=(const BitSegment<LowerBits, T>& a,
-                const BitSegment<LowerBits, T>& b) {
+bool operator!=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
     return !(a == b);
 }
 template <size_t LowerBits, typename T>
-bool operator<(const BitSegment<LowerBits, T>& a,
-               const BitSegment<LowerBits, T>& b) {
+bool operator<(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
     return a.raw() < b.raw();
 }
 template <size_t LowerBits, typename T>
-bool operator>(const BitSegment<LowerBits, T>& a,
-               const BitSegment<LowerBits, T>& b) {
+bool operator>(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
     return b < a;
 }
 template <size_t LowerBits, typename T>
-bool operator<=(const BitSegment<LowerBits, T>& a,
-                const BitSegment<LowerBits, T>& b) {
+bool operator<=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
     return !(a > b);
 }
 template <size_t LowerBits, typename T>
-bool operator>=(const BitSegment<LowerBits, T>& a,
-                const BitSegment<LowerBits, T>& b) {
+bool operator>=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
     return !(a < b);
 }
 ///@}

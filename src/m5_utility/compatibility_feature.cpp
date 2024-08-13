@@ -22,14 +22,10 @@ namespace m5 {
 namespace utility {
 
 unsigned long millis() {
-    return std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() -
-                                                                 ::start_at)
-        .count();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - ::start_at).count();
 }
 unsigned long micros() {
-    return std::chrono::duration_cast<std::chrono::microseconds>(clock::now() -
-                                                                 ::start_at)
-        .count();
+    return std::chrono::duration_cast<std::chrono::microseconds>(clock::now() - ::start_at).count();
 }
 void delay(const unsigned long ms) {
 #if 0

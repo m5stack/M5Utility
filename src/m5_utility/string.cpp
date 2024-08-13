@@ -31,27 +31,19 @@ std::string formatString(const char* fmt, ...) {
 }
 
 std::string& trimRight(std::string& s) {
-    s.erase(s.begin(),
-            std::find_if(s.begin(), s.end(), [](std::string::value_type& ch) {
-                return !std::isspace(ch);
-            }));
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](std::string::value_type& ch) { return !std::isspace(ch); }));
     return s;
 }
 
 std::string& trimLeft(std::string& s) {
-    s.erase(std::find_if(
-                s.rbegin(), s.rend(),
-                [](std::string::value_type& ch) { return !std::isspace(ch); })
-                .base(),
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](std::string::value_type& ch) { return !std::isspace(ch); }).base(),
             s.end());
     return s;
 }
 
-std::string& trim(std::string& s)
-{
+std::string& trim(std::string& s) {
     return trimRight(trimLeft(s));
 }
-
 
 }  // namespace utility
 }  // namespace m5

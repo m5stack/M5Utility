@@ -44,29 +44,26 @@ constexpr uint32_t xor_by_shift_right(const uint32_t v, const uint32_t s) {
     return xor_value(v, shift_right(v, s));
 }
 
-constexpr uint32_t str2uint32_little(const char* str,
-                                     const size_t getc = sizeof(uint32_t),
-                                     uint32_t v        = 0) {
-    return getc ? str2uint32_little(str, getc - 1, (v << 8) | str[getc - 1])
-                : v;
+constexpr uint32_t str2uint32_little(const char* str, const size_t getc = sizeof(uint32_t), uint32_t v = 0) {
+    return getc ? str2uint32_little(str, getc - 1, (v << 8) | str[getc - 1]) : v;
 }
 
-constexpr uint32_t str2uint32_big(const char* str,
-                                  const size_t getc = sizeof(uint32_t),
-                                  uint32_t v        = 0) {
+constexpr uint32_t str2uint32_big(const char* str, const size_t getc = sizeof(uint32_t), uint32_t v = 0) {
     return getc ? str2uint32_big(str + 1, getc - 1, (v << 8) | *str) : v;
 }
 
 // Switch between little and big enfian.
 template <uint32_t Endian>
-constexpr typename std::enable_if<Endian, uint32_t>::type str2uint32(
-    const char* str, const size_t getc = sizeof(uint32_t), uint32_t v = 0) {
+constexpr typename std::enable_if<Endian, uint32_t>::type str2uint32(const char* str,
+                                                                     const size_t getc = sizeof(uint32_t),
+                                                                     uint32_t v        = 0) {
     return str2uint32_little(str, getc, v);
 }
 
 template <uint32_t Endian>
-constexpr typename std::enable_if<!Endian, uint32_t>::type str2uint32(
-    const char* str, const size_t getc = sizeof(uint32_t), uint32_t v = 0) {
+constexpr typename std::enable_if<!Endian, uint32_t>::type str2uint32(const char* str,
+                                                                      const size_t getc = sizeof(uint32_t),
+                                                                      uint32_t v        = 0) {
     return str2uint32_big(str, getc, v);
 }
 
@@ -90,25 +87,18 @@ constexpr uint32_t group_of_4_sub_1(const uint32_t k, const uint32_t h) {
     return group_of_4_sub_3(group_of_4_sub_2(scramble(k, h)));
 }
 
-constexpr uint32_t group_of_4(const char* str, const size_t len,
-                              const uint32_t h = 0) {
-    return len ? group_of_4(
-                     str + sizeof(uint32_t), len - 1,
-                     group_of_4_sub_1(str2uint32<m5::endian::little>(str), h))
+constexpr uint32_t group_of_4(const char* str, const size_t len, const uint32_t h = 0) {
+    return len ? group_of_4(str + sizeof(uint32_t), len - 1, group_of_4_sub_1(str2uint32<m5::endian::little>(str), h))
                : h;
 }
 
-constexpr uint32_t rest(const char* str, const size_t len,
-                        const uint32_t h = 0) {
+constexpr uint32_t rest(const char* str, const size_t len, const uint32_t h = 0) {
     return len ? scramble(str2uint32<m5::endian::little>(str, len), h) : h;
 }
 
 constexpr uint32_t finalize(uint32_t h, size_t len) {
     return xor_by_shift_right(
-        mul(xor_by_shift_right(
-                mul(xor_by_shift_right(xor_value(h, len), 16), 0x85ebca6b), 13),
-            0xc2b2ae35),
-        16);
+        mul(xor_by_shift_right(mul(xor_by_shift_right(xor_value(h, len), 16), 0x85ebca6b), 13), 0xc2b2ae35), 16);
 }
 /// @endcond
 
@@ -119,9 +109,7 @@ constexpr uint32_t finalize(uint32_t h, size_t len) {
   @return 32bit MurmurHash3 from input string
 */
 constexpr uint32_t calculate(const char* str, const size_t len) {
-    return finalize(rest(str + ((len >> 2) * sizeof(uint32_t)), (len & 3),
-                         group_of_4(str, len >> 2)),
-                    len);
+    return finalize(rest(str + ((len >> 2) * sizeof(uint32_t)), (len & 3), group_of_4(str, len >> 2)), len);
 }
 
 /*!

@@ -31,14 +31,8 @@ class CRC8 {
       @param refOut Inverted output?
       @param xorout Exclusive OR output
      */
-    CRC8(const uint8_t init, const uint8_t polynomial, const bool refIn,
-         const bool refOut, const uint8_t xorout)
-        : _crc{init},
-          _init(init),
-          _polynomial{polynomial},
-          _xorout{xorout},
-          _refIn{refIn},
-          _refOut{refOut} {
+    CRC8(const uint8_t init, const uint8_t polynomial, const bool refIn, const bool refOut, const uint8_t xorout)
+        : _crc{init}, _init(init), _polynomial{polynomial}, _xorout{xorout}, _refIn{refIn}, _refOut{refOut} {
     }
     /*!
       @brief Calculate the CRC of the specified range
@@ -47,8 +41,7 @@ class CRC8 {
       @return CRC value
      */
     inline uint8_t range(const uint8_t* data, size_t len) {
-        auto crc = calculate(data, len, _init, _polynomial, _refIn, _refOut,
-                             _xorout, false);
+        auto crc = calculate(data, len, _init, _polynomial, _refIn, _refOut, _xorout, false);
         return finalize(crc, _refOut, _xorout);
     }
     /*!
@@ -61,8 +54,7 @@ class CRC8 {
       continuous data, such as streaming data
     */
     inline uint8_t update(const uint8_t* data, size_t len) {
-        _crc = calculate(data, len, _crc, _polynomial, _refIn, _refOut, _xorout,
-                         false);
+        _crc = calculate(data, len, _crc, _polynomial, _refIn, _refOut, _xorout, false);
         return finalize(_crc, _refOut, _xorout);
     }
     /*!
@@ -83,10 +75,8 @@ class CRC8 {
       @param do_finalize Apply processing to output values?(true as defaut)
       @return CRC value
     */
-    static uint8_t calculate(const uint8_t* data, size_t len,
-                             const uint8_t init, const uint8_t polynomial,
-                             const bool refIn, const bool refOut,
-                             const uint8_t xorout, bool do_finalize = true) {
+    static uint8_t calculate(const uint8_t* data, size_t len, const uint8_t init, const uint8_t polynomial,
+                             const bool refIn, const bool refOut, const uint8_t xorout, bool do_finalize = true) {
         uint8_t crc{init};
         while (len--) {
             uint8_t e = refIn ? reverseBitOrder(*data) : *data;
@@ -105,8 +95,7 @@ class CRC8 {
     }
 
    protected:
-    static inline uint8_t finalize(const uint8_t value, const bool refOut,
-                                   const uint8_t xorout) {
+    static inline uint8_t finalize(const uint8_t value, const bool refOut, const uint8_t xorout) {
         return (refOut ? reverseBitOrder(value) : value) ^ xorout;
     }
 
@@ -129,14 +118,8 @@ class CRC16 {
       @param refOut Inverted output?
       @param xorout Exclusive OR output
     */
-    CRC16(const uint16_t init, const uint16_t polynomial, const bool refIn,
-          const bool refOut, const uint16_t xorout)
-        : _crc{init},
-          _init{init},
-          _polynomial{polynomial},
-          _xorout{xorout},
-          _refIn{refIn},
-          _refOut{refOut} {
+    CRC16(const uint16_t init, const uint16_t polynomial, const bool refIn, const bool refOut, const uint16_t xorout)
+        : _crc{init}, _init{init}, _polynomial{polynomial}, _xorout{xorout}, _refIn{refIn}, _refOut{refOut} {
     }
     /*!
       @brief Calculate the CRC of the specified range
@@ -145,8 +128,7 @@ class CRC16 {
       @return CRC value
      */
     inline uint16_t range(const uint8_t* data, size_t len) {
-        auto crc = calculate(data, len, _init, _polynomial, _refIn, _refOut,
-                             _xorout, false);
+        auto crc = calculate(data, len, _init, _polynomial, _refIn, _refOut, _xorout, false);
         return finalize(crc, _refOut, _xorout);
     }
     /*!
@@ -159,8 +141,7 @@ class CRC16 {
       continuous data, such as streaming data
     */
     inline uint16_t update(const uint8_t* data, size_t len) {
-        _crc = calculate(data, len, _crc, _polynomial, _refIn, _refOut, _xorout,
-                         false);
+        _crc = calculate(data, len, _crc, _polynomial, _refIn, _refOut, _xorout, false);
         return finalize(_crc, _refOut, _xorout);
     }
     /*!
@@ -181,10 +162,8 @@ class CRC16 {
       @param do_finalize Apply processing to output values?(true as defaut)
       @return CRC value
     */
-    static uint16_t calculate(const uint8_t* data, size_t len,
-                              const uint16_t init, const uint16_t polynomial,
-                              const bool refIn, const bool refOut,
-                              const uint16_t xorout, bool do_finalize = true) {
+    static uint16_t calculate(const uint8_t* data, size_t len, const uint16_t init, const uint16_t polynomial,
+                              const bool refIn, const bool refOut, const uint16_t xorout, bool do_finalize = true) {
         uint16_t crc{init};
         while (len--) {
             uint8_t e{refIn ? reverseBitOrder(*data) : *data};
@@ -203,8 +182,7 @@ class CRC16 {
     }
 
    protected:
-    static inline uint16_t finalize(const uint16_t value, const bool refOut,
-                                    const uint16_t xorout) {
+    static inline uint16_t finalize(const uint16_t value, const bool refOut, const uint16_t xorout) {
         return (refOut ? reverseBitOrder(value) : value) ^ xorout;
     }
 
