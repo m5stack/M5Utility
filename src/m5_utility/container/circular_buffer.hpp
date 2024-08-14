@@ -13,7 +13,13 @@
 #include <cstddef>
 #include <vector>
 #include <cassert>
+#if __cplusplus >= 201703L
+#pragma message "Using std::optional"
+#include <optional>
+#else
+#pragma message "Using m5::stl::optional"
 #include "../stl/optional.hpp"
+#endif
 
 namespace m5 {
 namespace container {
@@ -120,7 +126,11 @@ class CircularBuffer {
     using size_type       = size_t;
     using reference       = T&;
     using const_reference = const T&;
-    using return_type     = m5::stl::optional<value_type>;
+#if __cplusplus >= 201703L
+    using return_type = std::optional<value_type>;
+#else
+    using return_type = m5::stl::optional<value_type>;
+#endif
     friend class CircularBufferIterator<CircularBuffer>;
     using const_iterator = CircularBufferIterator<CircularBuffer>;
 
@@ -199,14 +209,22 @@ class CircularBuffer {
       @return m5::stl::optional<value_type>
     */
     inline return_type front() const {
+#if __cplusplus >= 201703L
+        return !empty() ? std::make_optional(_buf[_tail]) : std::nullopt;
+#else
         return !empty() ? m5::stl::make_optional(_buf[_tail]) : m5::stl::nullopt;
+#endif
     }
     /*!
       @brief Access the last element
       @return m5::stl::optional<value_type>
     */
     inline return_type back() const {
+#if __cplusplus >= 201703L
+        return !empty() ? std::make_optional(_buf[(_head - 1 + _cap) % _cap]) : std::nullopt;
+#else
         return !empty() ? m5::stl::make_optional(_buf[(_head - 1 + _cap) % _cap]) : m5::stl::nullopt;
+#endif
     }
     /*!
       @brief Access specified element
@@ -222,7 +240,11 @@ class CircularBuffer {
       @return m5::stl::optional<value_type>
     */
     inline return_type at(size_type i) const {
+#if __cplusplus >= 201703L
+        return (!empty() && i < size()) ? std::make_optional(_buf[(_tail + i) % _cap]) : std::nullopt;
+#else
         return (!empty() && i < size()) ? m5::stl::make_optional(_buf[(_tail + i) % _cap]) : m5::stl::nullopt;
+#endif
     }
     /*!
       @brief Read from buffer
@@ -389,7 +411,11 @@ class FixedCircularBuffer : public CircularBuffer<T> {
     using size_type       = size_t;
     using reference       = T&;
     using const_reference = const T&;
-    using return_type     = m5::stl::optional<value_type>;
+#if __cplusplus >= 201703L
+    using return_type = std::optional<value_type>;
+#else
+    using return_type = m5::stl::optional<value_type>;
+#endif
     friend class CircularBufferIterator<CircularBuffer<T>>;
     using const_iterator = CircularBufferIterator<CircularBuffer<T>>;
 
