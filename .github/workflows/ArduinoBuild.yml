@@ -44,7 +44,7 @@ jobs:
           - 2.0.17
           #- 3.0.4
 
-        include:
+#        include:
           #- { board: 'd1_mini:eesz=4M3M,xtal=80', platform: esp8266, archi: esp8266, platform-version: 3.0.1, platform-url: 'https://arduino.esp8266.com/stable/package_esp8266com_index.json', ... }
           #- { board: 'd1_mini:eesz=4M3M,xtal=80', platform: esp8266, archi: esp8266, platform-version: 3.0.2, platform-url: 'https://arduino.esp8266.com/stable/package_esp8266com_index.json', ... }
           #- { board: seeed_wio_terminal,    platform: Seeeduino, archi: samd,    platform-version: 1.8.2, platform-url: 'https://files.seeedstudio.com/arduino/package_seeeduino_boards_index.json',  ... }
