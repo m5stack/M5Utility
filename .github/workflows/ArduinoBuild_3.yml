@@ -1,0 +1,78 @@
+name: ArduinoBuild(platform-version 3.x)
+
+env:
+  SKETCH_NAME: build_test.ino
+  SKETCH_NAMES_FIND_START: ./examples/workflow
+  REQUIRED_LIBRARIES: M5Unified
+
+on:
+  push: # see: https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
+    paths:
+    - '**.ino'
+    - '**.cpp'
+    - '**.hpp'
+    - '**.h'
+    - '**.c'
+    - '**ArduinoBuild.yml'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{matrix.board}}@${{matrix.platform-version}}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      #max-parallel: 1
+      matrix:
+        platform-url:
+          - https://espressif.github.io/arduino-esp32/package_esp32_index.json
+#           - https://m5stack.oss-cn-shenzhen.aliyuncs.com/resource/arduino/package_m5stack_index.json
+
+        board:
+          - m5stack_core
+          - m5stack_core2
+          - m5stack_atoms3
+          - m5stack_cores3
+          - m5stack_dial
+          - m5stack_nanoc6
+          - m5stack_paper
+          - m5stack_stickc_plus
+
+        platform-version:
+          #- 3.0.0
+          #- 3.0.1
+          #- 3.0.2
+          #- 3.0.3
+          - 3.0.4
+
+        platform:
+          - esp32
+
+        archi:
+          - esp32
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Compile build_test
+        uses: ArminJo/arduino-test-compile@master
+        with:
+          arduino-board-fqbn: ${{ matrix.platform }}:${{ matrix.archi }}:${{ matrix.board }}
+          arduino-platform: ${{ matrix.platform }}:${{ matrix.archi }}@${{ matrix.platform-version }}
+#          arduino-board-fqbn: esp32:esp32:m5stack-core-esp32
+#          arduino-platform: esp32:esp32@2.0.17
+          platform-url: ${{ matrix.platform-url }}
+#          platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+#          required-libraries: ${{ matrix.required-libraries }}
+          required-libraries: ${{ env.REQUIRED_LIBRARIES }}
+          extra-arduino-cli-args: ${{ matrix.cli-args }}
+          #build-properties: ${{ toJson(matrix.build-properties) }}
+          sketch-names: ${{ env.SKETCH_NAME }}
+          sketch-names-find-start: ${{ env.SKETCH_NAMES_FIND_START }}
+          #sketches-exclude: ${{ matrix.sketches-exclude }}
+
