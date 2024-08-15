@@ -65,7 +65,6 @@ jobs:
           # 3D matrix applies to these:
           #- { platform: esp32, archi: esp32, ... }
 
-
       fail-fast: false
 
     steps:
