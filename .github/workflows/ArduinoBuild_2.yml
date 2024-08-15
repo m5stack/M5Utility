@@ -3,8 +3,7 @@ name: ArduinoBuild(platform-version 2.x)
 env:
   SKETCH_NAME: build_test.ino
   SKETCH_NAMES_FIND_START: ./examples/workflow
-  EXTRA_ARDUINO_LIB_INSTALL_ARGS: --git-url 
-  REQUIRED_LIBRARIES: 'https://github.com/m5stack/M5Unified#develop'
+  REQUIRED_LIBRARIES:
 
 on:
   push: # see: https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
@@ -14,7 +13,7 @@ on:
     - '**.hpp'
     - '**.h'
     - '**.c'
-    - '**ArduinoBuild.yml'
+    - '**ArduinoBuild_2.yml'
   pull_request:
   workflow_dispatch:
 
@@ -54,6 +53,15 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      # Checkout library from specific URL and branch
+      - name: Checkout M5Unified
+        uses: actions/checkout@v3
+        with:
+          repository: m5stack/M5Unified
+          ref: develop
+          path: CustomLibrary_M5Unified # must contain string "Custom"
+          # No need to put "Custom" library in the required-libraries list
+
       - name: Compile build_test
         uses: ArminJo/arduino-test-compile@master
         with:
@@ -65,7 +73,6 @@ jobs:
 #          platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
 #          required-libraries: ${{ matrix.required-libraries }}
           required-libraries: ${{ env.REQUIRED_LIBRARIES }}
-          extra-arduino-lib-install-args: ${{ env.EXTRA_ARDUINO_LIB_INSTALL_ARGS }}
           extra-arduino-cli-args: ${{ matrix.cli-args }}
           #build-properties: ${{ toJson(matrix.build-properties) }}
           sketch-names: ${{ env.SKETCH_NAME }}

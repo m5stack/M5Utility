@@ -3,7 +3,7 @@ name: ArduinoBuild(platform-version 3.x)
 env:
   SKETCH_NAME: build_test.ino
   SKETCH_NAMES_FIND_START: ./examples/workflow
-  REQUIRED_LIBRARIES: M5Unified
+  REQUIRED_LIBRARIES:
 
 on:
   push: # see: https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
@@ -13,7 +13,7 @@ on:
     - '**.hpp'
     - '**.h'
     - '**.c'
-    - '**ArduinoBuild.yml'
+    - '**ArduinoBuild_3.yml'
   pull_request:
   workflow_dispatch:
 
@@ -32,13 +32,13 @@ jobs:
 
         board:
           - m5stack_core
-          - m5stack_core2
-          - m5stack_atoms3
-          - m5stack_cores3
-          - m5stack_dial
-          - m5stack_nanoc6
-          - m5stack_paper
-          - m5stack_stickc_plus
+          #- m5stack_core2
+          #- m5stack_atoms3
+          #- m5stack_cores3
+          #- m5stack_dial
+          #- m5stack_nanoc6
+          #- m5stack_paper
+          #- m5stack_stickc_plus
 
         platform-version:
           #- 3.0.0
@@ -58,6 +58,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+
+      # Checkout library from specific URL and branch
+      - name: Checkout M5Unified
+        uses: actions/checkout@v3
+        with:
+          repository: m5stack/M5Unified
+          ref: develop
+          path: CustomLibrary_M5Unified # must contain string "Custom"
+          # No need to put "Custom" library in the required-libraries list
 
       - name: Compile build_test
         uses: ArminJo/arduino-test-compile@master
