@@ -32,13 +32,13 @@ jobs:
 
         board:
           - m5stack_core
-          #- m5stack_core2
-          #- m5stack_atoms3
-          #- m5stack_cores3
-          #- m5stack_dial
-          #- m5stack_nanoc6
-          #- m5stack_paper
-          #- m5stack_stickc_plus
+          - m5stack_core2
+          - m5stack_atoms3
+          - m5stack_cores3
+          - m5stack_dial
+          - m5stack_nanoc6
+          - m5stack_paper
+          - m5stack_stickc_plus
 
         platform-version:
           #- 3.0.0
