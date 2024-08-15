@@ -3,7 +3,8 @@ name: ArduinoBuild(platform-version 2.x)
 env:
   SKETCH_NAME: build_test.ino
   SKETCH_NAMES_FIND_START: ./examples/workflow
-  REQUIRED_LIBRARIES: M5Unified
+  EXTRA_ARDUINO_LIB_INSTALL_ARGS: --git-url 
+  REQUIRED_LIBRARIES: 'https://github.com/m5stack/M5Unified#develop'
 
 on:
   push: # see: https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
@@ -64,9 +65,9 @@ jobs:
 #          platform-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
 #          required-libraries: ${{ matrix.required-libraries }}
           required-libraries: ${{ env.REQUIRED_LIBRARIES }}
+          extra-arduino-lib-install-args: ${{ env.EXTRA_ARDUINO_LIB_INSTALL_ARGS }}
           extra-arduino-cli-args: ${{ matrix.cli-args }}
           #build-properties: ${{ toJson(matrix.build-properties) }}
           sketch-names: ${{ env.SKETCH_NAME }}
           sketch-names-find-start: ${{ env.SKETCH_NAMES_FIND_START }}
           #sketches-exclude: ${{ matrix.sketches-exclude }}
-
