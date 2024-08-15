@@ -60,13 +60,20 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       # Checkout library from specific URL and branch
+      # Note that dependent libraries are not automatically installed.
       - name: Checkout M5Unified
         uses: actions/checkout@v3
         with:
           repository: m5stack/M5Unified
           ref: develop
-          path: CustomLibrary_M5Unified # must contain string "Custom"
-          # No need to put "Custom" library in the required-libraries list
+          path: CustomLibrary_M5Unified
+
+      - name: Checkout M5GFX
+        uses: actions/checkout@v3
+        with:
+          repository: m5stack/M5GFX
+          ref: develop
+          path: CustomLibrary_M5GFX
 
       - name: Compile build_test
         uses: ArminJo/arduino-test-compile@master
