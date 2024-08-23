@@ -32,6 +32,7 @@ jobs:
           #- check: './'    # path to include
           #  exclude: ''    # path to exclude
           - check: 'src'
+            exclude: '^.*[\/](optional|expected)\.(hpp)$'
           - check: 'test'
           - check: 'examples'
           #   exclude: '(Fonts)' # Exclude file paths containing "Fonts"
