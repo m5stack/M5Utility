@@ -71,7 +71,8 @@ TEST(Expected, AssignmentDeletion) {
 
         except_move(const except_move &) = default;
 
-        except_move(except_move &&) noexcept(false) {};
+        except_move(except_move &&) noexcept(false) {
+        }
 
         except_move &operator=(const except_move &) = default;
     };
