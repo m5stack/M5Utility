@@ -35,7 +35,8 @@ TEST(Optional, Triviality) {
         struct T {
             T(const T&) {
             }
-            T(T&&) {};
+            T(T&&) {
+            }
             T& operator=(const T&) {
                 return *this;
             }

@@ -67,9 +67,12 @@ TEST(Expected, AssignmentDeletion) {
     e1                                     = e2;
 
     struct except_move {
-        except_move()                    = default;
+        except_move() = default;
+
         except_move(const except_move &) = default;
+
         except_move(except_move &&) noexcept(false) {};
+
         except_move &operator=(const except_move &) = default;
     };
 

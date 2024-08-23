@@ -8,7 +8,8 @@ struct foo {
 
     foo(foo &) = delete;
 
-    foo(foo &&) {};
+    foo(foo &&) noexcept {
+    }
 };
 }  // namespace constructor
 

@@ -61,7 +61,8 @@ TEST(Optional, Noexcept) {
         };
 
         struct throw_move {
-            throw_move(throw_move &&) {};
+            throw_move(throw_move &&) {
+            }
         };
 
         using nothrow_opt = m5::stl::optional<nothrow_move>;
@@ -76,14 +77,17 @@ TEST(Optional, Noexcept) {
         EXPECT_TRUE(noexcept(o1 = m5::stl::nullopt));
 
         struct nothrow_move_assign {
-            nothrow_move_assign()                                       = default;
-            nothrow_move_assign(nothrow_move_assign &&) noexcept        = default;
+            nothrow_move_assign() = default;
+
+            nothrow_move_assign(nothrow_move_assign &&) noexcept = default;
+
             nothrow_move_assign &operator=(const nothrow_move_assign &) = default;
         };
 
         struct throw_move_assign {
             throw_move_assign() = default;
-            throw_move_assign(throw_move_assign &&) {};
+            throw_move_assign(throw_move_assign &&) {
+            }
             throw_move_assign &operator=(const throw_move_assign &) {
                 return *this;
             }
