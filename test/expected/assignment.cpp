@@ -53,9 +53,12 @@ TEST(Expected, Assignment) {
 
 TEST(Expected, AssignmentDeletion) {
     struct has_all {
-        has_all()                           = default;
-        has_all(const has_all &)            = default;
-        has_all(has_all &&) noexcept        = default;
+        has_all() = default;
+
+        has_all(const has_all &) = default;
+
+        has_all(has_all &&) noexcept = default;
+
         has_all &operator=(const has_all &) = default;
     };
 

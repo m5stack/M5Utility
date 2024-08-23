@@ -4,8 +4,10 @@
 
 namespace constructor {
 struct foo {
-    foo()      = default;
+    foo() = default;
+
     foo(foo &) = delete;
+
     foo(foo &&) {};
 };
 }  // namespace constructor

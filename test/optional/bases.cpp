@@ -14,11 +14,15 @@ TEST(Optional, Triviality) {
 
     {
         struct T {
-            T(const T&)            = default;
-            T(T&&)                 = default;
+            T(const T&) = default;
+
+            T(T&&) = default;
+
             T& operator=(const T&) = default;
-            T& operator=(T&&)      = default;
-            ~T()                   = default;
+
+            T& operator=(T&&) = default;
+
+            ~T() = default;
         };
         EXPECT_TRUE(std::is_trivially_copy_constructible<m5::stl::optional<T> >::value);
         EXPECT_TRUE(std::is_trivially_copy_assignable<m5::stl::optional<T> >::value);
@@ -58,11 +62,15 @@ TEST(Optional, Deletion) {
 
     {
         struct T {
-            T(const T&)            = default;
-            T(T&&)                 = default;
+            T(const T&) = default;
+
+            T(T&&) = default;
+
             T& operator=(const T&) = default;
-            T& operator=(T&&)      = default;
-            ~T()                   = default;
+
+            T& operator=(T&&) = default;
+
+            ~T() = default;
         };
         EXPECT_TRUE(std::is_copy_constructible<m5::stl::optional<T> >::value);
         EXPECT_TRUE(std::is_copy_assignable<m5::stl::optional<T> >::value);
@@ -73,10 +81,13 @@ TEST(Optional, Deletion) {
 
     {
         struct T {
-            T(const T&)            = delete;
-            T(T&&)                 = delete;
+            T(const T&) = delete;
+
+            T(T&&) = delete;
+
             T& operator=(const T&) = delete;
-            T& operator=(T&&)      = delete;
+
+            T& operator=(T&&) = delete;
         };
         EXPECT_TRUE(!std::is_copy_constructible<m5::stl::optional<T> >::value);
         EXPECT_TRUE(!std::is_copy_assignable<m5::stl::optional<T> >::value);
@@ -86,10 +97,13 @@ TEST(Optional, Deletion) {
 
     {
         struct T {
-            T(const T&)            = delete;
-            T(T&&)                 = default;
+            T(const T&) = delete;
+
+            T(T&&) = default;
+
             T& operator=(const T&) = delete;
-            T& operator=(T&&)      = default;
+
+            T& operator=(T&&) = default;
         };
         EXPECT_TRUE(!std::is_copy_constructible<m5::stl::optional<T> >::value);
         EXPECT_TRUE(!std::is_copy_assignable<m5::stl::optional<T> >::value);
@@ -99,10 +113,13 @@ TEST(Optional, Deletion) {
 
     {
         struct T {
-            T(const T&)            = default;
-            T(T&&)                 = delete;
+            T(const T&) = default;
+
+            T(T&&) = delete;
+
             T& operator=(const T&) = default;
-            T& operator=(T&&)      = delete;
+
+            T& operator=(T&&) = delete;
         };
         EXPECT_TRUE(std::is_copy_constructible<m5::stl::optional<T> >::value);
         EXPECT_TRUE(std::is_copy_assignable<m5::stl::optional<T> >::value);
