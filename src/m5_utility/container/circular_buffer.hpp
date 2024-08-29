@@ -12,6 +12,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <iterator>
 #include <cassert>
 #if __cplusplus >= 201703L
 #pragma message "Using std::optional"
@@ -28,11 +29,10 @@ namespace container {
 template <class CB>
 class CircularBufferIterator {
    public:
-    using value_type      = typename CB::value_type;
-    using difference_type = std::ptrdiff_t;
-    using pointer         = typename CB::value_type*;
-    using reference       = typename CB::reference;
-    //    using iterator_category = std::random_access_iterator_tag;
+    using value_type        = typename CB::value_type;
+    using difference_type   = std::ptrdiff_t;
+    using pointer           = typename CB::value_type*;
+    using reference         = typename CB::reference;
     using iterator_category = std::bidirectional_iterator_tag;
 
     CircularBufferIterator(CB& cb, std::size_t tail) : _cb(&cb), _idx(tail) {
@@ -42,7 +42,10 @@ class CircularBufferIterator {
 
     CircularBufferIterator& operator=(const CircularBufferIterator&) = default;
 
-    inline typename CB::const_reference operator*() {
+    inline typename CB::reference operator*() {
+        return this->_cb->_buf[_idx % _cb->capacity()];
+    }
+    inline typename CB::const_reference operator*() const {
         return this->_cb->_buf[_idx % _cb->capacity()];
     }
 
@@ -132,7 +135,8 @@ class CircularBuffer {
     using return_type = m5::stl::optional<value_type>;
 #endif
     friend class CircularBufferIterator<CircularBuffer>;
-    using const_iterator = CircularBufferIterator<CircularBuffer>;
+    using const_iterator         = CircularBufferIterator<CircularBuffer>;
+    using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
     ///@name Constructor
     ///@{
@@ -277,8 +281,8 @@ class CircularBuffer {
     }
     /// @}
 
+    /// @warningf This class has const_iterator only.
     /// @name Iterators
-    /// @brief This class has const_iterator only.
     /// @{
     const_iterator begin() noexcept {
         return const_iterator(*this, _tail);
@@ -286,12 +290,25 @@ class CircularBuffer {
     const_iterator end() noexcept {
         return const_iterator(*this, _tail + size());
     }
-    const_iterator cbegin() noexcept {
-        return const_iterator(*this, _tail);
+    inline const_iterator cbegin() noexcept {
+        return begin();
     }
-    const_iterator cend() noexcept {
-        return const_iterator(*this, _tail + size());
+    inline const_iterator cend() noexcept {
+        return end();
     }
+    const_reverse_iterator rbegin() noexcept {
+        return std::reverse_iterator<const_iterator>(end());
+    }
+    const_reverse_iterator rend() noexcept {
+        return std::reverse_iterator<const_iterator>(begin());
+    }
+    inline const_reverse_iterator crbegin() noexcept {
+        return rbegin();
+    }
+    inline const_reverse_iterator crend() noexcept {
+        return rend();
+    }
+
     /// @}
 
     ///@name Capacity

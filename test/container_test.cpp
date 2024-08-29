@@ -369,29 +369,63 @@ void cb_iterator_test() {
     SCOPED_TRACE("Iterators");
 
     FixedCircularBuffer<int, 4> rb = {0, 1, 2};
-    FixedCircularBuffer<int, 4> rb2;
+    FixedCircularBuffer<int, 6> rb2;
+
+    // empty container
+    EXPECT_EQ(rb2.begin(), rb2.end());
+    EXPECT_EQ(rb2.rbegin(), rb2.rend());
+
+    //
     int c = 0;
     for (auto it = rb.cbegin(); it != rb.cend(); ++it) {
         EXPECT_EQ(*it, c++);
+    }
+    c = 2;
+    for (auto it = rb.crbegin(); it != rb.crend(); ++it) {
+        EXPECT_EQ(*it, c--);
     }
 
     rb.clear();
     rb.push_back(9);
     rb.push_back(8);
+    rb.push_back(9);
+    rb.push_back(8);
     rb.push_back(7);
-    rb.push_back(6);
+    rb.push_back(6);  // rb is full
+
+    rb2.push_back(9);
+    rb2.push_back(8);
+    rb2.push_back(7);
+    rb2.push_back(6);  // rb is not full
+
+    EXPECT_TRUE(rb.full());
+    EXPECT_FALSE(rb2.full());
+
     c = 9;
     for (auto&& e : rb) {
         EXPECT_EQ(e, c--);
     }
+    c = 6;
+    for (auto it = rb.crbegin(); it != rb.crend(); ++it) {
+        EXPECT_EQ(*it, c++);
+    }
+
     c = 9;
     std::for_each(std::begin(rb), std::end(rb), [&c](const int& e) { EXPECT_EQ(e, c--); });
+    c = 6;
+    std::for_each(std::rbegin(rb), std::rend(rb), [&c](const int& e) { EXPECT_EQ(e, c++); });
 
     c = 6;
     for (auto it = rb.cend(); it != rb.cbegin(); /**/) {
         --it;
         EXPECT_EQ(*it, c++);
     }
+    c = 9;
+    for (auto it = rb.rend(); it != rb.rbegin(); /**/) {
+        --it;
+        EXPECT_EQ(*it, c--);
+    }
+
 #if 0
     {
         auto it = rb.begin();
@@ -399,13 +433,20 @@ void cb_iterator_test() {
     }
 #endif
 
-    using Iter = FixedCircularBuffer<int, 4>::const_iterator;
+    using Iter    = FixedCircularBuffer<int, 4>::const_iterator;
+    using RevIter = FixedCircularBuffer<int, 4>::const_reverse_iterator;
     {
         Iter it = rb.begin();
         EXPECT_EQ(*it++, 9);
         EXPECT_EQ(*it--, 8);
         EXPECT_EQ(*++it, 8);
         EXPECT_EQ(*--it, 9);
+
+        RevIter itr = rb.rbegin();
+        EXPECT_EQ(*itr++, 6);
+        EXPECT_EQ(*itr--, 7);
+        EXPECT_EQ(*++itr, 7);
+        EXPECT_EQ(*--itr, 6);
     }
 
     {
@@ -414,6 +455,12 @@ void cb_iterator_test() {
         EXPECT_EQ(*it, 6);
         it = it - 2;
         EXPECT_EQ(*it, 8);
+
+        RevIter itr = rb.rbegin();
+        itr         = itr + 3;
+        EXPECT_EQ(*itr, 9);
+        itr = itr - 2;
+        EXPECT_EQ(*itr, 7);
     }
 
     {
@@ -447,6 +494,39 @@ void cb_iterator_test() {
         EXPECT_EQ(it2 - it0, 2U);
         EXPECT_EQ(it1 - it0, 1U);
         EXPECT_EQ(it0 - rb.begin(), 0U);
+    }
+
+    {
+        RevIter it_o = rb2.rbegin();
+        RevIter it0  = rb.rbegin() + 0;
+        RevIter it1  = rb.rbegin() + 1;
+        RevIter it2  = rb.rbegin() + 2;
+        RevIter it3  = rb.rbegin() + 3;
+        RevIter it11 = rb.rbegin();
+        RevIter it22 = rb.rbegin();
+        RevIter it33 = rb.rbegin();
+        ++it11;
+        it22++;
+        ++it22;
+        ++it33;
+        it33++;
+        ++it33;
+
+        EXPECT_FALSE(it1 == it_o);
+        EXPECT_TRUE(it1 == it11);
+        EXPECT_TRUE(it1 != it2);
+        EXPECT_TRUE(it0 < it1);
+        EXPECT_TRUE(it2 > it0);
+        EXPECT_TRUE(it2 <= it22);
+        EXPECT_TRUE(it2 <= it33);
+        EXPECT_TRUE(it3 >= it33);
+        EXPECT_TRUE(it3 >= it11);
+
+        EXPECT_EQ(rb.rend() - it0, 4U);
+        EXPECT_EQ(it3 - it0, 3U);
+        EXPECT_EQ(it2 - it0, 2U);
+        EXPECT_EQ(it1 - it0, 1U);
+        EXPECT_EQ(it0 - rb.rbegin(), 0U);
     }
 }
 
