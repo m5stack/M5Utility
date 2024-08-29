@@ -25,98 +25,6 @@
 namespace m5 {
 namespace container {
 
-/// @cond
-template <class CB>
-class CircularBufferIterator {
-   public:
-    using value_type        = typename CB::value_type;
-    using difference_type   = std::ptrdiff_t;
-    using pointer           = typename CB::value_type*;
-    using reference         = typename CB::reference;
-    using iterator_category = std::bidirectional_iterator_tag;
-
-    CircularBufferIterator(CB& cb, std::size_t tail) : _cb(&cb), _idx(tail) {
-    }
-
-    CircularBufferIterator(const CircularBufferIterator&) = default;
-
-    CircularBufferIterator& operator=(const CircularBufferIterator&) = default;
-
-    inline typename CB::reference operator*() {
-        return this->_cb->_buf[_idx % _cb->capacity()];
-    }
-    inline typename CB::const_reference operator*() const {
-        return this->_cb->_buf[_idx % _cb->capacity()];
-    }
-
-    inline pointer operator->() {
-        return &(this->_cb->_buf[_idx % _cb->capacity()]);
-    }
-
-    inline CircularBufferIterator& operator++() {
-        ++_idx;
-        return *this;
-    }
-    inline CircularBufferIterator& operator--() {
-        --_idx;
-        return *this;
-    }
-    inline CircularBufferIterator operator++(int) {
-        CircularBufferIterator it = *this;
-        ++*this;
-        return it;
-    }
-    inline CircularBufferIterator operator--(int) {
-        CircularBufferIterator it = *this;
-        --*this;
-        return it;
-    }
-
-    inline CircularBufferIterator& operator+=(std::size_t n) {
-        _idx += n;
-        return *this;
-    }
-    inline CircularBufferIterator& operator-=(std::size_t n) {
-        _idx -= n;
-        return *this;
-    }
-    inline CircularBufferIterator operator+(std::size_t n) const {
-        return CircularBufferIterator(*this) += n;
-    }
-    inline CircularBufferIterator operator-(std::size_t n) const {
-        return CircularBufferIterator(*this) -= n;
-    }
-    inline std::size_t operator-(const CircularBufferIterator& o) {
-        assert(_cb == o._cb && "Diffrent iterators of container");
-        assert(_idx >= o._idx && "o must be lesser than this.");
-        return _idx - o._idx;
-    }
-
-    inline bool operator==(const CircularBufferIterator& b) const {
-        return (_cb == b._cb) && _idx == b._idx;
-    }
-    inline bool operator<(const CircularBufferIterator& b) const {
-        return _idx < b._idx;
-    }
-    inline bool operator!=(const CircularBufferIterator& b) const {
-        return !(*this == b);
-    }
-    inline bool operator>(const CircularBufferIterator& b) const {
-        return b < (*this);
-    }
-    inline bool operator<=(const CircularBufferIterator& b) const {
-        return !(*this > b);
-    }
-    inline bool operator>=(const CircularBufferIterator& b) const {
-        return !(*this < b);
-    }
-
-   private:
-    CB* _cb{};
-    size_t _idx{};
-};
-/// @endcond
-
 /*!
   @class CircularBuffer
   @brief Type CircularBuffer giving size in constructor
@@ -134,8 +42,9 @@ class CircularBuffer {
 #else
     using return_type = m5::stl::optional<value_type>;
 #endif
-    friend class CircularBufferIterator<CircularBuffer>;
-    using const_iterator         = CircularBufferIterator<CircularBuffer>;
+    class iterator;
+    class const_iterator;
+    using reverse_iterator       = std::reverse_iterator<iterator>;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
     ///@name Constructor
@@ -281,36 +190,6 @@ class CircularBuffer {
     }
     /// @}
 
-    /// @warningf This class has const_iterator only.
-    /// @name Iterators
-    /// @{
-    const_iterator begin() noexcept {
-        return const_iterator(*this, _tail);
-    }
-    const_iterator end() noexcept {
-        return const_iterator(*this, _tail + size());
-    }
-    inline const_iterator cbegin() noexcept {
-        return begin();
-    }
-    inline const_iterator cend() noexcept {
-        return end();
-    }
-    const_reverse_iterator rbegin() noexcept {
-        return std::reverse_iterator<const_iterator>(end());
-    }
-    const_reverse_iterator rend() noexcept {
-        return std::reverse_iterator<const_iterator>(begin());
-    }
-    inline const_reverse_iterator crbegin() noexcept {
-        return rbegin();
-    }
-    inline const_reverse_iterator crend() noexcept {
-        return rend();
-    }
-
-    /// @}
-
     ///@name Capacity
     ///@{
     /*!
@@ -409,7 +288,195 @@ class CircularBuffer {
     }
     ///@}
 
-    //   private:
+    ///@cond
+    class iterator {
+       public:
+        using iterator_category = std::bidirectional_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = CircularBuffer::value_type;
+        using pointer           = CircularBuffer::value_type*;
+        using reference         = CircularBuffer::reference;
+
+        iterator() : _buffer(nullptr), _pos(0) {
+        }
+        iterator(CircularBuffer* buf, size_t pos) : _buffer(buf), _pos(pos) {
+        }
+
+        inline reference operator*() const {
+            return _buffer->_buf[_pos % _buffer->capacity()];
+        }
+        inline pointer operator->() const {
+            return &(_buffer->_buf[_pos % _buffer->capacity()]);
+        }
+        inline iterator& operator++() {
+            ++_pos;
+            return *this;
+        }
+        inline iterator& operator--() {
+            --_pos;
+            return *this;
+        }
+        inline iterator operator++(int) {
+            iterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+        inline iterator operator--(int) {
+            iterator tmp = *this;
+            --(*this);
+            return tmp;
+        }
+        inline iterator& operator+=(size_t n) {
+            _pos += n;
+            return *this;
+        }
+        inline iterator& operator-=(size_t n) {
+            _pos -= n;
+            return *this;
+        }
+        inline iterator operator+(size_t n) const {
+            return iterator(*this) += n;
+        }
+        inline iterator operator-(size_t n) const {
+            return iterator(*this) -= n;
+        }
+        difference_type operator-(const iterator& other) const {
+            return static_cast<difference_type>(_pos) - static_cast<difference_type>(other._pos);
+        }
+
+        friend inline bool operator==(const iterator& a, const iterator& b) {
+            return a._buffer == b._buffer && a._pos == b._pos;
+        }
+        friend inline bool operator!=(const iterator& a, const iterator& b) {
+            return !(a == b);
+        }
+        friend inline bool operator<(const iterator& a, const iterator& b) {
+            return a._buffer == b._buffer ? a._pos < b._pos : false;
+        }
+        friend inline bool operator>(const iterator& a, const iterator& b) {
+            return b < a;
+        }
+        friend inline bool operator<=(const iterator& a, const iterator& b) {
+            return !(a > b);
+        }
+        friend inline bool operator>=(const iterator& a, const iterator& b) {
+            return !(a < b);
+        }
+
+       private:
+        CircularBuffer* _buffer;
+        size_t _pos;
+    };
+
+    class const_iterator {
+       public:
+        using iterator_category = std::bidirectional_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = CircularBuffer::value_type;
+        using pointer           = const CircularBuffer::value_type*;
+        using reference         = CircularBuffer::const_reference;
+
+        const_iterator() : _buffer(nullptr), _pos(0) {
+        }
+        const_iterator(const CircularBuffer* buf, size_t pos) : _buffer(buf), _pos(pos) {
+        }
+
+        inline reference operator*() const {
+            return _buffer->_buf[_pos % _buffer->capacity()];
+        }
+        inline pointer operator->() const {
+            return &(_buffer->_buf[_pos % _buffer->capacity()]);
+        }
+        inline const_iterator& operator++() {
+            ++_pos;
+            return *this;
+        }
+        inline const_iterator& operator--() {
+            --_pos;
+            return *this;
+        }
+        inline const_iterator operator++(int) {
+            const_iterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+        inline const_iterator operator--(int) {
+            const_iterator tmp = *this;
+            --(*this);
+            return tmp;
+        }
+        inline const_iterator& operator+=(size_t n) {
+            _pos += n;
+            return *this;
+        }
+        inline const_iterator& operator-=(size_t n) {
+            _pos -= n;
+            return *this;
+        }
+        inline const_iterator operator+(size_t n) const {
+            return const_iterator(*this) += n;
+        }
+        inline const_iterator operator-(size_t n) const {
+            return const_iterator(*this) -= n;
+        }
+        difference_type operator-(const const_iterator& other) const {
+            return static_cast<difference_type>(_pos) - static_cast<difference_type>(other._pos);
+        }
+
+        friend inline bool operator==(const const_iterator& a, const const_iterator& b) {
+            return a._buffer == b._buffer && a._pos == b._pos;
+        }
+        friend inline bool operator!=(const const_iterator& a, const const_iterator& b) {
+            return !(a == b);
+        }
+        friend inline bool operator<(const const_iterator& a, const const_iterator& b) {
+            return a._buffer == b._buffer ? a._pos < b._pos : false;
+        }
+        friend inline bool operator>(const const_iterator& a, const const_iterator& b) {
+            return b < a;
+        }
+        friend inline bool operator<=(const const_iterator& a, const const_iterator& b) {
+            return !(a > b);
+        }
+        friend inline bool operator>=(const const_iterator& a, const const_iterator& b) {
+            return !(a < b);
+        }
+
+       private:
+        const CircularBuffer* _buffer;
+        size_t _pos;
+    };
+    ///@endcond
+
+    /// @name Iterator
+    /// @{
+    inline iterator begin() noexcept {
+        return iterator(this, _tail);
+    }
+    inline iterator end() noexcept {
+        return iterator(this, _tail + size());
+    }
+    inline const_iterator cbegin() const noexcept {
+        return const_iterator(this, _tail);
+    }
+    inline const_iterator cend() const noexcept {
+        return const_iterator(this, _tail + size());
+    }
+    inline reverse_iterator rbegin() noexcept {
+        return std::reverse_iterator<iterator>(end());
+    }
+    inline reverse_iterator rend() noexcept {
+        return std::reverse_iterator<iterator>(begin());
+    }
+    inline const_reverse_iterator crbegin() const noexcept {
+        return std::reverse_iterator<const_iterator>(cend());
+    }
+    inline const_reverse_iterator crend() const noexcept {
+        return std::reverse_iterator<const_iterator>(cbegin());
+    }
+    /// @}
+
+   private:
     std::vector<T> _buf{};
     size_t _cap{}, _head{}, _tail{};
     bool _full{};
@@ -433,8 +500,6 @@ class FixedCircularBuffer : public CircularBuffer<T> {
 #else
     using return_type = m5::stl::optional<value_type>;
 #endif
-    friend class CircularBufferIterator<CircularBuffer<T>>;
-    using const_iterator = CircularBufferIterator<CircularBuffer<T>>;
 
     FixedCircularBuffer() : CircularBuffer<T>(N) {
     }

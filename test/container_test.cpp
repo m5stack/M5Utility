@@ -412,8 +412,12 @@ void cb_iterator_test() {
 
     c = 9;
     std::for_each(std::begin(rb), std::end(rb), [&c](const int& e) { EXPECT_EQ(e, c--); });
+
+#if __cplusplus >= 201402L
+    // std::rbegin, rend require C++14 or later
     c = 6;
     std::for_each(std::rbegin(rb), std::rend(rb), [&c](const int& e) { EXPECT_EQ(e, c++); });
+#endif
 
     c = 6;
     for (auto it = rb.cend(); it != rb.cbegin(); /**/) {
@@ -433,16 +437,14 @@ void cb_iterator_test() {
     }
 #endif
 
-    using Iter    = FixedCircularBuffer<int, 4>::const_iterator;
-    using RevIter = FixedCircularBuffer<int, 4>::const_reverse_iterator;
     {
-        Iter it = rb.begin();
+        auto it = rb.begin();
         EXPECT_EQ(*it++, 9);
         EXPECT_EQ(*it--, 8);
         EXPECT_EQ(*++it, 8);
         EXPECT_EQ(*--it, 9);
 
-        RevIter itr = rb.rbegin();
+        auto itr = rb.rbegin();
         EXPECT_EQ(*itr++, 6);
         EXPECT_EQ(*itr--, 7);
         EXPECT_EQ(*++itr, 7);
@@ -450,28 +452,28 @@ void cb_iterator_test() {
     }
 
     {
-        Iter it = rb.begin();
+        auto it = rb.begin();
         it      = it + 3;
         EXPECT_EQ(*it, 6);
         it = it - 2;
         EXPECT_EQ(*it, 8);
 
-        RevIter itr = rb.rbegin();
-        itr         = itr + 3;
+        auto itr = rb.rbegin();
+        itr      = itr + 3;
         EXPECT_EQ(*itr, 9);
         itr = itr - 2;
         EXPECT_EQ(*itr, 7);
     }
 
     {
-        Iter it_o = rb2.begin();
-        Iter it0  = rb.begin() + 0;
-        Iter it1  = rb.begin() + 1;
-        Iter it2  = rb.begin() + 2;
-        Iter it3  = rb.begin() + 3;
-        Iter it11 = rb.begin();
-        Iter it22 = rb.begin();
-        Iter it33 = rb.begin();
+        auto it_o = rb2.begin();
+        auto it0  = rb.begin() + 0;
+        auto it1  = rb.begin() + 1;
+        auto it2  = rb.begin() + 2;
+        auto it3  = rb.begin() + 3;
+        auto it11 = rb.begin();
+        auto it22 = rb.begin();
+        auto it33 = rb.begin();
         ++it11;
         it22++;
         ++it22;
@@ -497,14 +499,14 @@ void cb_iterator_test() {
     }
 
     {
-        RevIter it_o = rb2.rbegin();
-        RevIter it0  = rb.rbegin() + 0;
-        RevIter it1  = rb.rbegin() + 1;
-        RevIter it2  = rb.rbegin() + 2;
-        RevIter it3  = rb.rbegin() + 3;
-        RevIter it11 = rb.rbegin();
-        RevIter it22 = rb.rbegin();
-        RevIter it33 = rb.rbegin();
+        auto it_o = rb2.rbegin();
+        auto it0  = rb.rbegin() + 0;
+        auto it1  = rb.rbegin() + 1;
+        auto it2  = rb.rbegin() + 2;
+        auto it3  = rb.rbegin() + 3;
+        auto it11 = rb.rbegin();
+        auto it22 = rb.rbegin();
+        auto it33 = rb.rbegin();
         ++it11;
         it22++;
         ++it22;
