@@ -326,41 +326,12 @@ class CircularBuffer {
             --(*this);
             return tmp;
         }
-        inline iterator& operator+=(size_t n) {
-            _pos += n;
-            return *this;
-        }
-        inline iterator& operator-=(size_t n) {
-            _pos -= n;
-            return *this;
-        }
-        inline iterator operator+(size_t n) const {
-            return iterator(*this) += n;
-        }
-        inline iterator operator-(size_t n) const {
-            return iterator(*this) -= n;
-        }
-        difference_type operator-(const iterator& other) const {
-            return static_cast<difference_type>(_pos) - static_cast<difference_type>(other._pos);
-        }
 
         friend inline bool operator==(const iterator& a, const iterator& b) {
             return a._buffer == b._buffer && a._pos == b._pos;
         }
         friend inline bool operator!=(const iterator& a, const iterator& b) {
             return !(a == b);
-        }
-        friend inline bool operator<(const iterator& a, const iterator& b) {
-            return a._buffer == b._buffer ? a._pos < b._pos : false;
-        }
-        friend inline bool operator>(const iterator& a, const iterator& b) {
-            return b < a;
-        }
-        friend inline bool operator<=(const iterator& a, const iterator& b) {
-            return !(a > b);
-        }
-        friend inline bool operator>=(const iterator& a, const iterator& b) {
-            return !(a < b);
         }
 
        private:
@@ -405,41 +376,12 @@ class CircularBuffer {
             --(*this);
             return tmp;
         }
-        inline const_iterator& operator+=(size_t n) {
-            _pos += n;
-            return *this;
-        }
-        inline const_iterator& operator-=(size_t n) {
-            _pos -= n;
-            return *this;
-        }
-        inline const_iterator operator+(size_t n) const {
-            return const_iterator(*this) += n;
-        }
-        inline const_iterator operator-(size_t n) const {
-            return const_iterator(*this) -= n;
-        }
-        difference_type operator-(const const_iterator& other) const {
-            return static_cast<difference_type>(_pos) - static_cast<difference_type>(other._pos);
-        }
 
         friend inline bool operator==(const const_iterator& a, const const_iterator& b) {
             return a._buffer == b._buffer && a._pos == b._pos;
         }
         friend inline bool operator!=(const const_iterator& a, const const_iterator& b) {
             return !(a == b);
-        }
-        friend inline bool operator<(const const_iterator& a, const const_iterator& b) {
-            return a._buffer == b._buffer ? a._pos < b._pos : false;
-        }
-        friend inline bool operator>(const const_iterator& a, const const_iterator& b) {
-            return b < a;
-        }
-        friend inline bool operator<=(const const_iterator& a, const const_iterator& b) {
-            return !(a > b);
-        }
-        friend inline bool operator>=(const const_iterator& a, const const_iterator& b) {
-            return !(a < b);
         }
 
        private:
@@ -448,6 +390,7 @@ class CircularBuffer {
     };
     ///@endcond
 
+    ///@note Iterator is bidirectional
     /// @name Iterator
     /// @{
     inline iterator begin() noexcept {
