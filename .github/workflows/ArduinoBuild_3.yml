@@ -62,17 +62,17 @@ jobs:
       # Checkout library from specific URL and branch
       # Note that dependent libraries are not automatically installed.
       - name: Checkout M5Unified
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: m5stack/M5Unified
-          ref: develop
+          #ref: develop
           path: CustomLibrary_M5Unified
 
       - name: Checkout M5GFX
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: m5stack/M5GFX
-          ref: develop
+          #ref: develop
           path: CustomLibrary_M5GFX
 
       - name: Compile build_test
