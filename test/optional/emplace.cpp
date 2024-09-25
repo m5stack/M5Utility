@@ -3,7 +3,8 @@
 #include <utility>
 #include <tuple>
 
-TEST(Optional, Emplace) {
+TEST(Optional, Emplace)
+{
     m5::stl::optional<std::pair<std::pair<int, int>, std::pair<double, double>>> i;
     i.emplace(std::piecewise_construct, std::make_tuple(0, 2), std::make_tuple(3, 4));
     EXPECT_TRUE(i->first.first == 0);
@@ -13,12 +14,14 @@ TEST(Optional, Emplace) {
 }
 
 struct A {
-    A() {
+    A()
+    {
         throw std::exception();
     }
 };
 
-TEST(Optional, EmplaceWithException) {
+TEST(Optional, EmplaceWithException)
+{
     m5::stl::optional<A> a;
     EXPECT_ANY_THROW(a.emplace());
 }

@@ -8,12 +8,14 @@ struct foo {
 
     foo(foo &) = delete;
 
-    foo(foo &&) noexcept {
+    foo(foo &&) noexcept
+    {
     }
 };
 }  // namespace constructor
 
-TEST(Optional, Constructors) {
+TEST(Optional, Constructors)
+{
     m5::stl::optional<int> o1;
     EXPECT_TRUE(!o1);
 

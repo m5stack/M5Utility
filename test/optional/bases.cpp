@@ -5,7 +5,8 @@
 #if (defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ <= 9 && !defined(__clang__))
 // nothing for now
 #else
-TEST(Optional, Triviality) {
+TEST(Optional, Triviality)
+{
     EXPECT_TRUE(std::is_trivially_copy_constructible<m5::stl::optional<int> >::value);
     EXPECT_TRUE(std::is_trivially_copy_assignable<m5::stl::optional<int> >::value);
     EXPECT_TRUE(std::is_trivially_move_constructible<m5::stl::optional<int> >::value);
@@ -33,17 +34,22 @@ TEST(Optional, Triviality) {
 
     {
         struct T {
-            T(const T&) {
+            T(const T&)
+            {
             }
-            T(T&&) {
+            T(T&&)
+            {
             }
-            T& operator=(const T&) {
+            T& operator=(const T&)
+            {
                 return *this;
             }
-            T& operator=(T&&) {
+            T& operator=(T&&)
+            {
                 return *this;
             };
-            ~T() {
+            ~T()
+            {
             }
         };
         EXPECT_TRUE(!std::is_trivially_copy_constructible<m5::stl::optional<T> >::value);
@@ -54,7 +60,8 @@ TEST(Optional, Triviality) {
     }
 }
 
-TEST(Optional, Deletion) {
+TEST(Optional, Deletion)
+{
     EXPECT_TRUE(std::is_copy_constructible<m5::stl::optional<int> >::value);
     EXPECT_TRUE(std::is_copy_assignable<m5::stl::optional<int> >::value);
     EXPECT_TRUE(std::is_move_constructible<m5::stl::optional<int> >::value);

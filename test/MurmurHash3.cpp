@@ -33,11 +33,13 @@
 
 #else  // defined(_MSC_VER)
 
-inline uint32_t rotl32(uint32_t x, int8_t r) {
+inline uint32_t rotl32(uint32_t x, int8_t r)
+{
     return (x << r) | (x >> (32 - r));
 }
 
-inline uint64_t rotl64(uint64_t x, int8_t r) {
+inline uint64_t rotl64(uint64_t x, int8_t r)
+{
     return (x << r) | (x >> (64 - r));
 }
 
@@ -52,18 +54,21 @@ inline uint64_t rotl64(uint64_t x, int8_t r) {
 // Block read - if your platform needs to do endian-swapping or can only
 // handle aligned reads, do the conversion here
 
-uint32_t getblock32(const uint32_t *p, int i) {
+uint32_t getblock32(const uint32_t *p, int i)
+{
     return p[i];
 }
 
-uint64_t getblock64(const uint64_t *p, int i) {
+uint64_t getblock64(const uint64_t *p, int i)
+{
     return p[i];
 }
 
 //-----------------------------------------------------------------------------
 // Finalization mix - force all bits of a hash block to avalanche
 
-uint32_t fmix32(uint32_t h) {
+uint32_t fmix32(uint32_t h)
+{
     h ^= h >> 16;
     h *= 0x85ebca6b;
     h ^= h >> 13;
@@ -75,7 +80,8 @@ uint32_t fmix32(uint32_t h) {
 
 //----------
 
-uint64_t fmix64(uint64_t k) {
+uint64_t fmix64(uint64_t k)
+{
     k ^= k >> 33;
     k *= BIG_CONSTANT(0xff51afd7ed558ccd);
     k ^= k >> 33;
@@ -88,7 +94,8 @@ uint64_t fmix64(uint64_t k) {
 //-----------------------------------------------------------------------------
 // objsize: 0x0-0x15f: 351
 
-void MurmurHash3_x86_32(const void *key, int len, uint32_t seed, void *out) {
+void MurmurHash3_x86_32(const void *key, int len, uint32_t seed, void *out)
+{
     const uint8_t *data = (const uint8_t *)key;
     const int nblocks   = len / 4;
 
@@ -149,7 +156,8 @@ void MurmurHash3_x86_32(const void *key, int len, uint32_t seed, void *out) {
 //-----------------------------------------------------------------------------
 // objsize: 0x160-0x4bb: 859
 
-void MurmurHash3_x86_128(const void *key, const int len, uint32_t seed, void *out) {
+void MurmurHash3_x86_128(const void *key, const int len, uint32_t seed, void *out)
+{
     const uint8_t *data = (const uint8_t *)key;
     const int nblocks   = len / 16;
 
@@ -320,7 +328,8 @@ void MurmurHash3_x86_128(const void *key, const int len, uint32_t seed, void *ou
 //-----------------------------------------------------------------------------
 // objsize: 0x500-0x7bb: 699
 
-void MurmurHash3_x64_128(const void *key, const int len, const uint32_t seed, void *out) {
+void MurmurHash3_x64_128(const void *key, const int len, const uint32_t seed, void *out)
+{
     const uint8_t *data = (const uint8_t *)key;
     const int nblocks   = len / 16;
 

@@ -3,13 +3,15 @@
 
 struct move_detector {
     move_detector() = default;
-    move_detector(move_detector &&rhs) {
+    move_detector(move_detector &&rhs)
+    {
         rhs.been_moved = true;
     }
     bool been_moved = false;
 };
 
-TEST(Optional, Observers) {
+TEST(Optional, Observers)
+{
     m5::stl::optional<int> o1 = 42;
     m5::stl::optional<int> o2;
     const m5::stl::optional<int> o3 = 42;

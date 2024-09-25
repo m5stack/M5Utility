@@ -21,13 +21,16 @@ const clock::time_point start_at = clock::now();
 namespace m5 {
 namespace utility {
 
-unsigned long millis() {
+unsigned long millis()
+{
     return std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - ::start_at).count();
 }
-unsigned long micros() {
+unsigned long micros()
+{
     return std::chrono::duration_cast<std::chrono::microseconds>(clock::now() - ::start_at).count();
 }
-void delay(const unsigned long ms) {
+void delay(const unsigned long ms)
+{
 #if 0
     auto abst = clock::now() + std::chrono::milliseconds(ms);
     std::this_thread::sleep_until(abst);
@@ -36,7 +39,8 @@ void delay(const unsigned long ms) {
 #endif
 }
 
-void delayMicroseconds(const unsigned int us) {
+void delayMicroseconds(const unsigned int us)
+{
 #if 0
     auto abst = clock::now() + std::chrono::microseconds(us);
     std::this_thread::sleep_until(abst);

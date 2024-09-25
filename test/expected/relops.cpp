@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <m5_utility/stl/expected.hpp>
 
-TEST(Expected, RelationalOperators) {
+TEST(Expected, RelationalOperators)
+{
     m5::stl::expected<int, int> o1 = 42;
     m5::stl::expected<int, int> o2{m5::stl::unexpect, 0};
     const m5::stl::expected<int, int> o3 = 42;

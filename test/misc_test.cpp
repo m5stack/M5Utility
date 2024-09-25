@@ -11,7 +11,8 @@
 
 using namespace m5::utility;
 
-TEST(Utility, reverseBitOrder) {
+TEST(Utility, reverseBitOrder)
+{
     EXPECT_EQ(reverseBitOrder((uint8_t)0), 0);
     EXPECT_EQ(reverseBitOrder((uint16_t)0), 0);
 

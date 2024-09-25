@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <m5_utility/stl/optional.hpp>
 
-TEST(Optional, Noexcept) {
+TEST(Optional, Noexcept)
+{
     m5::stl::optional<int> o1{4};
     m5::stl::optional<int> o2{42};
     {
@@ -26,18 +27,22 @@ TEST(Optional, Noexcept) {
         EXPECT_TRUE(noexcept(swap(o1, o2)) == noexcept(o1.swap(o2)));
 
         struct nothrow_swappable {
-            nothrow_swappable &swap(const nothrow_swappable &) noexcept {
+            nothrow_swappable &swap(const nothrow_swappable &) noexcept
+            {
                 return *this;
             }
         };
 
         struct throw_swappable {
             throw_swappable() = default;
-            throw_swappable(const throw_swappable &) {
+            throw_swappable(const throw_swappable &)
+            {
             }
-            throw_swappable(throw_swappable &&) {
+            throw_swappable(throw_swappable &&)
+            {
             }
-            throw_swappable &swap(const throw_swappable &) {
+            throw_swappable &swap(const throw_swappable &)
+            {
                 return *this;
             }
         };
@@ -61,7 +66,8 @@ TEST(Optional, Noexcept) {
         };
 
         struct throw_move {
-            throw_move(throw_move &&) {
+            throw_move(throw_move &&)
+            {
             }
         };
 
@@ -86,9 +92,11 @@ TEST(Optional, Noexcept) {
 
         struct throw_move_assign {
             throw_move_assign() = default;
-            throw_move_assign(throw_move_assign &&) {
+            throw_move_assign(throw_move_assign &&)
+            {
             }
-            throw_move_assign &operator=(const throw_move_assign &) {
+            throw_move_assign &operator=(const throw_move_assign &)
+            {
                 return *this;
             }
         };

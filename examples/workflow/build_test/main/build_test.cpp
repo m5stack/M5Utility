@@ -2,10 +2,12 @@
 #include <M5Unified.h>
 #include <M5Utility.h>
 
-void setup() {
+void setup()
+{
     M5.begin();
 }
 
-void loop() {
+void loop()
+{
     M5.update();
 }

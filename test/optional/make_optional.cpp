@@ -8,12 +8,14 @@ struct takes_init_and_variadic {
     std::vector<int> v;
     std::tuple<int, int> t;
     template <class... Args>
-    takes_init_and_variadic(std::initializer_list<int> l, Args &&...args) : v(l), t(std::forward<Args>(args)...) {
+    takes_init_and_variadic(std::initializer_list<int> l, Args &&...args) : v(l), t(std::forward<Args>(args)...)
+    {
     }
 };
 }  // namespace make_opt
 
-TEST(Optional, MakeOptional) {
+TEST(Optional, MakeOptional)
+{
     auto o1 = m5::stl::make_optional(42);
     auto o2 = m5::stl::optional<int>(42);
 

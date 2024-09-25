@@ -37,7 +37,8 @@ std::string& trim(std::string& s);
   @tparam Case Capitalise if true
 */
 template <bool Case = true>
-constexpr char uintToHexChar(const uint8_t v) {
+constexpr char uintToHexChar(const uint8_t v)
+{
     return (v & 0x0F) < 10 ? '0' + (v & 0x0F) : (Case ? 'A' : 'a') + ((v & 0x0F) - 10);
 }
 
@@ -46,7 +47,8 @@ constexpr char uintToHexChar(const uint8_t v) {
   @tparam T Value type (Must be unsigned integer)
  */
 template <typename T, bool Case = true>
-std::string unsignedToHexString(const T& v) {
+std::string unsignedToHexString(const T& v)
+{
     static_assert(std::is_integral<T>::value && std::is_unsigned<T>::value, "T must be unsigned integer");
     std::string s;
     for (size_t i = sizeof(T); i > 0; --i) {

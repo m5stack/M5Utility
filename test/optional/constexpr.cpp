@@ -2,7 +2,8 @@
 #include <m5_utility/stl/optional.hpp>
 #include "helper.hpp"
 
-TEST(Optional, Constexpr) {
+TEST(Optional, Constexpr)
+{
 #if !defined(TL_OPTIONAL_MSVC2015) && defined(TL_OPTIONAL_CXX14)
     {
         SCOPED_TRACE("empty construct");

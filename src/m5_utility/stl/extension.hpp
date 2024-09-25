@@ -19,13 +19,15 @@ namespace stl {
 
 /*! @brief Like std::size  C++17 or later.(for container) */
 template <class C>
-constexpr auto size(const C& c) -> decltype(c.size()) {
+constexpr auto size(const C& c) -> decltype(c.size())
+{
     return c.size();
 }
 
 /*! @brief Like std::size C++17 or later.(for raw array) */
 template <typename T, size_t N>
-constexpr auto size(const T (&)[N]) noexcept -> size_t {
+constexpr auto size(const T (&)[N]) noexcept -> size_t
+{
     return N;
 }
 
@@ -37,7 +39,8 @@ constexpr auto size(const T (&)[N]) noexcept -> size_t {
   @return The integer value of the underlying type of Enum, converted from e.
 */
 template <typename E>
-constexpr inline typename std::underlying_type<E>::type to_underlying(const E e) noexcept {
+constexpr inline typename std::underlying_type<E>::type to_underlying(const E e) noexcept
+{
     return static_cast<typename std::underlying_type<E>::type>(e);
 }
 

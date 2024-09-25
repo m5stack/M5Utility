@@ -25,7 +25,8 @@ pf_t table[] = {
 
 }  // namespace
 
-TEST(Utility, pathToFilename) {
+TEST(Utility, pathToFilename)
+{
     {
         constexpr auto fn0 = pathToFilename("");
         EXPECT_STREQ(fn0, "");
@@ -66,7 +67,8 @@ namespace {
 auto rng = std::default_random_engine{};
 }
 
-TEST(Utility, BitSegment) {
+TEST(Utility, BitSegment)
+{
     // static_assert
 #if 0
     {
@@ -288,7 +290,8 @@ namespace {
 using clock = std::chrono::high_resolution_clock;
 }
 
-TEST(Utility, comatibility) {
+TEST(Utility, comatibility)
+{
     // millis
     {
         auto ms  = m5::utility::millis();

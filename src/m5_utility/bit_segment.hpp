@@ -26,7 +26,7 @@ namespace utility {
 */
 template <size_t LowerBits, typename T>
 class BitSegment {
-   public:
+public:
     ///@cond
     using base_type              = typename std::remove_const<typename std::remove_reference<T>::type>::type;
     constexpr static bool SIGNED = std::is_signed<base_type>::value;
@@ -45,22 +45,26 @@ class BitSegment {
     ///@{
     inline constexpr BitSegment() = default;  //!< @brief default
     //! @brief Copy
-    inline constexpr BitSegment(const BitSegment& o) : _v(o._v) {
+    inline constexpr BitSegment(const BitSegment& o) : _v(o._v)
+    {
     }
     //! @brief Implicit conversion
-    inline constexpr BitSegment(const base_type v) : _v(v) {
+    inline constexpr BitSegment(const base_type v) : _v(v)
+    {
     }
     ///@}
 
     ///@name Assignment
     ///@{
-    BitSegment& operator=(const BitSegment& o) {
+    BitSegment& operator=(const BitSegment& o)
+    {
         if (this != &o) {
             _v = o._v;
         }
         return *this;
     }
-    BitSegment& operator=(const base_type v) {
+    BitSegment& operator=(const base_type v)
+    {
         _v = v;
         return *this;
     }
@@ -69,11 +73,13 @@ class BitSegment {
     ///@name Cast
     ///@{
     /*! @brief Cast to boolean */
-    inline constexpr explicit operator bool() const {
+    inline constexpr explicit operator bool() const
+    {
         return _v;
     }
     //! @brief Cast to base_type (Implicit conversion)
-    inline constexpr operator base_type() const {
+    inline constexpr operator base_type() const
+    {
         return _v;
     }
     ///@}
@@ -81,15 +87,18 @@ class BitSegment {
     ///@name Getter
     ///@{
     /*! @brief Gets the value of upper segment */
-    inline constexpr unsigned_type upper() const {
+    inline constexpr unsigned_type upper() const
+    {
         return (_v >> UPPER_SHIFT) & UPPER_MASK;
     }
     //! @brief Gets the value of lower segment
-    inline constexpr unsigned_type lower() const {
+    inline constexpr unsigned_type lower() const
+    {
         return _v & LOWER_MASK;
     }
     //! @brief Gets the raw value
-    inline constexpr base_type raw() const {
+    inline constexpr base_type raw() const
+    {
         return _v;
     }
     ///@}
@@ -97,20 +106,23 @@ class BitSegment {
     ///@name Setter
     ///@{
     /*! @brief Set the value of upper segment */
-    inline void upper(const unsigned_type v) {
+    inline void upper(const unsigned_type v)
+    {
         _v = (_v & ~(UPPER_MASK << UPPER_SHIFT)) | ((v & UPPER_MASK) << UPPER_SHIFT);
     }
     //! @brief Set the value of lower segment
-    inline void lower(const unsigned_type v) {
+    inline void lower(const unsigned_type v)
+    {
         _v = (_v & ~LOWER_MASK) | (v & LOWER_MASK);
     }
     //! @brief Set the raw value
-    inline void raw(const base_type v) {
+    inline void raw(const base_type v)
+    {
         _v = v;
     }
     ///@}
 
-   private:
+private:
     base_type _v{};
 };
 
@@ -118,27 +130,33 @@ class BitSegment {
 /// @related m5::utility::BitSegment
 ///@{
 template <size_t LowerBits, typename T>
-bool operator==(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
+bool operator==(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b)
+{
     return a.raw() == b.raw();
 }
 template <size_t LowerBits, typename T>
-bool operator!=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
+bool operator!=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b)
+{
     return !(a == b);
 }
 template <size_t LowerBits, typename T>
-bool operator<(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
+bool operator<(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b)
+{
     return a.raw() < b.raw();
 }
 template <size_t LowerBits, typename T>
-bool operator>(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
+bool operator>(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b)
+{
     return b < a;
 }
 template <size_t LowerBits, typename T>
-bool operator<=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
+bool operator<=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b)
+{
     return !(a > b);
 }
 template <size_t LowerBits, typename T>
-bool operator>=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b) {
+bool operator>=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T>& b)
+{
     return !(a < b);
 }
 ///@}
@@ -147,27 +165,33 @@ bool operator>=(const BitSegment<LowerBits, T>& a, const BitSegment<LowerBits, T
 /// @related m5::utility::BitSegment
 ///@{
 template <size_t LowerBits, typename T>
-bool operator==(const BitSegment<LowerBits, T>& a, const int b) {
+bool operator==(const BitSegment<LowerBits, T>& a, const int b)
+{
     return a.raw() == b;
 }
 template <size_t LowerBits, typename T>
-bool operator!=(const BitSegment<LowerBits, T>& a, const int b) {
+bool operator!=(const BitSegment<LowerBits, T>& a, const int b)
+{
     return !(a == b);
 }
 template <size_t LowerBits, typename T>
-bool operator<(const BitSegment<LowerBits, T>& a, const int b) {
+bool operator<(const BitSegment<LowerBits, T>& a, const int b)
+{
     return a.raw() < b;
 }
 template <size_t LowerBits, typename T>
-bool operator>(const BitSegment<LowerBits, T>& a, const int b) {
+bool operator>(const BitSegment<LowerBits, T>& a, const int b)
+{
     return b < a;
 }
 template <size_t LowerBits, typename T>
-bool operator<=(const BitSegment<LowerBits, T>& a, const int b) {
+bool operator<=(const BitSegment<LowerBits, T>& a, const int b)
+{
     return !(a > b);
 }
 template <size_t LowerBits, typename T>
-bool operator>=(const BitSegment<LowerBits, T>& a, const int b) {
+bool operator>=(const BitSegment<LowerBits, T>& a, const int b)
+{
     return !(a < b);
 }
 ///@}
@@ -176,28 +200,34 @@ bool operator>=(const BitSegment<LowerBits, T>& a, const int b) {
 /// @related m5::utility::BitSegment
 ///@{
 template <size_t LowerBits, typename T>
-bool operator==(const int a, const BitSegment<LowerBits, T>& b) {
+bool operator==(const int a, const BitSegment<LowerBits, T>& b)
+{
     return a == b.raw();
 }
 template <size_t LowerBits, typename T>
-bool operator!=(const int a, const BitSegment<LowerBits, T>& b) {
+bool operator!=(const int a, const BitSegment<LowerBits, T>& b)
+{
     return !(a == b);
 }
 template <size_t LowerBits, typename T>
-bool operator<(const int a, const BitSegment<LowerBits, T>& b) {
+bool operator<(const int a, const BitSegment<LowerBits, T>& b)
+{
     return a < b.raw();
 }
 template <size_t LowerBits, typename T>
-bool operator>(const int a, const BitSegment<LowerBits, T>& b) {
+bool operator>(const int a, const BitSegment<LowerBits, T>& b)
+{
     return b < a;
 }
 
 template <size_t LowerBits, typename T>
-bool operator<=(const int a, const BitSegment<LowerBits, T>& b) {
+bool operator<=(const int a, const BitSegment<LowerBits, T>& b)
+{
     return !(a > b);
 }
 template <size_t LowerBits, typename T>
-bool operator>=(const int a, const BitSegment<LowerBits, T>& b) {
+bool operator>=(const int a, const BitSegment<LowerBits, T>& b)
+{
     return !(a < b);
 }
 ///@}

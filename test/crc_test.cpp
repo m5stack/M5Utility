@@ -67,7 +67,8 @@ const std::vector<uint8_t> tdata = {
 
 using namespace m5::utility;
 
-TEST(Utility, CRC8) {
+TEST(Utility, CRC8)
+{
     for (auto&& e : crc8_table) {
         SCOPED_TRACE(e.name);
         CRC8 crc(e.init, e.poly, e.refIn, e.refOut, e.xorout);
@@ -84,7 +85,8 @@ TEST(Utility, CRC8) {
     }
 }
 
-TEST(Utility, CRC16) {
+TEST(Utility, CRC16)
+{
     for (auto&& e : crc16_table) {
         SCOPED_TRACE(e.name);
         CRC16 crc(e.init, e.poly, e.refIn, e.refOut, e.xorout);
@@ -96,7 +98,8 @@ TEST(Utility, CRC16) {
 
 // Test whether calculation from the whole and calculation from split chunks are
 // equivalent
-TEST(Utility, Chunk) {
+TEST(Utility, Chunk)
+{
     constexpr uint8_t d8[32] = {0x04, 0x67, 0xfc, 0x4d, 0xf4, 0xe7, 0x9c, 0x3b, 0x05, 0xb8, 0xad,
                                 0x31, 0x97, 0xb1, 0x21, 0x72, 0x59, 0x5d, 0x80, 0x26, 0x66, 0x0c,
                                 0x12, 0xa9, 0x53, 0xa6, 0x70, 0x87, 0x91, 0x5d, 0xa4, 0x9a};

@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <m5_utility/stl/expected.hpp>
 
-TEST(Expected, Assignment) {
+TEST(Expected, Assignment)
+{
     m5::stl::expected<int, int> e1 = 42;
     m5::stl::expected<int, int> e2 = 17;
     m5::stl::expected<int, int> e3 = 21;
@@ -51,7 +52,8 @@ TEST(Expected, Assignment) {
     EXPECT_TRUE(*e4 == 21);
 }
 
-TEST(Expected, AssignmentDeletion) {
+TEST(Expected, AssignmentDeletion)
+{
     struct has_all {
         has_all() = default;
 
@@ -71,7 +73,8 @@ TEST(Expected, AssignmentDeletion) {
 
         except_move(const except_move &) = default;
 
-        except_move(except_move &&) noexcept(false) {
+        except_move(except_move &&) noexcept(false)
+        {
         }
 
         except_move &operator=(const except_move &) = default;

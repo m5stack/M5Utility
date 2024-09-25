@@ -11,7 +11,8 @@
 
 using namespace m5::types;
 
-TEST(Utility, Types_U16) {
+TEST(Utility, Types_U16)
+{
     // Constructor
     constexpr big_uint16_t bg0;
     constexpr little_uint16_t lt0;
@@ -61,15 +62,15 @@ TEST(Utility, Types_U16) {
     little_uint16_t lt60;
     little_uint16_t lt61;
     if (m5::endian::little) {
-        bg60.operator=<false>(0x3412);  // big to big
-        bg61.operator=<true>(0x1234);   // little to big
-        lt60.operator=<false>(0x3412);  // big to little
-        lt61.operator=<true>(0x1234);   // little to little
+        bg60.operator= <false>(0x3412);  // big to big
+        bg61.operator= <true>(0x1234);   // little to big
+        lt60.operator= <false>(0x3412);  // big to little
+        lt61.operator= <true>(0x1234);   // little to little
     } else {
-        bg60.operator=<false>(0x1234);  // big to big
-        bg61.operator=<true>(0x3412);   // little to big
-        lt60.operator=<false>(0x1234);  // big to little
-        lt61.operator=<true>(0x3412);   // little to little
+        bg60.operator= <false>(0x1234);  // big to big
+        bg61.operator= <true>(0x3412);   // little to big
+        lt60.operator= <false>(0x1234);  // big to little
+        lt61.operator= <true>(0x3412);   // little to little
     }
     EXPECT_EQ(bg60.u8[0], 0x12);
     EXPECT_EQ(bg60.u8[1], 0x34);
@@ -113,7 +114,8 @@ TEST(Utility, Types_U16) {
     // data() is using in cast to const uint8_t*
 }
 
-TEST(Utility, Types_U16_Compare) {
+TEST(Utility, Types_U16_Compare)
+{
     big_uint16_t bg0{0x1234};
     little_uint16_t lt0{0x1234};
 

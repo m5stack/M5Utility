@@ -41,19 +41,22 @@ namespace m5 {
   @namespace utility
   @brief For utilities
 */
-namespace utility {}
+namespace utility {
+}
 
 /*!
   @namespace stl
   @brief STL compatibility functions and classes
  */
-namespace stl {}
+namespace stl {
+}
 
 /*!
   @namespace container
   @brief Container classes
  */
-namespace container {}
+namespace container {
+}
 
 }  // namespace m5
 

@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <m5_utility/stl/optional.hpp>
 
-TEST(Optional, RelationalOps) {
+TEST(Optional, RelationalOps)
+{
     m5::stl::optional<int> o1{4};
     m5::stl::optional<int> o2{42};
     m5::stl::optional<int> o3{};

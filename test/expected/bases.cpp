@@ -6,7 +6,8 @@
 #if (defined(__GNUC__) && __GNUC__ == 4 && __GNUC_MINOR__ <= 9 && !defined(__clang__))
 // nothing for now
 #else
-TEST(Expected, Triviality) {
+TEST(Expected, Triviality)
+{
     EXPECT_TRUE((std::is_trivially_copy_constructible<m5::stl::expected<int, int> >::value));
     EXPECT_TRUE((std::is_trivially_copy_assignable<m5::stl::expected<int, int> >::value));
     EXPECT_TRUE((std::is_trivially_move_constructible<m5::stl::expected<int, int> >::value));
@@ -38,17 +39,22 @@ TEST(Expected, Triviality) {
 
     {
         struct T {
-            T(const T&) {
+            T(const T&)
+            {
             }
-            T(T&&) {
+            T(T&&)
+            {
             }
-            T& operator=(const T&) {
+            T& operator=(const T&)
+            {
                 return *this;
             }
-            T& operator=(T&&) {
+            T& operator=(T&&)
+            {
                 return *this;
             }
-            ~T() {
+            ~T()
+            {
             }
         };
         EXPECT_TRUE(!(std::is_trivially_copy_constructible<m5::stl::expected<T, int> >::value));
@@ -59,7 +65,8 @@ TEST(Expected, Triviality) {
     }
 }
 
-TEST(Expected, Deletion) {
+TEST(Expected, Deletion)
+{
     EXPECT_TRUE((std::is_copy_constructible<m5::stl::expected<int, int> >::value));
     EXPECT_TRUE((std::is_copy_assignable<m5::stl::expected<int, int> >::value));
     EXPECT_TRUE((std::is_move_constructible<m5::stl::expected<int, int> >::value));
@@ -75,7 +82,8 @@ TEST(Expected, Deletion) {
 
     {
         struct T {
-            T(int) {
+            T(int)
+            {
             }
         };
         EXPECT_TRUE(!(std::is_default_constructible<m5::stl::expected<T, int> >::value));

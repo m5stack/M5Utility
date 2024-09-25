@@ -22,11 +22,13 @@ namespace {
 auto& lcd = M5.Display;
 }
 
-void test() {
+void test()
+{
     lcd.fillRect(0, 0, lcd.width() >> 1, lcd.height(), RUN_ALL_TESTS() ? TFT_RED : TFT_GREEN);
 }
 
-void setup() {
+void setup()
+{
     M5.begin();
 
     M5_LOGI("CPP %ld", __cplusplus);
@@ -42,7 +44,8 @@ void setup() {
 #endif
 }
 
-void loop() {
+void loop()
+{
     test();
     while (true) {
         delay(10000);

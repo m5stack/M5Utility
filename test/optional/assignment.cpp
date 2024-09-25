@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
 #include <m5_utility/stl/optional.hpp>
 
-TEST(Optional, Assignment) {
+TEST(Optional, Assignment)
+{
     m5::stl::optional<int> o1 = 42;
     m5::stl::optional<int> o2 = 12;
     m5::stl::optional<int> o3;
@@ -33,7 +34,8 @@ TEST(Optional, Assignment) {
     EXPECT_TRUE(*o1 == 42);
 }
 
-TEST(Optional, AssignmentReference) {
+TEST(Optional, AssignmentReference)
+{
     auto i = 42;
     auto j = 12;
 

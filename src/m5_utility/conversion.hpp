@@ -29,7 +29,8 @@ namespace utility {
   @endcode
  */
 template <size_t Bits, typename T>
-constexpr auto unsigned_to_signed(const T v) -> typename std::make_signed<T>::type {
+constexpr auto unsigned_to_signed(const T v) -> typename std::make_signed<T>::type
+{
     static_assert(std::is_integral<T>::value && std::is_unsigned<T>::value, "T must be an unsigned integer");
     static_assert(Bits <= sizeof(T) * 8, "Bits must be less than or equal to the number of bits in T");
 

@@ -41,7 +41,8 @@
   For native test, this main() is used.
   For embedded test, overwrite by main() in library.
 */
-__attribute__((weak)) int main(int argc, char **argv) {
+__attribute__((weak)) int main(int argc, char **argv)
+{
     testing::InitGoogleTest(&argc, argv);
 
 #ifdef GTEST_FILTER

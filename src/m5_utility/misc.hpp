@@ -16,7 +16,8 @@ namespace m5 {
 namespace utility {
 
 //!  @brief Valid I2C address?
-inline bool isValidI2CAddress(const uint16_t addr) {
+inline bool isValidI2CAddress(const uint16_t addr)
+{
     if (addr <= 0x7F) {  // 7 bit
         return (addr >= 0x08 && addr <= 0x77);
     }
@@ -24,7 +25,8 @@ inline bool isValidI2CAddress(const uint16_t addr) {
 }
 
 //! @brief Reversing the bit order
-inline uint8_t reverseBitOrder(const uint8_t u8) {
+inline uint8_t reverseBitOrder(const uint8_t u8)
+{
 #if defined(__clang__) && 0
 #pragma message "Using clang builtin"
     return __builtin_bitreverse8(u8);
@@ -38,7 +40,8 @@ inline uint8_t reverseBitOrder(const uint8_t u8) {
 }
 
 //! @brief Reversing the bit order
-inline uint16_t reverseBitOrder(const uint16_t u16) {
+inline uint16_t reverseBitOrder(const uint16_t u16)
+{
 #if defined(__clang__) && 0
 #pragma message "Using clang builtin"
     return __builtin_bitreverse16(u16);

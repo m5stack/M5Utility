@@ -24,7 +24,8 @@ namespace m5 {
 namespace utility {
 namespace log {
 
-void logPrintf(const char* format, ...) {
+void logPrintf(const char* format, ...)
+{
     va_list ap;
     va_start(ap, format);
     vprintf(format, ap);
@@ -34,7 +35,8 @@ void logPrintf(const char* format, ...) {
 #endif
 }
 
-void dump(const void* iaddr, const size_t len, const bool align) {
+void dump(const void* iaddr, const size_t len, const bool align)
+{
     constexpr static char hc[] = "0123456789ABCDEF";
     uint8_t* addr              = (uint8_t*)iaddr;
     uint8_t abyte              = align ? 0x0F : 0x00;
@@ -98,7 +100,8 @@ void dump(const void* iaddr, const size_t len, const bool align) {
     }
 }
 
-elapsed_time_t elapsedTime() {
+elapsed_time_t elapsedTime()
+{
     return std::chrono::duration_cast<elapsed_time_t>(clock::now() - start_at);
 }
 

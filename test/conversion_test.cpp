@@ -9,7 +9,8 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 
-TEST(Utility, Conversion) {
+TEST(Utility, Conversion)
+{
     {
         SCOPED_TRACE("8bit:4");
         std::pair<uint8_t, int8_t> table[] = {

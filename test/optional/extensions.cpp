@@ -3,15 +3,18 @@
 #include <string>
 #include "helper.hpp"
 
-constexpr int get_int(int) {
+constexpr int get_int(int)
+{
     return 42;
 }
-TL_OPTIONAL_11_CONSTEXPR m5::stl::optional<int> get_opt_int(int) {
+TL_OPTIONAL_11_CONSTEXPR m5::stl::optional<int> get_opt_int(int)
+{
     return 42;
 }
 
 // What is Clang Format up to?!
-TEST(Optional, Monadic) {
+TEST(Optional, Monadic)
+{
     {  // lhs is empty
         SCOPED_TRACE("map");
         m5::stl::optional<int> o1;
@@ -26,7 +29,8 @@ TEST(Optional, Monadic) {
         EXPECT_TRUE(o2r.value() == 42);
 
         struct rval_call_map {
-            double operator()(int) && {
+            double operator()(int) &&
+            {
                 return 42.0;
             };
         };
@@ -166,7 +170,8 @@ TEST(Optional, Monadic) {
         EXPECT_TRUE(o2r.value() == 42);
 
         struct rval_call_transform {
-            double operator()(int) && {
+            double operator()(int) &&
+            {
                 return 42.0;
             };
         };
@@ -320,7 +325,8 @@ TEST(Optional, Monadic) {
         EXPECT_TRUE(!o4r);
 
         struct rval_call_and_then {
-            m5::stl::optional<double> operator()(int) && {
+            m5::stl::optional<double> operator()(int) &&
+            {
                 return m5::stl::optional<double>(42.0);
             };
         };
@@ -462,7 +468,8 @@ TEST(Optional, Monadic) {
     }
 
     struct foo {
-        void non_const() {
+        void non_const()
+        {
         }
     };
 
@@ -477,10 +484,12 @@ TEST(Optional, Monadic) {
 #endif
 
     struct overloaded {
-        m5::stl::optional<int> operator()(foo &) {
+        m5::stl::optional<int> operator()(foo &)
+        {
             return 0;
         }
-        m5::stl::optional<std::string> operator()(const foo &) {
+        m5::stl::optional<std::string> operator()(const foo &)
+        {
             return "";
         }
     };

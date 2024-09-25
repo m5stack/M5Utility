@@ -52,15 +52,18 @@ constexpr log_level_t logOutputLevel = log_level_t::None;
 
 /// @cond
 // Does the string contain slash?
-constexpr bool containss_slash(const char* s) {
+constexpr bool containss_slash(const char* s)
+{
     return *s ? (*s == '/' ? true : containss_slash(s + 1)) : false;
 }
 // Returns the next position after the right-most slash
-constexpr const char* after_right_slash(const char* s) {
+constexpr const char* after_right_slash(const char* s)
+{
     return (*s == '/') ? (s + 1) : after_right_slash(s - 1);
 }
 // Gets the tail of string
-constexpr const char* tail(const char* s) {
+constexpr const char* tail(const char* s)
+{
     return *s ? tail(s + 1) : s;
 }
 /// @endcond
@@ -70,7 +73,8 @@ constexpr const char* tail(const char* s) {
   @warning If the string is too long, the recursion depth may be too deep to
   fail. (If compile time calculation)
  */
-constexpr const char* pathToFilename(const char* path) {
+constexpr const char* pathToFilename(const char* path)
+{
     return (path && path[0]) ? (containss_slash(path) ? after_right_slash(tail(path)) : path) : "";
 }
 

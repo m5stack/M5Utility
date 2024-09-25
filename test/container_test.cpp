@@ -14,7 +14,8 @@ namespace {
 
 using namespace m5::container;
 
-void cb_basic_test() {
+void cb_basic_test()
+{
     SCOPED_TRACE("Basic");
 
     FixedCircularBuffer<int, 4> rbuf;
@@ -229,7 +230,8 @@ void cb_basic_test() {
     // M5_LOGW("A> %zu/%zu/%u", rbuf._head, rbuf._tail, rbuf._full);
 }
 
-void cb_constructor_test() {
+void cb_constructor_test()
+{
     SCOPED_TRACE("Constructor");
 
     std::vector<int> table(100);
@@ -288,7 +290,8 @@ void cb_constructor_test() {
     EXPECT_FLOAT_EQ(rbuf3[2], 3.3f);
 }
 
-void cb_read() {
+void cb_read()
+{
     SCOPED_TRACE("Read");
 
     FixedCircularBuffer<int, 128> rb;
@@ -365,7 +368,8 @@ void cb_read() {
     EXPECT_EQ(*rb.back(), 227);
 }
 
-void cb_iterator_test() {
+void cb_iterator_test()
+{
     SCOPED_TRACE("Iterators");
 
     FixedCircularBuffer<int, 4> rb = {0, 1, 2};
@@ -460,7 +464,8 @@ void cb_iterator_test() {
 
 }  // namespace
 
-TEST(Utility, CircularBuffer) {
+TEST(Utility, CircularBuffer)
+{
     cb_basic_test();
     cb_constructor_test();
     cb_read();

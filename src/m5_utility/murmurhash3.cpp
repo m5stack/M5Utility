@@ -13,7 +13,8 @@ namespace m5 {
 namespace utility {
 namespace mmh3 {
 
-uint32_t calculate(const char* str) {
+uint32_t calculate(const char* str)
+{
     auto len = strlen(str);
     return finalize(rest(str + ((len >> 2) * sizeof(uint32_t)), (len & 3), group_of_4(str, len >> 2)), len);
 }

@@ -23,7 +23,8 @@ namespace {
 
 auto rng = std::default_random_engine{};
 
-string_t make_random_str() {
+string_t make_random_str()
+{
     constexpr char dic[] =
         "abcdefghijklmnopqrstuvwxyz"
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -48,7 +49,8 @@ test_pair_t test_pairs[] = {
 
 }  // namespace
 
-TEST(MurmurHash3, endianness) {
+TEST(MurmurHash3, endianness)
+{
     using namespace m5::utility::mmh3;
 
     constexpr char tst[] = "M5ST";
@@ -60,7 +62,8 @@ TEST(MurmurHash3, endianness) {
 }
 
 // User-defined literals "_mmh3"
-TEST(MurmurHash3, user_defined_literals) {
+TEST(MurmurHash3, user_defined_literals)
+{
     using namespace m5::utility::mmh3;
 
     constexpr auto h0 = ""_mmh3;
@@ -73,7 +76,8 @@ TEST(MurmurHash3, user_defined_literals) {
 }
 
 // Verification of value correctness
-TEST(MurmurHash3, verify) {
+TEST(MurmurHash3, verify)
+{
     for (auto&& e : test_pairs) {
         auto& s = e.first;
         auto h  = m5::utility::mmh3::calculate(s);

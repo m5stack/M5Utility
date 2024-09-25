@@ -9,14 +9,16 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 
-TEST(Utility, String) {
+TEST(Utility, String)
+{
     std::string org = "\t\r\n\v STRING \v\n\r\t";
     std::string s   = org;
     s               = m5::utility::trim(s);  // Call trimRight/Left in it
     EXPECT_STREQ(s.c_str(), "STRING");
 }
 
-TEST(Utility, HexString) {
+TEST(Utility, HexString)
+{
     {
         std::pair<uint8_t, char> table_upper[] = {
             {0, '0'}, {1, '1'},  {2, '2'},  {3, '3'},  {4, '4'},  {5, '5'},  {6, '6'},  {7, '7'},   {8, '8'},

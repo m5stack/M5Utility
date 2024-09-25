@@ -32,7 +32,7 @@ namespace container {
  */
 template <typename T>
 class CircularBuffer {
-   public:
+public:
     using value_type      = T;
     using size_type       = size_t;
     using reference       = T&;
@@ -50,19 +50,23 @@ class CircularBuffer {
     ///@name Constructor
     ///@{
     CircularBuffer() = delete;
-    explicit CircularBuffer(const size_t n) {
+    explicit CircularBuffer(const size_t n)
+    {
         assert(n != 0 && "Illegal size");
         _cap = n;
         _buf.resize(n);
     }
-    CircularBuffer(const size_type n, const_reference value) : CircularBuffer(n) {
+    CircularBuffer(const size_type n, const_reference value) : CircularBuffer(n)
+    {
         assign(n, value);
     }
     template <class InputIter>
-    CircularBuffer(const size_type n, InputIter first, InputIter last) : CircularBuffer(n) {
+    CircularBuffer(const size_type n, InputIter first, InputIter last) : CircularBuffer(n)
+    {
         assign(first, last);
     }
-    CircularBuffer(const size_type n, std::initializer_list<T> il) : CircularBuffer(n, il.begin(), il.end()) {
+    CircularBuffer(const size_type n, std::initializer_list<T> il) : CircularBuffer(n, il.begin(), il.end())
+    {
     }
 
     CircularBuffer(const CircularBuffer&) = default;
@@ -82,7 +86,8 @@ class CircularBuffer {
       @param first,last The Range to copy the elements from
      */
     template <class InputIterator>
-    void assign(InputIterator first, InputIterator last) {
+    void assign(InputIterator first, InputIterator last)
+    {
         clear();
         size_type sz = last - first;
         if (sz > _cap) {
@@ -99,7 +104,8 @@ class CircularBuffer {
       @param v Value to assign to the elements
       @note Fill with the value as many times as n or the capacity
      */
-    void assign(size_type n, const_reference v) {
+    void assign(size_type n, const_reference v)
+    {
         clear();
         n = std::min(_cap, n);
         while (n--) {
@@ -110,7 +116,8 @@ class CircularBuffer {
       @brief assigns values to the container
       @param il Initializer list from which the copy is made
      */
-    inline void assign(std::initializer_list<T> il) {
+    inline void assign(std::initializer_list<T> il)
+    {
         assign(il.begin(), il.end());
     }
     /// @}
@@ -121,7 +128,8 @@ class CircularBuffer {
       @brief Access the first element
       @return m5::stl::optional<value_type>
     */
-    inline return_type front() const {
+    inline return_type front() const
+    {
 #if __cplusplus >= 201703L
         return !empty() ? std::make_optional(_buf[_tail]) : std::nullopt;
 #else
@@ -132,7 +140,8 @@ class CircularBuffer {
       @brief Access the last element
       @return m5::stl::optional<value_type>
     */
-    inline return_type back() const {
+    inline return_type back() const
+    {
 #if __cplusplus >= 201703L
         return !empty() ? std::make_optional(_buf[(_head - 1 + _cap) % _cap]) : std::nullopt;
 #else
@@ -143,7 +152,8 @@ class CircularBuffer {
       @brief Access specified element
       @return Reference to the requested element
     */
-    inline const_reference operator[](size_type i) const& {
+    inline const_reference operator[](size_type i) const&
+    {
         assert(size() > 0 && "container empty");
         assert(i < size() && "index overflow");
         return _buf[(_tail + i) % _cap];
@@ -152,7 +162,8 @@ class CircularBuffer {
       @brief Access specified element with bounds checking
       @return m5::stl::optional<value_type>
     */
-    inline return_type at(size_type i) const {
+    inline return_type at(size_type i) const
+    {
 #if __cplusplus >= 201703L
         return (!empty() && i < size()) ? std::make_optional(_buf[(_tail + i) % _cap]) : std::nullopt;
 #else
@@ -165,7 +176,8 @@ class CircularBuffer {
       @param num Max elements of output buffer
       @return Number of elements read
      */
-    size_t read(value_type* outbuf, const size_t num) {
+    size_t read(value_type* outbuf, const size_t num)
+    {
         size_t sz = std::min(num, size());
         if (sz == 0) {
             return sz;
@@ -196,27 +208,31 @@ class CircularBuffer {
       @brief checks whether the container is empty
       @return True if empty
     */
-    inline bool empty() const {
+    inline bool empty() const
+    {
         return !full() && (_head == _tail);
     }
     /*!
       @brief checks whether the container is full
       @return True if full
     */
-    inline bool full() const {
+    inline bool full() const
+    {
         return _full;
     }
     /*!
       @brief returns the number of elements
     */
-    inline size_type size() const {
+    inline size_type size() const
+    {
         return full() ? _cap : (_head >= _tail ? _head - _tail : _cap + _head - _tail);
     }
     /*!
       @brief Returns the number of elements that can be held in currently
       storage
      */
-    inline size_type capacity() const {
+    inline size_type capacity() const
+    {
         return _cap;
     }
     ///@}
@@ -224,12 +240,14 @@ class CircularBuffer {
     ///@name Modifiers
     ///@{
     /*! @brief Clears the contents */
-    void clear() {
+    void clear()
+    {
         _full = false;
         _head = _tail = 0U;
     }
     //!  @brief Adds an element to the top
-    void push_front(const value_type& v) {
+    void push_front(const value_type& v)
+    {
         _tail       = (_tail - 1 + _cap) % _cap;
         _buf[_tail] = v;
         if (_full) {
@@ -238,7 +256,8 @@ class CircularBuffer {
         _full = (_head == _tail);
     }
     //! @brief Adds an element to the end
-    void push_back(const value_type& v) {
+    void push_back(const value_type& v)
+    {
         _buf[_head] = v;
         _head       = (_head + 1) % _cap;
         if (_full) {
@@ -247,14 +266,16 @@ class CircularBuffer {
         _full = (_head == _tail);
     }
     //! @brief removes the top element
-    inline void pop_front() {
+    inline void pop_front()
+    {
         if (!empty()) {
             _tail = (_tail + 1) % _cap;
             _full = false;
         }
     }
     //! @brief removes the end element
-    inline void pop_back() {
+    inline void pop_back()
+    {
         if (!empty()) {
             _head = (_head - 1 + _cap) % _cap;
             _full = false;
@@ -268,7 +289,8 @@ class CircularBuffer {
       @brief Assigns the value to all elements in the container
       @param v Value to assign to the elements
      */
-    void fill(const value_type& v) {
+    void fill(const value_type& v)
+    {
         clear();
         std::fill(_buf.begin(), _buf.end(), v);
         _full = true;
@@ -277,7 +299,8 @@ class CircularBuffer {
       @brief Swaps the contents
       @param o Ccontainer to exchange the contents with
     */
-    void swap(CircularBuffer& o) {
+    void swap(CircularBuffer& o)
+    {
         if (this != &o) {
             std::swap(_buf, o._buf);
             std::swap(_cap, o._cap);
@@ -290,101 +313,121 @@ class CircularBuffer {
 
     ///@cond
     class iterator {
-       public:
+    public:
         using iterator_category = std::bidirectional_iterator_tag;
         using difference_type   = std::ptrdiff_t;
         using value_type        = CircularBuffer::value_type;
         using pointer           = CircularBuffer::value_type*;
         using reference         = CircularBuffer::reference;
 
-        iterator() : _buffer(nullptr), _pos(0) {
+        iterator() : _buffer(nullptr), _pos(0)
+        {
         }
-        iterator(CircularBuffer* buf, size_t pos) : _buffer(buf), _pos(pos) {
+        iterator(CircularBuffer* buf, size_t pos) : _buffer(buf), _pos(pos)
+        {
         }
 
-        inline reference operator*() const {
+        inline reference operator*() const
+        {
             return _buffer->_buf[_pos % _buffer->capacity()];
         }
-        inline pointer operator->() const {
+        inline pointer operator->() const
+        {
             return &(_buffer->_buf[_pos % _buffer->capacity()]);
         }
-        inline iterator& operator++() {
+        inline iterator& operator++()
+        {
             ++_pos;
             return *this;
         }
-        inline iterator& operator--() {
+        inline iterator& operator--()
+        {
             --_pos;
             return *this;
         }
-        inline iterator operator++(int) {
+        inline iterator operator++(int)
+        {
             iterator tmp = *this;
             ++(*this);
             return tmp;
         }
-        inline iterator operator--(int) {
+        inline iterator operator--(int)
+        {
             iterator tmp = *this;
             --(*this);
             return tmp;
         }
 
-        friend inline bool operator==(const iterator& a, const iterator& b) {
+        friend inline bool operator==(const iterator& a, const iterator& b)
+        {
             return a._buffer == b._buffer && a._pos == b._pos;
         }
-        friend inline bool operator!=(const iterator& a, const iterator& b) {
+        friend inline bool operator!=(const iterator& a, const iterator& b)
+        {
             return !(a == b);
         }
 
-       private:
+    private:
         CircularBuffer* _buffer;
         size_t _pos;
     };
 
     class const_iterator {
-       public:
+    public:
         using iterator_category = std::bidirectional_iterator_tag;
         using difference_type   = std::ptrdiff_t;
         using value_type        = CircularBuffer::value_type;
         using pointer           = const CircularBuffer::value_type*;
         using reference         = CircularBuffer::const_reference;
 
-        const_iterator() : _buffer(nullptr), _pos(0) {
+        const_iterator() : _buffer(nullptr), _pos(0)
+        {
         }
-        const_iterator(const CircularBuffer* buf, size_t pos) : _buffer(buf), _pos(pos) {
+        const_iterator(const CircularBuffer* buf, size_t pos) : _buffer(buf), _pos(pos)
+        {
         }
 
-        inline reference operator*() const {
+        inline reference operator*() const
+        {
             return _buffer->_buf[_pos % _buffer->capacity()];
         }
-        inline pointer operator->() const {
+        inline pointer operator->() const
+        {
             return &(_buffer->_buf[_pos % _buffer->capacity()]);
         }
-        inline const_iterator& operator++() {
+        inline const_iterator& operator++()
+        {
             ++_pos;
             return *this;
         }
-        inline const_iterator& operator--() {
+        inline const_iterator& operator--()
+        {
             --_pos;
             return *this;
         }
-        inline const_iterator operator++(int) {
+        inline const_iterator operator++(int)
+        {
             const_iterator tmp = *this;
             ++(*this);
             return tmp;
         }
-        inline const_iterator operator--(int) {
+        inline const_iterator operator--(int)
+        {
             const_iterator tmp = *this;
             --(*this);
             return tmp;
         }
 
-        friend inline bool operator==(const const_iterator& a, const const_iterator& b) {
+        friend inline bool operator==(const const_iterator& a, const const_iterator& b)
+        {
             return a._buffer == b._buffer && a._pos == b._pos;
         }
-        friend inline bool operator!=(const const_iterator& a, const const_iterator& b) {
+        friend inline bool operator!=(const const_iterator& a, const const_iterator& b)
+        {
             return !(a == b);
         }
 
-       private:
+    private:
         const CircularBuffer* _buffer;
         size_t _pos;
     };
@@ -393,33 +436,41 @@ class CircularBuffer {
     ///@note Iterator is bidirectional
     /// @name Iterator
     /// @{
-    inline iterator begin() noexcept {
+    inline iterator begin() noexcept
+    {
         return iterator(this, _tail);
     }
-    inline iterator end() noexcept {
+    inline iterator end() noexcept
+    {
         return iterator(this, _tail + size());
     }
-    inline const_iterator cbegin() const noexcept {
+    inline const_iterator cbegin() const noexcept
+    {
         return const_iterator(this, _tail);
     }
-    inline const_iterator cend() const noexcept {
+    inline const_iterator cend() const noexcept
+    {
         return const_iterator(this, _tail + size());
     }
-    inline reverse_iterator rbegin() noexcept {
+    inline reverse_iterator rbegin() noexcept
+    {
         return std::reverse_iterator<iterator>(end());
     }
-    inline reverse_iterator rend() noexcept {
+    inline reverse_iterator rend() noexcept
+    {
         return std::reverse_iterator<iterator>(begin());
     }
-    inline const_reverse_iterator crbegin() const noexcept {
+    inline const_reverse_iterator crbegin() const noexcept
+    {
         return std::reverse_iterator<const_iterator>(cend());
     }
-    inline const_reverse_iterator crend() const noexcept {
+    inline const_reverse_iterator crend() const noexcept
+    {
         return std::reverse_iterator<const_iterator>(cbegin());
     }
     /// @}
 
-   private:
+private:
     std::vector<T> _buf{};
     size_t _cap{}, _head{}, _tail{};
     bool _full{};
@@ -433,7 +484,7 @@ class CircularBuffer {
 */
 template <typename T, size_t N>
 class FixedCircularBuffer : public CircularBuffer<T> {
-   public:
+public:
     using value_type      = T;
     using size_type       = size_t;
     using reference       = T&;
@@ -444,15 +495,19 @@ class FixedCircularBuffer : public CircularBuffer<T> {
     using return_type = m5::stl::optional<value_type>;
 #endif
 
-    FixedCircularBuffer() : CircularBuffer<T>(N) {
+    FixedCircularBuffer() : CircularBuffer<T>(N)
+    {
     }
-    FixedCircularBuffer(const size_type n, const_reference value) : CircularBuffer<T>(N) {
+    FixedCircularBuffer(const size_type n, const_reference value) : CircularBuffer<T>(N)
+    {
         CircularBuffer<T>::assign(n, value);
     }
     template <class InputIter>
-    FixedCircularBuffer(InputIter first, InputIter last) : CircularBuffer<T>(N, first, last) {
+    FixedCircularBuffer(InputIter first, InputIter last) : CircularBuffer<T>(N, first, last)
+    {
     }
-    FixedCircularBuffer(std::initializer_list<T> il) : CircularBuffer<T>(N, il) {
+    FixedCircularBuffer(std::initializer_list<T> il) : CircularBuffer<T>(N, il)
+    {
     }
 
     FixedCircularBuffer(const FixedCircularBuffer&) = default;
@@ -473,7 +528,8 @@ namespace std {
   @param a,b Containers whose contents to swap
 */
 template <typename T>
-inline void swap(m5::container::CircularBuffer<T>& a, m5::container::CircularBuffer<T>& b) {
+inline void swap(m5::container::CircularBuffer<T>& a, m5::container::CircularBuffer<T>& b)
+{
     a.swap(b);
 }
 }  // namespace std

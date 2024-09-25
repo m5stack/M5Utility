@@ -9,7 +9,8 @@
     (void)TOKENPASTE2(rqure, __LINE__);              \
     EXPECT_TRUE(e);
 
-TEST(Expected, MapExtensions) {
+TEST(Expected, MapExtensions)
+{
     auto mul2     = [](int a) { return a * 2; };
     auto ret_void = [](int a) { (void)a; };
 
@@ -134,7 +135,8 @@ TEST(Expected, MapExtensions) {
     }
 }
 
-TEST(Expected, MapErrorExtensions) {
+TEST(Expected, MapErrorExtensions)
+{
     auto mul2     = [](int a) { return a * 2; };
     auto ret_void = [](int a) { (void)a; };
 
@@ -243,7 +245,8 @@ TEST(Expected, MapErrorExtensions) {
     }
 }
 
-TEST(Expected, AndThenExtensions) {
+TEST(Expected, AndThenExtensions)
+{
     auto succeed = [](int a) {
         (void)a;
         return m5::stl::expected<int, int>(21 * 2);
@@ -366,7 +369,8 @@ TEST(Expected, AndThenExtensions) {
     }
 }
 
-TEST(Expected, or_else) {
+TEST(Expected, or_else)
+{
     using eptr   = std::unique_ptr<int>;
     auto succeed = [](int a) {
         (void)a;
@@ -565,7 +569,8 @@ TEST(Expected, or_else) {
     }
 }
 
-TEST(Expected, TransformExtensions) {
+TEST(Expected, TransformExtensions)
+{
     auto mul2     = [](int a) { return a * 2; };
     auto ret_void = [](int a) { (void)a; };
 
@@ -690,7 +695,8 @@ TEST(Expected, TransformExtensions) {
     }
 }
 
-TEST(Expected, TransformErrorExtensions) {
+TEST(Expected, TransformErrorExtensions)
+{
     auto mul2     = [](int a) { return a * 2; };
     auto ret_void = [](int a) { (void)a; };
 
@@ -807,13 +813,15 @@ struct F {
     int x;
 };
 
-TEST(Expected, issue14) {
+TEST(Expected, issue14)
+{
     auto res = m5::stl::expected<S, F>{m5::stl::unexpect, F{}};
 
     res.map_error([](F f) { (void)f; });
 }
 
-TEST(Expected, issue32) {
+TEST(Expected, issue32)
+{
     int i = 0;
     m5::stl::expected<void, int> a;
     a.map([&i] { i = 42; });
