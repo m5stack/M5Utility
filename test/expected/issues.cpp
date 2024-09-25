@@ -44,8 +44,11 @@ TEST(Expected, Issue17)
     intermediate_result.and_then(operation2);
 }
 
-struct a {};
-struct b : a {};
+struct a { /* empty */
+};
+
+struct b : a { /* empty */
+};
 
 auto doit() -> m5::stl::expected<std::unique_ptr<b>, int>
 {
