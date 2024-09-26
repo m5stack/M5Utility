@@ -5,13 +5,14 @@ env:
   SKETCH_NAMES_FIND_START: ./examples/workflow
 
 on:
-  push: # see: https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
+  push:
     paths:
     - '**.ino'
     - '**.cpp'
     - '**.hpp'
     - '**.h'
     - '**.c'
+    - '**.inl'
     - '**ArduinoBuild_3.yml'
   pull_request:
   workflow_dispatch:

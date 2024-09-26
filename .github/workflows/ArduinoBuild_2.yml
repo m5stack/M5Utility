@@ -2,8 +2,8 @@ name: ArduinoBuild(platform-version 2.x)
 
 env:
   SKETCH_NAME: build_test.ino
-  SKETCH_NAMES_FIND_START: ./build_test
-  REQUIRED_LIBRARIES: # M5Unified, M5GFX
+  SKETCH_NAMES_FIND_START: ./examples/workflow
+  REQUIRED_LIBRARIES:
 
 on:
   push:
@@ -32,9 +32,9 @@ jobs:
 
         board:
           - m5stack-core-esp32
-          #- m5stack-core2
-          #- m5stack-atoms3
-          #- m5stack-cores3
+          - m5stack-core2
+          - m5stack-atoms3
+          - m5stack-cores3
 
         platform-version:
           #- 2.0.15
