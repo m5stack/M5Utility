@@ -22,3 +22,28 @@ If you want to output Git commit hashes to html, do it for the git cloned folder
 - [Git](https://git-scm.com/) (Output commit hash to html)
 
 
+---
+
+## 概要
+このライブラリは M5Stack 関連ライブラリのための共通ライブラリです。
+
+## ユニットテスト(メンテナンス用)
+googleTest によるユニットテストを内包しています。 PlatformIO で実行できます。
+
+
+## Doxygen ドキュメント
+あなたのローカルマシンでドキュメントを生成したい場合は、以下のコマンドを実行してください。
+```
+bash docs/doxy.sh
+```
+docs/html の下に出力されます。  
+Git コミットのハッシュを html に出力したい場合は、 git クローンしたフォルダに対して実行してください。
+
+### 必要な物
+- [Doxyegn](https://www.doxygen.nl/)
+- [pcregrep](https://formulae.brew.sh/formula/pcre2)
+- [Git](https://git-scm.com/)
+
+
+
+
