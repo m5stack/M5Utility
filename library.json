@@ -1,0 +1,29 @@
+{
+    "name": "M5Utility",
+    "description": "Library for other M5 libraries and products",
+    "keywords": "M5Utility",
+    "authors": {
+        "name": "M5Stack",
+        "url": "http://www.m5stack.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/m5stack/M5Utility.git"
+    },
+    "dependencies": [],
+    "version": "0.0.1",
+    "frameworks": [
+        "arduino"
+    ],
+    "platforms": [
+        "espressif32"
+    ],
+    "headers": "M5Utility.h",
+    "license": "MIT",
+    "export": {
+        "exclude":
+        [
+            "docs/html"
+        ]
+    }
+}

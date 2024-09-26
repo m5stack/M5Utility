@@ -1,48 +1,49 @@
-# Product Name
+# M5Utility
 
 ## Overview
+This library is a collection of common functionality for other M5Libraries and products.
 
-### SKU:xxx
+## UnitTest (For internal maintainers)
+UnitTest is included, which can run on PlatformIO.
 
-Description of the product
+## Doxygen document
+If you want to generate documents on your local machine, execute the following command
 
-## Related Link
-
-- [Document & Datasheet](https://docs.m5stack.com/en/unit/product_Link)
-
-## Required Libraries:
-
-- [Adafruit_BMP280_Library](https://github.com/adafruit/Required_Libraries_Link)
-
-## License
-
-- [Product Name- MIT](LICENSE)
-
-## Remaining steps(Editorial Staff Look,After following the steps, remember to delete all the content below)
-
-1. Change [clang format check path](./.github/workflows/clang-format-check.yml#L9-L15).
-2. Add License content to [LICENSE](/LICENSE).
-3. Change link on line 78 of [bug-report.yml](./.github/ISSUE_TEMPLATE/bug-report.yml#L78).
-
-```cpp
-Example
-# M5Unit-ENV
-
-## Overview
-
-### SKU:U001 & U001-B & U001-C
-
-Contains M5Stack-**UNIT ENV** series related case programs.ENV is an environmental sensor with integrated SHT30 and QMP6988 internally to detect temperature, humidity, and atmospheric pressure data.
-
-## Related Link
-
-- [Document & Datasheet](https://docs.m5stack.com/en/unit/envIII)
-
-## Required Libraries:
-
-- [Adafruit_BMP280_Library](https://github.com/adafruit/Adafruit_BMP280_Library)
-
-## License
-
-- [M5Unit-ENV - MIT](LICENSE)
 ```
+bash docs/doxy.sh
+```
+
+It will output it under docs/html  
+If you want to output Git commit hashes to html, do it for the git cloned folder.
+
+### Required
+- [Doxyegn](https://www.doxygen.nl/)
+- [pcregrep](https://formulae.brew.sh/formula/pcre2)
+- [Git](https://git-scm.com/) (Output commit hash to html)
+
+
+---
+
+## 概要
+このライブラリは M5Stack 関連ライブラリのための共通ライブラリです。
+
+## ユニットテスト(メンテナンス用)
+googleTest によるユニットテストを内包しています。 PlatformIO で実行できます。
+
+
+## Doxygen ドキュメント
+あなたのローカルマシンでドキュメントを生成したい場合は、以下のコマンドを実行してください。
+```
+bash docs/doxy.sh
+```
+docs/html の下に出力されます。  
+Git コミットのハッシュを html に出力したい場合は、 git クローンしたフォルダに対して実行してください。
+
+### 必要な物
+- [Doxyegn](https://www.doxygen.nl/)
+- [pcregrep](https://formulae.brew.sh/formula/pcre2)
+- [Git](https://git-scm.com/)
+
+
+
+
