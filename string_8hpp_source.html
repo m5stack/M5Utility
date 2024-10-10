@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.0 git rev:a7def58</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.1 git rev:35c93a6</span>
    </div>
   </td>
  </tr>
@@ -123,36 +123,38 @@ $(function(){initNavTree('string_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> Case = true&gt;</div>
 <div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="string_8hpp.html#a1c125564d7e0042fe6ee8914306bd53d">   40</a></span><span class="keyword">constexpr</span> <span class="keywordtype">char</span> <a class="code hl_function" href="string_8hpp.html#a1c125564d7e0042fe6ee8914306bd53d">uintToHexChar</a>(<span class="keyword">const</span> uint8_t v) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> (v &amp; 0x0F) &lt; 10 ? <span class="charliteral">&#39;0&#39;</span> + (v &amp; 0x0F) : (Case ? <span class="charliteral">&#39;A&#39;</span> : <span class="charliteral">&#39;a&#39;</span>) + ((v &amp; 0x0F) - 10);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="string_8hpp.html#a1c125564d7e0042fe6ee8914306bd53d">   40</a></span><span class="keyword">constexpr</span> <span class="keywordtype">char</span> <a class="code hl_function" href="string_8hpp.html#a1c125564d7e0042fe6ee8914306bd53d">uintToHexChar</a>(<span class="keyword">const</span> uint8_t v)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> (v &amp; 0x0F) &lt; 10 ? <span class="charliteral">&#39;0&#39;</span> + (v &amp; 0x0F) : (Case ? <span class="charliteral">&#39;A&#39;</span> : <span class="charliteral">&#39;a&#39;</span>) + ((v &amp; 0x0F) - 10);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keywordtype">bool</span> Case = true&gt;</div>
-<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="string_8hpp.html#aa3d3d6ec09396e3dc6eabf9fc5e86d24">   49</a></span>std::string <a class="code hl_function" href="string_8hpp.html#aa3d3d6ec09396e3dc6eabf9fc5e86d24">unsignedToHexString</a>(<span class="keyword">const</span> T&amp; v) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">static_assert</span>(std::is_integral&lt;T&gt;::value &amp;&amp; std::is_unsigned&lt;T&gt;::value, <span class="stringliteral">&quot;T must be unsigned integer&quot;</span>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::string s;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = <span class="keyword">sizeof</span>(T); i &gt; 0; --i) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        uint8_t u8 = (v &gt;&gt; ((i - 1) * 8)) &amp; 0xFF;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        s += uintToHexChar&lt;Case&gt;((u8 &gt;&gt; 4) &amp; 0x0F);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        s += uintToHexChar&lt;Case&gt;(u8 &amp; 0x0F);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> s;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keywordtype">bool</span> Case = true&gt;</div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="string_8hpp.html#aa3d3d6ec09396e3dc6eabf9fc5e86d24">   50</a></span>std::string <a class="code hl_function" href="string_8hpp.html#aa3d3d6ec09396e3dc6eabf9fc5e86d24">unsignedToHexString</a>(<span class="keyword">const</span> T&amp; v)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">static_assert</span>(std::is_integral&lt;T&gt;::value &amp;&amp; std::is_unsigned&lt;T&gt;::value, <span class="stringliteral">&quot;T must be unsigned integer&quot;</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    std::string s;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = <span class="keyword">sizeof</span>(T); i &gt; 0; --i) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        uint8_t u8 = (v &gt;&gt; ((i - 1) * 8)) &amp; 0xFF;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        s += uintToHexChar&lt;Case&gt;((u8 &gt;&gt; 4) &amp; 0x0F);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        s += uintToHexChar&lt;Case&gt;(u8 &amp; 0x0F);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> s;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}  <span class="comment">// namespace utility</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}  <span class="comment">// namespace m5</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}  <span class="comment">// namespace utility</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}  <span class="comment">// namespace m5</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5.</div><div class="ttdef"><b>Definition</b> bit_segment.hpp:17</div></div>
 <div class="ttc" id="anamespaceutility_html"><div class="ttname"><a href="namespaceutility.html">utility</a></div><div class="ttdoc">For utilities.</div></div>
 <div class="ttc" id="astring_8cpp_html_a03bf2d05084e4b976b506790101c35fa"><div class="ttname"><a href="string_8cpp.html#a03bf2d05084e4b976b506790101c35fa">m5::utility::formatString</a></div><div class="ttdeci">std::string formatString(const char *fmt,...)</div><div class="ttdoc">@ brief Create a string in a format similar to printf</div><div class="ttdef"><b>Definition</b> string.cpp:17</div></div>
-<div class="ttc" id="astring_8cpp_html_a8a66786875d5eb891e00a11c550261c8"><div class="ttname"><a href="string_8cpp.html#a8a66786875d5eb891e00a11c550261c8">m5::utility::trim</a></div><div class="ttdeci">std::string &amp; trim(std::string &amp;s)</div><div class="ttdoc">Trim both ends.</div><div class="ttdef"><b>Definition</b> string.cpp:44</div></div>
-<div class="ttc" id="astring_8cpp_html_ab3c8cd8feeaa81314afa25e976bef9e2"><div class="ttname"><a href="string_8cpp.html#ab3c8cd8feeaa81314afa25e976bef9e2">m5::utility::trimRight</a></div><div class="ttdeci">std::string &amp; trimRight(std::string &amp;s)</div><div class="ttdoc">Trim right.</div><div class="ttdef"><b>Definition</b> string.cpp:33</div></div>
-<div class="ttc" id="astring_8cpp_html_ace0c56ab88b9c6cb62d4f643a734b713"><div class="ttname"><a href="string_8cpp.html#ace0c56ab88b9c6cb62d4f643a734b713">m5::utility::trimLeft</a></div><div class="ttdeci">std::string &amp; trimLeft(std::string &amp;s)</div><div class="ttdoc">Trim left.</div><div class="ttdef"><b>Definition</b> string.cpp:38</div></div>
+<div class="ttc" id="astring_8cpp_html_a8a66786875d5eb891e00a11c550261c8"><div class="ttname"><a href="string_8cpp.html#a8a66786875d5eb891e00a11c550261c8">m5::utility::trim</a></div><div class="ttdeci">std::string &amp; trim(std::string &amp;s)</div><div class="ttdoc">Trim both ends.</div><div class="ttdef"><b>Definition</b> string.cpp:47</div></div>
+<div class="ttc" id="astring_8cpp_html_ab3c8cd8feeaa81314afa25e976bef9e2"><div class="ttname"><a href="string_8cpp.html#ab3c8cd8feeaa81314afa25e976bef9e2">m5::utility::trimRight</a></div><div class="ttdeci">std::string &amp; trimRight(std::string &amp;s)</div><div class="ttdoc">Trim right.</div><div class="ttdef"><b>Definition</b> string.cpp:34</div></div>
+<div class="ttc" id="astring_8cpp_html_ace0c56ab88b9c6cb62d4f643a734b713"><div class="ttname"><a href="string_8cpp.html#ace0c56ab88b9c6cb62d4f643a734b713">m5::utility::trimLeft</a></div><div class="ttdeci">std::string &amp; trimLeft(std::string &amp;s)</div><div class="ttdoc">Trim left.</div><div class="ttdef"><b>Definition</b> string.cpp:40</div></div>
 <div class="ttc" id="astring_8hpp_html_a1c125564d7e0042fe6ee8914306bd53d"><div class="ttname"><a href="string_8hpp.html#a1c125564d7e0042fe6ee8914306bd53d">m5::utility::uintToHexChar</a></div><div class="ttdeci">constexpr char uintToHexChar(const uint8_t v)</div><div class="ttdoc">Convert from 0~15 to hexadecimal character.</div><div class="ttdef"><b>Definition</b> string.hpp:40</div></div>
-<div class="ttc" id="astring_8hpp_html_aa3d3d6ec09396e3dc6eabf9fc5e86d24"><div class="ttname"><a href="string_8hpp.html#aa3d3d6ec09396e3dc6eabf9fc5e86d24">m5::utility::unsignedToHexString</a></div><div class="ttdeci">std::string unsignedToHexString(const T &amp;v)</div><div class="ttdoc">Convert any one unsigned integer to a hexadecimal string.</div><div class="ttdef"><b>Definition</b> string.hpp:49</div></div>
+<div class="ttc" id="astring_8hpp_html_aa3d3d6ec09396e3dc6eabf9fc5e86d24"><div class="ttname"><a href="string_8hpp.html#aa3d3d6ec09396e3dc6eabf9fc5e86d24">m5::utility::unsignedToHexString</a></div><div class="ttdeci">std::string unsignedToHexString(const T &amp;v)</div><div class="ttdoc">Convert any one unsigned integer to a hexadecimal string.</div><div class="ttdef"><b>Definition</b> string.hpp:50</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
