@@ -5,7 +5,13 @@ env:
 
 on:
   push:
+    tags-ignore:
+      - '*.*.*'
+      - 'v*.*.*'
+    branches:
+      - '*'
     paths:
+      - '*'
       - '**.ino'
       - '**.cpp'
       - '**.hpp'
@@ -33,12 +39,15 @@ jobs:
     strategy:
       matrix:
         path:
+          #- check: './'    # path to include
+          #  exclude: ''    # path to exclude
           - check: 'src'
             exclude: '^.*[\/](optional|expected)\.(hpp)$'
           - check: 'test'
-            exclude: ''
-          - check: 'examples'
-            exclude: ''
+          #- check: 'examples'
+          #  exclude: '(Fonts)' # Exclude file paths containing "Fonts"
+          #- check: 'examples'
+          #  exclude: ''
 
     steps:
       - name: Checkout
@@ -53,4 +62,3 @@ jobs:
           check-path: ${{ matrix.path['check'] }}
           exclude-regex: ${{ matrix.path['exclude'] }}
           include-regex: ${{ env.INCLUDE_REGEX }}
-

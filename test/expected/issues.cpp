@@ -195,7 +195,10 @@ struct move_tracker {
     {
     }
 
-    move_tracker &operator=(move_tracker const &other) noexcept {};
+    move_tracker &operator=(move_tracker const &other) noexcept
+    {
+        return *this;
+    }
 
     move_tracker &operator=(move_tracker &&orig) noexcept
     {
