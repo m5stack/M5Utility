@@ -103,7 +103,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Build examples
-        uses: m5stack/M5Utility/.github/actions/pio_build_test@develop
+        uses: m5stack/M5Utility/.github/actions/pio_test_build@develop
         with:
           environments: test_${{ matrix.board }}
 #         targets:
