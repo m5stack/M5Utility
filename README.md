@@ -7,6 +7,9 @@ This library is a collection of common functionality for other M5Libraries and p
 UnitTest is included, which can run on PlatformIO.
 
 ## Doxygen document
+
+[GitHub Pages](https://m5stack.github.io/M5Utility/)
+
 If you want to generate documents on your local machine, execute the following command
 
 ```
@@ -32,6 +35,8 @@ googleTest によるユニットテストを内包しています。 PlatformIO 
 
 
 ## Doxygen ドキュメント
+[GitHub Pages](https://m5stack.github.io/M5Utility/)
+
 あなたのローカルマシンでドキュメントを生成したい場合は、以下のコマンドを実行してください。
 ```
 bash docs/doxy.sh
