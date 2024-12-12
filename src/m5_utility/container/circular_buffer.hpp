@@ -1,5 +1,5 @@
 /*
- * Spdx-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
  *
  * SPDX-License-Identifier: MIT
  */
