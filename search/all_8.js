@@ -16,5 +16,8 @@ var searchData=
   ['is_5fstd_5fswap_5fnoexcept_3c_20t_5bn_5d_3e_13',['is_std_swap_noexcept&lt; T[N]&gt;',['../structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1is__std__swap__noexcept_3_01_t_0f_n_0e_4.html',1,'m5::stl::detail::swap_adl_tests']]],
   ['is_5fswappable_14',['is_swappable',['../structm5_1_1stl_1_1detail_1_1is__swappable.html',1,'m5::stl::detail']]],
   ['is_5fswappable_3c_20t_5bn_5d_2c_20t_5bn_5d_3e_15',['is_swappable&lt; T[N], T[N]&gt;',['../structm5_1_1stl_1_1detail_1_1is__swappable_3_01_t_0f_n_0e_00_01_t_0f_n_0e_4.html',1,'m5::stl::detail']]],
-  ['isvalidi2caddress_16',['isValidI2CAddress',['../misc_8hpp.html#a9ac5cdfbf1e5a40b9cff532e12485792',1,'m5::utility']]]
+  ['isholding_16',['isHolding',['../classm5_1_1utility_1_1button_1_1_status.html#a477ee3fc6de2084efe4fac3ad82a34b5',1,'m5::utility::button::Status']]],
+  ['ispressed_17',['isPressed',['../classm5_1_1utility_1_1button_1_1_status.html#adef0afe59406259f5cb936c013f1edc4',1,'m5::utility::button::Status']]],
+  ['isreleased_18',['isReleased',['../classm5_1_1utility_1_1button_1_1_status.html#a5ba099cf3ad0c11c2b0dfa32f3c9f6bc',1,'m5::utility::button::Status']]],
+  ['isvalidi2caddress_19',['isValidI2CAddress',['../misc_8hpp.html#a9ac5cdfbf1e5a40b9cff532e12485792',1,'m5::utility']]]
 ];

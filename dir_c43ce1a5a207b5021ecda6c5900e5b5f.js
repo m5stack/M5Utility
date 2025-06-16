@@ -4,6 +4,8 @@ var dir_c43ce1a5a207b5021ecda6c5900e5b5f =
     [ "log", "dir_3c3e26a7f19d3b69e3d7f97ae6066278.html", "dir_3c3e26a7f19d3b69e3d7f97ae6066278" ],
     [ "stl", "dir_a2184ad1dc90e2caed23e18ff8febb1a.html", "dir_a2184ad1dc90e2caed23e18ff8febb1a" ],
     [ "bit_segment.hpp", "bit__segment_8hpp.html", "bit__segment_8hpp" ],
+    [ "button_status.cpp", "button__status_8cpp.html", null ],
+    [ "button_status.hpp", "button__status_8hpp.html", "button__status_8hpp" ],
     [ "compatibility_feature.cpp", "compatibility__feature_8cpp.html", "compatibility__feature_8cpp" ],
     [ "compatibility_feature.hpp", "compatibility__feature_8hpp.html", "compatibility__feature_8hpp" ],
     [ "conversion.hpp", "conversion_8hpp.html", "conversion_8hpp" ],

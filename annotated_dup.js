@@ -93,6 +93,9 @@ var annotated_dup =
         [ "U16", "unionm5_1_1types_1_1_u16.html", "unionm5_1_1types_1_1_u16" ]
       ] ],
       [ "utility", null, [
+        [ "button", null, [
+          [ "Status", "classm5_1_1utility_1_1button_1_1_status.html", "classm5_1_1utility_1_1button_1_1_status" ]
+        ] ],
         [ "BitSegment", "classm5_1_1utility_1_1_bit_segment.html", "classm5_1_1utility_1_1_bit_segment" ],
         [ "CRC16", "classm5_1_1utility_1_1_c_r_c16.html", "classm5_1_1utility_1_1_c_r_c16" ],
         [ "CRC8", "classm5_1_1utility_1_1_c_r_c8.html", "classm5_1_1utility_1_1_c_r_c8" ],
