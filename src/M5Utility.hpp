@@ -30,6 +30,7 @@
 #include "m5_utility/string.hpp"
 #include "m5_utility/conversion.hpp"
 #include "m5_utility/math.hpp"
+#include "m5_utility/button_status.hpp"
 #include "m5_utility/misc.hpp"
 
 /*!
