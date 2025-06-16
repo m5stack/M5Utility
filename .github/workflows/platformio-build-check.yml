@@ -16,8 +16,8 @@ on:
       - 'test/**.hpp'
       - 'test/**.h'
       - 'test/**.c'
-      - '**platformio-build-check.yml'
-      - '**platformio.ini'
+      - '**/platformio-build-check.yml'
+      - '**/platformio.ini'
   pull_request:
     paths:
       - 'src/unit/**.cpp'
@@ -28,8 +28,8 @@ on:
       - 'test/**.hpp'
       - 'test/**.h'
       - 'test/**.c'
-      - '**platformio-build-check.yml'
-      - '**platformio.ini'
+      - '**/platformio-build-check.yml'
+      - '**/platformio.ini'
   workflow_dispatch:
 
 jobs:
