@@ -10,30 +10,38 @@
 #ifndef M5_UTILITY_COMPATIBILITY_FEATURE_HPP
 #define M5_UTILITY_COMPATIBILITY_FEATURE_HPP
 
+#include <freertos/FreeRTOS.h>
+#include <esp_timer.h>
+
 namespace m5 {
 namespace utility {
 
 ///@name Arduino API
 ///@{
 /*!
-  @brief Returns the number of milliseconds passed since the Arduino board began
-  running the current program
+  @brief Returns the number of milliseconds passed since the Arduino board began running the current program
  */
-unsigned long millis();
+inline IRAM_ATTR unsigned long millis()
+{
+    return static_cast<unsigned long>(esp_timer_get_time() / 1000ULL);
+}
 /*!
-  @brief Returns the number of microseconds since the Arduino board began
-  running the current program
+  @brief Returns the number of microseconds since the Arduino board began running the current program
 */
-unsigned long micros();
+inline IRAM_ATTR unsigned long micros()
+{
+    return static_cast<unsigned long>(esp_timer_get_time());
+}
 /*!
-  @brief Pauses the program for the amount of time (in milliseconds) specified
-  as parameter.
+  @brief Pauses the program for the amount of time (in milliseconds) specified as parameter
+  @param ms delay time (ms)
   @warning Accuracy varies depending on the environment.
 */
 void delay(const unsigned long ms);
+
 /*!
-  @brief Pauses the program for the amount of time (in microseconds) specified
-  by the parameter.
+  @brief Pauses the program for the amount of time (in microseconds) specified by the parameter
+  @param us delay time (us)
   @warning Accuracy varies depending on the environment.
 */
 void delayMicroseconds(const unsigned int us);

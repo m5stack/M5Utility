@@ -8,45 +8,46 @@
   @brief Maintain compatibility with Arduino API, etc.
 */
 #include "compatibility_feature.hpp"
-#include <ctime>
-#include <chrono>
-#include <thread>
+#include <freertos/task.h>
+#include <esp_cpu.h>
 
 namespace {
-using clock                      = std::chrono::high_resolution_clock;
-const clock::time_point start_at = clock::now();
 
 }  // namespace
 
 namespace m5 {
 namespace utility {
 
-unsigned long millis()
-{
-    return std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - ::start_at).count();
-}
-unsigned long micros()
-{
-    return std::chrono::duration_cast<std::chrono::microseconds>(clock::now() - ::start_at).count();
-}
 void delay(const unsigned long ms)
 {
-#if 0
-    auto abst = clock::now() + std::chrono::milliseconds(ms);
-    std::this_thread::sleep_until(abst);
-#else
-    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
-#endif
+    if (ms) {
+        if (xPortInIsrContext()) {
+            // Using busy-wait in ISR
+            const uint64_t target = esp_timer_get_time() + static_cast<uint64_t>(ms) * 1000ULL;
+            while (esp_timer_get_time() < target) { /* nop */
+            }
+        } else {
+            vTaskDelay(pdMS_TO_TICKS(ms));
+        }
+    }
 }
 
 void delayMicroseconds(const unsigned int us)
 {
-#if 0
-    auto abst = clock::now() + std::chrono::microseconds(us);
-    std::this_thread::sleep_until(abst);
-#else
-    std::this_thread::sleep_for(std::chrono::microseconds(us));
-#endif
+    if (us) {
+        // Using esp_rom_delay if less than 1ms
+        if (us < 1000 || xPortInIsrContext()) {
+            esp_rom_delay_us(us);
+            return;
+        }
+
+        // vTaskDelay + esp_rom_delay
+        vTaskDelay(pdMS_TO_TICKS(us / 1000));
+        const uint32_t us_rem = us % 1000;
+        if (us_rem) {
+            esp_rom_delay_us(us_rem);
+        }
+    }
 }
 
 }  // namespace utility
