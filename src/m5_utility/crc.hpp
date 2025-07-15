@@ -99,6 +99,11 @@ public:
         return do_finalize ? finalize(crc, refOut, xorout) : crc;
     }
 
+    inline void clear()
+    {
+        _crc = _init;
+    }
+
 protected:
     static inline uint8_t finalize(const uint8_t value, const bool refOut, const uint8_t xorout)
     {
@@ -190,6 +195,11 @@ public:
             }
         }
         return do_finalize ? finalize(crc, refOut, xorout) : crc;
+    }
+
+    inline void clear()
+    {
+        _crc = _init;
     }
 
 protected:
