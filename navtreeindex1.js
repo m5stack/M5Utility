@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"string_8hpp.html#ace0c56ab88b9c6cb62d4f643a734b713":[2,0,0,0,15,2],
-"string_8hpp_source.html":[2,0,0,0,15],
 "structm5_1_1stl_1_1detail_1_1_t_c.html":[1,0,0,1,0,63],
 "structm5_1_1stl_1_1detail_1_1conjunction.html":[1,0,0,1,0,1],
 "structm5_1_1stl_1_1detail_1_1conjunction_3_01_b_00_01_bs_8_8_8_01_4.html":[1,0,0,1,0,3],
