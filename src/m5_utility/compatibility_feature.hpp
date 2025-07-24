@@ -21,17 +21,13 @@ namespace utility {
 /*!
   @brief Returns the number of milliseconds passed since the Arduino board began running the current program
  */
-inline IRAM_ATTR unsigned long millis()
-{
-    return static_cast<unsigned long>(esp_timer_get_time() / 1000ULL);
-}
+IRAM_ATTR unsigned long millis();
+
 /*!
   @brief Returns the number of microseconds since the Arduino board began running the current program
 */
-inline IRAM_ATTR unsigned long micros()
-{
-    return static_cast<unsigned long>(esp_timer_get_time());
-}
+IRAM_ATTR unsigned long micros();
+
 /*!
   @brief Pauses the program for the amount of time (in milliseconds) specified as parameter
   @param ms delay time (ms)
