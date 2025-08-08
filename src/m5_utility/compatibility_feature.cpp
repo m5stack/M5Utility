@@ -22,6 +22,7 @@ IRAM_ATTR unsigned long millis()
 {
     return static_cast<unsigned long>(esp_timer_get_time() / 1000ULL);
 }
+
 IRAM_ATTR unsigned long micros()
 {
     return static_cast<unsigned long>(esp_timer_get_time());

@@ -21,12 +21,12 @@ namespace utility {
 /*!
   @brief Returns the number of milliseconds passed since the Arduino board began running the current program
  */
-IRAM_ATTR unsigned long millis();
+unsigned long millis();
 
 /*!
   @brief Returns the number of microseconds since the Arduino board began running the current program
 */
-IRAM_ATTR unsigned long micros();
+unsigned long micros();
 
 /*!
   @brief Pauses the program for the amount of time (in milliseconds) specified as parameter

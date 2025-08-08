@@ -15,10 +15,8 @@
 #include <iterator>
 #include <cassert>
 #if __cplusplus >= 201703L
-#pragma message "Using std::optional"
 #include <optional>
 #else
-#pragma message "Using m5::stl::optional"
 #include "../stl/optional.hpp"
 #endif
 
