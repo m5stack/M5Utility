@@ -10,9 +10,6 @@
 #ifndef M5_UTILITY_COMPATIBILITY_FEATURE_HPP
 #define M5_UTILITY_COMPATIBILITY_FEATURE_HPP
 
-#include <freertos/FreeRTOS.h>
-#include <esp_timer.h>
-
 namespace m5 {
 namespace utility {
 

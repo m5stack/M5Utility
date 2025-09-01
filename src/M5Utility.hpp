@@ -17,6 +17,7 @@
 #include "m5_utility/stl/extension.hpp"
 #include "m5_utility/stl/optional.hpp"
 #include "m5_utility/stl/endianness.hpp"
+#include "m5_utility/stl/byteswap.hpp"
 
 #include "m5_utility/log/library_log.hpp"
 
