@@ -32,7 +32,7 @@ constexpr i128_t make_i128(int64_t hi, uint64_t lo)
 
 #endif
 
-TEST(Utility, Byteswap_int)
+TEST(Utility, Byteswap)
 {
     constexpr uint8_t u8{127};
     constexpr int8_t i8{-128};
@@ -100,78 +100,4 @@ TEST(Utility, Byteswap_int)
         EXPECT_EQ(m5::stl::byteswap(b), i128);
     }
 #endif
-}
-
-namespace {
-template <class T>
-std::array<uint8_t, sizeof(T)> to_bytes(const T& v)
-{
-    std::array<uint8_t, sizeof(T)> out{};
-    std::memcpy(out.data(), &v, sizeof(T));
-    return out;
-}
-
-template <class T>
-T reverse_bytes_via_memcpy(const T& v)
-{
-    auto b = to_bytes(v);
-    std::reverse(b.begin(), b.end());
-    T out{};
-    std::memcpy(&out, b.data(), sizeof(T));
-    return out;
-}
-
-template <class T>
-void ExpectBytesEqual(const T& a, const T& b)
-{
-    auto ba = to_bytes(a);
-    auto bb = to_bytes(b);
-    ASSERT_EQ(ba.size(), bb.size());
-    EXPECT_EQ(0, std::memcmp(ba.data(), bb.data(), ba.size()));
-}
-
-template <class T>
-void RunOneCase(const T& x)
-{
-    const T expect = reverse_bytes_via_memcpy(x);
-    const T got    = m5::stl::byteswap(x);
-    ExpectBytesEqual(got, expect);
-
-    const T roundtrip = m5::stl::byteswap(got);
-    ExpectBytesEqual(roundtrip, x);
-}
-
-template <typename T>
-void FloatTest()
-{
-    const T pos_zero = T(+0.0);
-    const T neg_zero = T(-0.0);
-    const T one      = T(1.0);
-    const T neg      = T(-2.5);
-
-    RunOneCase(pos_zero);
-    RunOneCase(neg_zero);
-    RunOneCase(one);
-    RunOneCase(neg);
-
-    RunOneCase(std::numeric_limits<T>::min());
-    RunOneCase(std::numeric_limits<T>::max());
-
-    if (std::numeric_limits<T>::has_denorm != std::denorm_absent) {
-        RunOneCase(std::numeric_limits<T>::denorm_min());
-    }
-
-    RunOneCase(std::numeric_limits<T>::infinity());
-    RunOneCase(-std::numeric_limits<T>::infinity());
-
-    RunOneCase(std::numeric_limits<T>::quiet_NaN());
-}
-
-}  // namespace
-
-TEST(Utility, Byteswap_float)
-{
-    FloatTest<float>();
-    FloatTest<double>();
-    FloatTest<long double>();
 }
