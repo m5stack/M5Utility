@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.6 git rev:8f9da9c</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.7 git rev:ba71c71</span>
    </div>
   </td>
  </tr>
@@ -125,39 +125,37 @@ $(function(){initNavTree('misc_8hpp_source.html',''); initResizable(true); });
 <div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">   28</a></span><span class="keyword">inline</span> uint8_t <a class="code hl_function" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">reverseBitOrder</a>(<span class="keyword">const</span> uint8_t u8)</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#if defined(__clang__) &amp;&amp; 0</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#pragma message &quot;Using clang builtin&quot;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">return</span> __builtin_bitreverse8(u8);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    uint8_t v{u8};</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    v = ((v &amp; 0xF0) &gt;&gt; 4) | ((v &amp; 0x0F) &lt;&lt; 4);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    v = ((v &amp; 0xCC) &gt;&gt; 2) | ((v &amp; 0x33) &lt;&lt; 2);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    v = ((v &amp; 0xAA) &gt;&gt; 1) | ((v &amp; 0x55) &lt;&lt; 1);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> v;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#if defined(__clang__)</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> __builtin_bitreverse8(u8);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    uint8_t v{u8};</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    v = ((v &amp; 0xF0) &gt;&gt; 4) | ((v &amp; 0x0F) &lt;&lt; 4);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    v = ((v &amp; 0xCC) &gt;&gt; 2) | ((v &amp; 0x33) &lt;&lt; 2);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    v = ((v &amp; 0xAA) &gt;&gt; 1) | ((v &amp; 0x55) &lt;&lt; 1);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">return</span> v;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="misc_8hpp.html#a365805b33d8236cb16669bdaf24d2082">   43</a></span><span class="keyword">inline</span> uint16_t <a class="code hl_function" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">reverseBitOrder</a>(<span class="keyword">const</span> uint16_t u16)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#if defined(__clang__) &amp;&amp; 0</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#pragma message &quot;Using clang builtin&quot;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> __builtin_bitreverse16(u16);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    uint16_t v{u16};</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    v = ((v &amp; 0xFF00) &gt;&gt; 8) | ((v &amp; 0x00FF) &lt;&lt; 8);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    v = ((v &amp; 0xF0F0) &gt;&gt; 4) | ((v &amp; 0x0F0F) &lt;&lt; 4);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    v = ((v &amp; 0xCCCC) &gt;&gt; 2) | ((v &amp; 0x3333) &lt;&lt; 2);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    v = ((v &amp; 0xAAAA) &gt;&gt; 1) | ((v &amp; 0x5555) &lt;&lt; 1);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> v;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="misc_8hpp.html#a365805b33d8236cb16669bdaf24d2082">   42</a></span><span class="keyword">inline</span> uint16_t <a class="code hl_function" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">reverseBitOrder</a>(<span class="keyword">const</span> uint16_t u16)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#if defined(__clang__)</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> __builtin_bitreverse16(u16);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    uint16_t v{u16};</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    v = ((v &amp; 0xFF00) &gt;&gt; 8) | ((v &amp; 0x00FF) &lt;&lt; 8);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    v = ((v &amp; 0xF0F0) &gt;&gt; 4) | ((v &amp; 0x0F0F) &lt;&lt; 4);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    v = ((v &amp; 0xCCCC) &gt;&gt; 2) | ((v &amp; 0x3333) &lt;&lt; 2);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    v = ((v &amp; 0xAAAA) &gt;&gt; 1) | ((v &amp; 0x5555) &lt;&lt; 1);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> v;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}  <span class="comment">// namespace utility</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}  <span class="comment">// namespace m5</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}  <span class="comment">// namespace utility</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}  <span class="comment">// namespace m5</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="amisc_8hpp_html_a9ac5cdfbf1e5a40b9cff532e12485792"><div class="ttname"><a href="misc_8hpp.html#a9ac5cdfbf1e5a40b9cff532e12485792">m5::utility::isValidI2CAddress</a></div><div class="ttdeci">bool isValidI2CAddress(const uint16_t addr)</div><div class="ttdoc">Valid I2C address?</div><div class="ttdef"><b>Definition</b> misc.hpp:19</div></div>
 <div class="ttc" id="amisc_8hpp_html_ab7ab477202378705c5f5570cba04a9b4"><div class="ttname"><a href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">m5::utility::reverseBitOrder</a></div><div class="ttdeci">uint8_t reverseBitOrder(const uint8_t u8)</div><div class="ttdoc">Reversing the bit order.</div><div class="ttdef"><b>Definition</b> misc.hpp:28</div></div>
 <div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5.</div><div class="ttdef"><b>Definition</b> bit_segment.hpp:17</div></div>

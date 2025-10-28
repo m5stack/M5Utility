@@ -67,6 +67,8 @@ var hierarchy =
       [ "m5::stl::detail::is_expected_impl< T >", "structm5_1_1stl_1_1detail_1_1is__expected__impl.html", null ],
       [ "m5::stl::detail::is_optional_impl< T >", "structm5_1_1stl_1_1detail_1_1is__optional__impl.html", null ]
     ] ],
+    [ "m5::utility::FibonacciLFSR_Left< N, Taps >", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___left.html", null ],
+    [ "m5::utility::FibonacciLFSR_Right< N, Taps >", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___right.html", null ],
     [ "std::hash< m5::stl::optional< T > >", "structstd_1_1hash_3_01m5_1_1stl_1_1optional_3_01_t_01_4_01_4.html", null ],
     [ "m5::stl::detail::i_am_secret", "structm5_1_1stl_1_1detail_1_1i__am__secret.html", null ],
     [ "m5::stl::in_place_t", "structm5_1_1stl_1_1in__place__t.html", null ],

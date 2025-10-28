@@ -10,6 +10,7 @@ var dir_c43ce1a5a207b5021ecda6c5900e5b5f =
     [ "compatibility_feature.hpp", "compatibility__feature_8hpp.html", "compatibility__feature_8hpp" ],
     [ "conversion.hpp", "conversion_8hpp.html", "conversion_8hpp" ],
     [ "crc.hpp", "crc_8hpp.html", "crc_8hpp" ],
+    [ "lfsr.hpp", "lfsr_8hpp.html", "lfsr_8hpp" ],
     [ "math.hpp", "math_8hpp.html", "math_8hpp" ],
     [ "misc.hpp", "misc_8hpp.html", "misc_8hpp" ],
     [ "murmurhash3.cpp", "murmurhash3_8cpp.html", "murmurhash3_8cpp" ],
