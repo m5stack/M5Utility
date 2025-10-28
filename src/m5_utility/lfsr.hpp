@@ -31,9 +31,13 @@ class FibonacciLFSR_Right {
 
     // Tap boundary check: 1..N-1
     template <uint32_t...>
-    struct all_valid : std::true_type {};
+    struct all_valid : std::true_type {
+        //
+    };
     template <uint32_t A, uint32_t... Rest>
-    struct all_valid<A, Rest...> : std::integral_constant<bool, (A >= 1 && A <= N) && all_valid<Rest...>::value> {};
+    struct all_valid<A, Rest...> : std::integral_constant<bool, (A >= 1 && A <= N) && all_valid<Rest...>::value> {
+        //
+    };
     static_assert(all_valid<Taps...>::value, "Taps out of range");
 
 protected:
@@ -143,9 +147,13 @@ class FibonacciLFSR_Left {
 
     // Tap boundary check: 1..N-1
     template <uint32_t...>
-    struct all_valid : std::true_type {};
+    struct all_valid : std::true_type {
+        //
+    };
     template <uint32_t A, uint32_t... Rest>
-    struct all_valid<A, Rest...> : std::integral_constant<bool, (A >= 1 && A <= N) && all_valid<Rest...>::value> {};
+    struct all_valid<A, Rest...> : std::integral_constant<bool, (A >= 1 && A <= N) && all_valid<Rest...>::value> {
+        //
+    };
     static_assert(all_valid<Taps...>::value, "Taps out of range");
 
 protected:
