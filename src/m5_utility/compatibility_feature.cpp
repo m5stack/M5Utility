@@ -8,10 +8,31 @@
   @brief Maintain compatibility with Arduino API, etc.
 */
 #include "compatibility_feature.hpp"
-#include <freertos/task.h>
+
+#if defined(CONFIG_IDF_TARGET_ESP32) || defined(CONFIG_IDF_TARGET_ESP32S2) || defined(CONFIG_IDF_TARGET_ESP32S3) ||   \
+    defined(CONFIG_IDF_TARGET_ESP32C3) || defined(CONFIG_IDF_TARGET_ESP32C6) || defined(CONFIG_IDF_TARGET_ESP32H2) || \
+    defined(CONFIG_IDF_TARGET_ESP32P4)
+#defined USING_ESP_PLATFORM
+#endif
+
+#if defined(USING_ESP_PLATFORM)
+// #include <freertos/task.h>
+#include <freertos/FreeRTOS.h>
 #include <esp_cpu.h>
+#include <esp_timer.h>
+#else
+#include <ctime>
+#include <chrono>
+#include <thread>
+#define IRAM_ATTR /* nop */
+#endif
 
 namespace {
+
+#if !defined(USING_ESP_PLATFORM)
+using clock                      = std::chrono::high_resolution_clock;
+const clock::time_point start_at = clock::now();
+#endif
 
 }  // namespace
 
@@ -20,16 +41,25 @@ namespace utility {
 
 IRAM_ATTR unsigned long millis()
 {
+#if defined(USING_ESP_PLATFORM)
     return static_cast<unsigned long>(esp_timer_get_time() / 1000ULL);
+#else
+    return std::chrono::duration_cast<std::chrono::milliseconds>(clock::now() - ::start_at).count();
+#endif
 }
 
 IRAM_ATTR unsigned long micros()
 {
+#if defined(USING_ESP_PLATFORM)
     return static_cast<unsigned long>(esp_timer_get_time());
+#else
+    return std::chrono::duration_cast<std::chrono::microseconds>(clock::now() - ::start_at).count();
+#endif
 }
 
 void delay(const unsigned long ms)
 {
+#if defined(USING_ESP_PLATFORM)
     if (ms) {
         if (xPortInIsrContext()) {
             // Using busy-wait in ISR
@@ -40,10 +70,14 @@ void delay(const unsigned long ms)
             vTaskDelay(pdMS_TO_TICKS(ms));
         }
     }
+#else
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+#endif
 }
 
 void delayMicroseconds(const unsigned int us)
 {
+#if defined(USING_ESP_PLATFORM)
     if (us) {
         // Using esp_rom_delay if less than 1ms
         if (us < 1000 || xPortInIsrContext()) {
@@ -58,6 +92,9 @@ void delayMicroseconds(const unsigned int us)
             esp_rom_delay_us(us_rem);
         }
     }
+#else
+    std::this_thread::sleep_for(std::chrono::microseconds(us));
+#endif
 }
 
 }  // namespace utility

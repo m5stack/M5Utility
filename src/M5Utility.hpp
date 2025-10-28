@@ -17,6 +17,7 @@
 #include "m5_utility/stl/extension.hpp"
 #include "m5_utility/stl/optional.hpp"
 #include "m5_utility/stl/endianness.hpp"
+#include "m5_utility/stl/byteswap.hpp"
 
 #include "m5_utility/log/library_log.hpp"
 
@@ -32,6 +33,7 @@
 #include "m5_utility/math.hpp"
 #include "m5_utility/button_status.hpp"
 #include "m5_utility/misc.hpp"
+#include "m5_utility/lfsr.hpp"
 
 /*!
   @namespace m5
