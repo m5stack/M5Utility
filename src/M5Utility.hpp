@@ -33,6 +33,7 @@
 #include "m5_utility/math.hpp"
 #include "m5_utility/button_status.hpp"
 #include "m5_utility/misc.hpp"
+#include "m5_utility/lfsr.hpp"
 
 /*!
   @namespace m5
