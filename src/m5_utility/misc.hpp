@@ -11,6 +11,7 @@
 #define M5_UTILITY_MISC_HPP
 
 #include <cstdint>
+#include <type_traits>
 
 namespace m5 {
 namespace utility {
@@ -52,6 +53,47 @@ inline uint16_t reverseBitOrder(const uint16_t u16)
     return v;
 #endif
 }
+
+/*!
+  @class uint_least_for_bits
+  @brief Gets the smallest unsigned integer type that can store N bit
+  @tparam N Number of bits
+  @note  using foo_t = uint_least_for_bits<52>::type; // foo_t == uint64_t
+ */
+template <uint32_t N>
+struct uint_least_for_bits {
+    static_assert(N >= 1, "N must be >= 1");
+#ifdef __SIZEOF_INT128__
+    static_assert(N <= 128, "N must be <= 128");
+    using type =                                //
+        typename std::conditional<              //
+            (N <= 8), uint8_t,                  //
+            typename std::conditional<          //
+                (N <= 16), uint16_t,            //
+                typename std::conditional<      //
+                    (N <= 32), uint32_t,        //
+                    typename std::conditional<  //
+                        (N <= 64), uint64_t,    //
+                        __uint128_t             //
+                        >::type                 //
+                    >::type                     //
+                >::type                         //
+            >::type;
+#else
+    static_assert(N <= 64, "N must be <= 64m");
+    using type =                            //
+        typename std::conditional<          //
+            (N <= 8), uint8_t,              //
+            typename std::conditional<      //
+                (N <= 16), uint16_t,        //
+                typename std::conditional<  //
+                    (N <= 32), uint32_t,    //
+                    uint64_t                //
+                    >::type                 //
+                >::type                     //
+            >::type;
+#endif
+};
 
 }  // namespace utility
 }  // namespace m5

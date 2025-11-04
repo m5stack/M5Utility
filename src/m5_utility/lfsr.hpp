@@ -12,6 +12,7 @@
 
 #include <bitset>
 #include <climits>
+#include "misc.hpp"
 
 namespace m5 {
 namespace utility {
@@ -25,7 +26,7 @@ namespace utility {
  */
 template <uint32_t N, uint32_t... Taps>
 class FibonacciLFSR_Right {
-    static_assert(N > 0, "N must be > 0");
+    static_assert(N >= 1, "N must be >= 1");
     static_assert(N <= 64, "N must be <= 64");
     static_assert(sizeof...(Taps) >= 1, "At least one tap required");
 
@@ -52,14 +53,12 @@ protected:
     }
 
 public:
-    using state_type_t = std::bitset<N>;  //!< State type
+    using storage_t    = typename uint_least_for_bits<N>::type;  //!< uint8/16/32/64_t
+    using state_type_t = std::bitset<N>;                         //!< State type
 
     ///@name Constructor
     ///@{
-    explicit FibonacciLFSR_Right(const uint64_t seed) noexcept : _state{seed}
-    {
-    }
-    explicit FibonacciLFSR_Right(const state_type_t s) noexcept : _state{s}
+    explicit FibonacciLFSR_Right(const storage_t seed) noexcept : _state{seed}
     {
     }
     ///@}
@@ -73,20 +72,21 @@ public:
     //! @brief Gets the state value
     template <typename UL                                                                  = unsigned long,
               typename std::enable_if<(sizeof(UL) * CHAR_BIT >= 64), std::nullptr_t>::type = nullptr>
-    inline uint64_t value() const
+    inline storage_t value() const
     {
-        return static_cast<uint64_t>(_state.to_ulong());
+        return static_cast<storage_t>(_state.to_ulong());
     }
     template <typename UL                                                                 = unsigned long,
               typename std::enable_if<(sizeof(UL) * CHAR_BIT < 64), std::nullptr_t>::type = nullptr>
-    inline uint64_t value() const
+    inline storage_t value() const
     {
-        return _state.to_ullong();
+        return static_cast<storage_t>(_state.to_ullong());
     }
 
     //! @brief Shift 1 step (Right). Returns output bit (LSB before shift)
     bool step() noexcept
     {
+        //        x = x >> 1 | (x >> 16 ^ x >> 18 ^ x >> 19 ^ x >> 21) << 31;
         const bool out = _state.test(0);             // LSB (output)
         const bool fb  = taps_xor<Taps...>(_state);  // feedback
         _state >>= 1;                                // Shift to right
@@ -141,7 +141,7 @@ protected:
  */
 template <uint32_t N, uint32_t... Taps>
 class FibonacciLFSR_Left {
-    static_assert(N > 0, "N must be > 0");
+    static_assert(N >= 1, "N must be >= 1");
     static_assert(N <= 64, "N must be <= 64");
     static_assert(sizeof...(Taps) >= 1, "At least one tap required");
 
@@ -157,27 +157,22 @@ class FibonacciLFSR_Left {
     static_assert(all_valid<Taps...>::value, "Taps out of range");
 
 protected:
-    // XOR of taps; bit index is N - Ts (Ts is exponent)
     template <uint32_t... Ts>
     static bool taps_xor(const std::bitset<N>& s)
     {
         bool r{};
         using swallow = int[];
-        //(void)swallow{0, (r ^= s.test(N - Ts), 0)...};  // Swallow idiom
         (void)swallow{0, (r ^= s.test(Ts - 1), 0)...};  // Swallow idiom
-        //(void)swallow{0, (r ^= s.test((Ts == N) ? (N - 1) : (N - Ts)), 0)...};        return r;
         return r;
     }
 
 public:
-    using state_type_t = std::bitset<N>;
+    using storage_t    = typename uint_least_for_bits<N>::type;  //!< uint8/16/32/64_t
+    using state_type_t = std::bitset<N>;                         //!< State type
 
     /// @name Constructor
     /// @{
     explicit FibonacciLFSR_Left(const uint64_t seed) noexcept : _state{seed}
-    {
-    }
-    explicit FibonacciLFSR_Left(const state_type_t s) noexcept : _state{s}
     {
     }
     /// @}
@@ -191,15 +186,15 @@ public:
     //! @brief Gets the state value
     template <typename UL                                                                  = unsigned long,
               typename std::enable_if<(sizeof(UL) * CHAR_BIT >= 64), std::nullptr_t>::type = nullptr>
-    inline uint64_t value() const
+    inline storage_t value() const
     {
-        return static_cast<uint64_t>(_state.to_ulong());
+        return static_cast<storage_t>(_state.to_ulong());
     }
     template <typename UL                                                                 = unsigned long,
               typename std::enable_if<(sizeof(UL) * CHAR_BIT < 64), std::nullptr_t>::type = nullptr>
-    inline uint64_t value() const
+    inline storage_t value() const
     {
-        return _state.to_ullong();
+        return static_cast<storage_t>(_state.to_ullong());
     }
 
     //! @brief Shift 1 step (Left). Returns output bit (MSB before shift)
