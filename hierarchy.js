@@ -141,6 +141,7 @@ var hierarchy =
       [ "m5::stl::detail::conjunction< B, Bs... >", "structm5_1_1stl_1_1detail_1_1conjunction_3_01_b_00_01_bs_8_8_8_01_4.html", null ]
     ] ],
     [ "m5::types::U16< DELittle >", "unionm5_1_1types_1_1_u16.html", null ],
+    [ "m5::utility::uint_least_for_bits< N >", "structm5_1_1utility_1_1uint__least__for__bits.html", null ],
     [ "m5::stl::unexpect_t", "structm5_1_1stl_1_1unexpect__t.html", null ],
     [ "m5::stl::unexpected< E >", "classm5_1_1stl_1_1unexpected.html", null ],
     [ "m5::stl::detail::voider<... >", "structm5_1_1stl_1_1detail_1_1voider.html", null ]

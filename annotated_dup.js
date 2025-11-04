@@ -101,7 +101,8 @@ var annotated_dup =
         [ "CRC8", "classm5_1_1utility_1_1_c_r_c8.html", "classm5_1_1utility_1_1_c_r_c8" ],
         [ "CRC8_Checksum", "classm5_1_1utility_1_1_c_r_c8___checksum.html", null ],
         [ "FibonacciLFSR_Left", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___left.html", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___left" ],
-        [ "FibonacciLFSR_Right", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___right.html", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___right" ]
+        [ "FibonacciLFSR_Right", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___right.html", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___right" ],
+        [ "uint_least_for_bits", "structm5_1_1utility_1_1uint__least__for__bits.html", null ]
       ] ]
     ] ],
     [ "std", null, [

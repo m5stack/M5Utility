@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.7 git rev:ba71c71</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.8 git rev:f3e2efe</span>
    </div>
   </td>
  </tr>
@@ -113,6 +113,10 @@ $(function(){initNavTree('classm5_1_1utility_1_1_fibonacci_l_f_s_r___right.html'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a25daafb012894dac6c380b1370e1e4df" id="r_a25daafb012894dac6c380b1370e1e4df"><td class="memItemLeft" align="right" valign="top"><a id="a25daafb012894dac6c380b1370e1e4df" name="a25daafb012894dac6c380b1370e1e4df"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>storage_t</b> = typename <a class="el" href="structm5_1_1utility_1_1uint__least__for__bits.html">uint_least_for_bits</a>&lt;N&gt;::type</td></tr>
+<tr class="memdesc:a25daafb012894dac6c380b1370e1e4df"><td class="mdescLeft">&#160;</td><td class="mdescRight">uint8/16/32/64_t <br /></td></tr>
+<tr class="separator:a25daafb012894dac6c380b1370e1e4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a677867759b8ecca0d5139ff2c596036e" id="r_a677867759b8ecca0d5139ff2c596036e"><td class="memItemLeft" align="right" valign="top"><a id="a677867759b8ecca0d5139ff2c596036e" name="a677867759b8ecca0d5139ff2c596036e"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>state_type_t</b> = std::bitset&lt;N&gt;</td></tr>
 <tr class="memdesc:a677867759b8ecca0d5139ff2c596036e"><td class="mdescLeft">&#160;</td><td class="mdescRight">State type. <br /></td></tr>
@@ -124,15 +128,15 @@ Public Member Functions</h2></td></tr>
 const <a class="el" href="#a677867759b8ecca0d5139ff2c596036e">state_type_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>state</b> () const noexcept</td></tr>
 <tr class="memdesc:ac6d74519e99511fec532d4108553ab61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the state. <br /></td></tr>
 <tr class="separator:ac6d74519e99511fec532d4108553ab61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1b51e1069042ff9fdbadd09ba837506" id="r_ad1b51e1069042ff9fdbadd09ba837506"><td class="memTemplParams" colspan="2"><a id="ad1b51e1069042ff9fdbadd09ba837506" name="ad1b51e1069042ff9fdbadd09ba837506"></a>
+<tr class="memitem:a7c04310229f0838e7a5cc9c07f03abb3" id="r_a7c04310229f0838e7a5cc9c07f03abb3"><td class="memTemplParams" colspan="2"><a id="a7c04310229f0838e7a5cc9c07f03abb3" name="a7c04310229f0838e7a5cc9c07f03abb3"></a>
 template&lt;typename UL  = unsigned long, typename std::enable_if&lt;(sizeof(UL) *CHAR_BIT &gt;=64), std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:ad1b51e1069042ff9fdbadd09ba837506"><td class="memTemplItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value</b> () const</td></tr>
-<tr class="memdesc:ad1b51e1069042ff9fdbadd09ba837506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the state value. <br /></td></tr>
-<tr class="separator:ad1b51e1069042ff9fdbadd09ba837506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1b51e1069042ff9fdbadd09ba837506" id="r_ad1b51e1069042ff9fdbadd09ba837506"><td class="memTemplParams" colspan="2"><a id="ad1b51e1069042ff9fdbadd09ba837506" name="ad1b51e1069042ff9fdbadd09ba837506"></a>
+<tr class="memitem:a7c04310229f0838e7a5cc9c07f03abb3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="#a25daafb012894dac6c380b1370e1e4df">storage_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value</b> () const</td></tr>
+<tr class="memdesc:a7c04310229f0838e7a5cc9c07f03abb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the state value. <br /></td></tr>
+<tr class="separator:a7c04310229f0838e7a5cc9c07f03abb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c04310229f0838e7a5cc9c07f03abb3" id="r_a7c04310229f0838e7a5cc9c07f03abb3"><td class="memTemplParams" colspan="2"><a id="a7c04310229f0838e7a5cc9c07f03abb3" name="a7c04310229f0838e7a5cc9c07f03abb3"></a>
 template&lt;typename UL  = unsigned long, typename std::enable_if&lt;(sizeof(UL) *CHAR_BIT&lt; 64), std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
-<tr class="memitem:ad1b51e1069042ff9fdbadd09ba837506"><td class="memTemplItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value</b> () const</td></tr>
-<tr class="separator:ad1b51e1069042ff9fdbadd09ba837506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c04310229f0838e7a5cc9c07f03abb3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="#a25daafb012894dac6c380b1370e1e4df">storage_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value</b> () const</td></tr>
+<tr class="separator:a7c04310229f0838e7a5cc9c07f03abb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe78a19ecc455844107239c58ef669ec" id="r_afe78a19ecc455844107239c58ef669ec"><td class="memItemLeft" align="right" valign="top"><a id="afe78a19ecc455844107239c58ef669ec" name="afe78a19ecc455844107239c58ef669ec"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>step</b> () noexcept</td></tr>
 <tr class="memdesc:afe78a19ecc455844107239c58ef669ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift 1 step (Right). Returns output bit (LSB before shift) <br /></td></tr>
@@ -142,12 +146,9 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>step</b> (const u
 <tr class="memdesc:ac6211b24237d48bc3b7495f2dca1df30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift nbit steps and gets. <br /></td></tr>
 <tr class="separator:ac6211b24237d48bc3b7495f2dca1df30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Constructor</div></td></tr>
-<tr class="memitem:ad2b11f5eebefa6a8a69b7f5c9504b6a2" id="r_ad2b11f5eebefa6a8a69b7f5c9504b6a2"><td class="memItemLeft" align="right" valign="top"><a id="ad2b11f5eebefa6a8a69b7f5c9504b6a2" name="ad2b11f5eebefa6a8a69b7f5c9504b6a2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FibonacciLFSR_Right</b> (const uint64_t seed) noexcept</td></tr>
-<tr class="separator:ad2b11f5eebefa6a8a69b7f5c9504b6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99582802e94869b1091668b8295e744e" id="r_a99582802e94869b1091668b8295e744e"><td class="memItemLeft" align="right" valign="top"><a id="a99582802e94869b1091668b8295e744e" name="a99582802e94869b1091668b8295e744e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FibonacciLFSR_Right</b> (const <a class="el" href="#a677867759b8ecca0d5139ff2c596036e">state_type_t</a> s) noexcept</td></tr>
-<tr class="separator:a99582802e94869b1091668b8295e744e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f8dcaa5e78641146ebea770d883142" id="r_a18f8dcaa5e78641146ebea770d883142"><td class="memItemLeft" align="right" valign="top"><a id="a18f8dcaa5e78641146ebea770d883142" name="a18f8dcaa5e78641146ebea770d883142"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FibonacciLFSR_Right</b> (const <a class="el" href="#a25daafb012894dac6c380b1370e1e4df">storage_t</a> seed) noexcept</td></tr>
+<tr class="separator:a18f8dcaa5e78641146ebea770d883142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Helper</div></td></tr>
 <tr class="memitem:a361f6226cccc1b71257859f0d32180c6" id="r_a361f6226cccc1b71257859f0d32180c6"><td class="memItemLeft" align="right" valign="top"><a id="a361f6226cccc1b71257859f0d32180c6" name="a361f6226cccc1b71257859f0d32180c6"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>next16</b> () noexcept</td></tr>
