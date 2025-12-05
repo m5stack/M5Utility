@@ -23,6 +23,9 @@
 
 #include "m5_utility/container/circular_buffer.hpp"
 
+#include "m5_utility/crypto/des.hpp"
+#include "m5_utility/crypto/sha1.hpp"
+
 #include "m5_utility/bit_segment.hpp"
 #include "m5_utility/compatibility_feature.hpp"
 #include "m5_utility/murmurhash3.hpp"
@@ -34,6 +37,7 @@
 #include "m5_utility/button_status.hpp"
 #include "m5_utility/misc.hpp"
 #include "m5_utility/lfsr.hpp"
+#include "m5_utility/base64.hpp"
 
 /*!
   @namespace m5
