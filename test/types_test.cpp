@@ -114,6 +114,149 @@ TEST(Utility, Types_U16)
     // data() is using in cast to const uint8_t*
 }
 
+TEST(Utility, Types_U16_Accessors)
+{
+    // high() and low()
+    {
+        big_uint16_t bg{0x12, 0x34};
+        little_uint16_t lt{0x12, 0x34};
+
+        EXPECT_EQ(bg.high(), 0x12);
+        EXPECT_EQ(bg.low(), 0x34);
+        EXPECT_EQ(lt.high(), 0x12);
+        EXPECT_EQ(lt.low(), 0x34);
+    }
+
+    // high() and low() with value constructor
+    {
+        big_uint16_t bg{0xABCD};
+        little_uint16_t lt{0xABCD};
+
+        EXPECT_EQ(bg.high(), 0xAB);
+        EXPECT_EQ(bg.low(), 0xCD);
+        // little endian stores low byte first
+        EXPECT_EQ(lt.high(), 0xCD);
+        EXPECT_EQ(lt.low(), 0xAB);
+    }
+
+    // size()
+    {
+        big_uint16_t bg;
+        little_uint16_t lt;
+
+        EXPECT_EQ(bg.size(), 2U);
+        EXPECT_EQ(lt.size(), 2U);
+    }
+
+    // data() const
+    {
+        const big_uint16_t bg{0x12, 0x34};
+        const little_uint16_t lt{0x56, 0x78};
+
+        const uint8_t* bg_ptr = bg.data();
+        const uint8_t* lt_ptr = lt.data();
+
+        EXPECT_EQ(bg_ptr[0], 0x12);
+        EXPECT_EQ(bg_ptr[1], 0x34);
+        EXPECT_EQ(lt_ptr[0], 0x56);
+        EXPECT_EQ(lt_ptr[1], 0x78);
+    }
+
+    // data() non-const (modifiable)
+    {
+        big_uint16_t bg{0x00, 0x00};
+        little_uint16_t lt{0x00, 0x00};
+
+        uint8_t* bg_ptr = bg.data();
+        uint8_t* lt_ptr = lt.data();
+
+        bg_ptr[0] = 0xAA;
+        bg_ptr[1] = 0xBB;
+        lt_ptr[0] = 0xCC;
+        lt_ptr[1] = 0xDD;
+
+        EXPECT_EQ(bg.u8[0], 0xAA);
+        EXPECT_EQ(bg.u8[1], 0xBB);
+        EXPECT_EQ(lt.u8[0], 0xCC);
+        EXPECT_EQ(lt.u8[1], 0xDD);
+    }
+}
+
+TEST(Utility, Types_U16_SetGet)
+{
+    // set<> and get<> with explicit endianness
+    {
+        big_uint16_t bg;
+        little_uint16_t lt;
+
+        // Set with little endian value
+        bg.set<true>(0x1234);
+        lt.set<true>(0x1234);
+
+        EXPECT_EQ(bg.get<true>(), 0x1234U);
+        EXPECT_EQ(lt.get<true>(), 0x1234U);
+    }
+
+    {
+        big_uint16_t bg;
+        little_uint16_t lt;
+
+        // Set with big endian value
+        bg.set<false>(0x1234);
+        lt.set<false>(0x1234);
+
+        EXPECT_EQ(bg.get<false>(), 0x1234U);
+        EXPECT_EQ(lt.get<false>(), 0x1234U);
+    }
+}
+
+TEST(Utility, Types_U16_BoundaryValues)
+{
+    // Zero
+    {
+        big_uint16_t bg{0x0000};
+        little_uint16_t lt{0x0000};
+
+        EXPECT_EQ((uint16_t)bg, 0x0000U);
+        EXPECT_EQ((uint16_t)lt, 0x0000U);
+        EXPECT_EQ(bg.u8[0], 0x00);
+        EXPECT_EQ(bg.u8[1], 0x00);
+        EXPECT_EQ(lt.u8[0], 0x00);
+        EXPECT_EQ(lt.u8[1], 0x00);
+    }
+
+    // Max value
+    {
+        big_uint16_t bg{0xFFFF};
+        little_uint16_t lt{0xFFFF};
+
+        EXPECT_EQ((uint16_t)bg, 0xFFFFU);
+        EXPECT_EQ((uint16_t)lt, 0xFFFFU);
+        EXPECT_EQ(bg.u8[0], 0xFF);
+        EXPECT_EQ(bg.u8[1], 0xFF);
+        EXPECT_EQ(lt.u8[0], 0xFF);
+        EXPECT_EQ(lt.u8[1], 0xFF);
+    }
+
+    // Single byte values
+    {
+        big_uint16_t bg_low{0x00FF};
+        big_uint16_t bg_high{0xFF00};
+        little_uint16_t lt_low{0x00FF};
+        little_uint16_t lt_high{0xFF00};
+
+        EXPECT_EQ(bg_low.u8[0], 0x00);
+        EXPECT_EQ(bg_low.u8[1], 0xFF);
+        EXPECT_EQ(bg_high.u8[0], 0xFF);
+        EXPECT_EQ(bg_high.u8[1], 0x00);
+
+        EXPECT_EQ(lt_low.u8[0], 0xFF);
+        EXPECT_EQ(lt_low.u8[1], 0x00);
+        EXPECT_EQ(lt_high.u8[0], 0x00);
+        EXPECT_EQ(lt_high.u8[1], 0xFF);
+    }
+}
+
 TEST(Utility, Types_U16_Compare)
 {
     big_uint16_t bg0{0x1234};
