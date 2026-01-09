@@ -612,7 +612,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("invalid char in std");
         const char* invalid_std = "SGVs#G8=";  // '#' is invalid
-        auto written = decode_base64(output, sizeof(output), invalid_std, 8, false, true);
+        auto written            = decode_base64(output, sizeof(output), invalid_std, 8, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -620,7 +620,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("url char in std mode");
         const char* url_in_std = "3q2-7w==";  // '-' is URL-safe, not standard
-        auto written = decode_base64(output, sizeof(output), url_in_std, 8, false, true);
+        auto written           = decode_base64(output, sizeof(output), url_in_std, 8, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -628,7 +628,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("std char in url mode");
         const char* std_in_url = "3q2+7w==";  // '+' is standard, not URL-safe
-        auto written = decode_base64(output, sizeof(output), std_in_url, 8, true, true);
+        auto written           = decode_base64(output, sizeof(output), std_in_url, 8, true, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -636,7 +636,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("padding when disabled");
         const char* with_padding = "AA==";
-        auto written = decode_base64(output, sizeof(output), with_padding, 4, false, false);
+        auto written             = decode_base64(output, sizeof(output), with_padding, 4, false, false);
         EXPECT_EQ(written, 0u);
     }
 
@@ -644,7 +644,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("incomplete group with padding=true");
         const char* incomplete = "AAA";  // 3 chars, needs '=' padding char when padding=true
-        auto written = decode_base64(output, sizeof(output), incomplete, 3, false, true);
+        auto written           = decode_base64(output, sizeof(output), incomplete, 3, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -652,7 +652,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("incomplete group with padding=false");
         const char* incomplete = "AAA";  // 3 chars, will be auto-padded
-        auto written = decode_base64(output, sizeof(output), incomplete, 3, false, false);
+        auto written           = decode_base64(output, sizeof(output), incomplete, 3, false, false);
         EXPECT_EQ(written, 2u);
     }
 
@@ -660,7 +660,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("null output");
         const char* valid = "SGVsbG8=";
-        auto written = decode_base64(nullptr, 128, valid, 8, false, true);
+        auto written      = decode_base64(nullptr, 128, valid, 8, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -668,7 +668,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("zero output length");
         const char* valid = "SGVsbG8=";
-        auto written = decode_base64(output, 0, valid, 8, false, true);
+        auto written      = decode_base64(output, 0, valid, 8, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -683,7 +683,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("zero input length");
         const char* valid = "SGVsbG8=";
-        auto written = decode_base64(output, sizeof(output), valid, 0, false, true);
+        auto written      = decode_base64(output, sizeof(output), valid, 0, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -691,7 +691,7 @@ TEST(Utility, Base64DecodeErrors)
     {
         SCOPED_TRACE("output buffer too small");
         const char* valid = "SGVsbG8=";  // decodes to "Hello" (5 bytes)
-        auto written = decode_base64(output, 3, valid, 8, false, true);
+        auto written      = decode_base64(output, 3, valid, 8, false, true);
         EXPECT_EQ(written, 0u);
     }
 }
@@ -701,7 +701,8 @@ TEST(Utility, Base64Roundtrip)
     SCOPED_TRACE("Base64Roundtrip");
 
     // Test roundtrip: encode then decode should return original
-    const uint8_t original[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
+    const uint8_t original[] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
+                                0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
     char encoded[64]{};
     uint8_t decoded[64]{};
 
@@ -786,9 +787,8 @@ TEST(Utility, Base64LineBreakPositions)
         for (uint32_t i = 0; i < len; ++i) {
             if (encoded[i] == '\n') {
                 // Line break should occur exactly at line_len
-                EXPECT_EQ(char_count, line_len)
-                    << "Line break at wrong position. Expected after " << (int)line_len
-                    << " chars, got after " << char_count << " at index " << i;
+                EXPECT_EQ(char_count, line_len) << "Line break at wrong position. Expected after " << (int)line_len
+                                                << " chars, got after " << char_count << " at index " << i;
                 char_count = 0;
                 ++line_count;
             } else {
@@ -812,7 +812,7 @@ TEST(Utility, Base64LineBreakPositions)
         SCOPED_TRACE("line_len=4");
         // 12 bytes input -> 16 base64 chars -> 4 lines of 4 chars with 3 newlines
         const uint8_t input[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B};
-        auto written = encode_base64(output, sizeof(output), input, sizeof(input), 4, false, true);
+        auto written          = encode_base64(output, sizeof(output), input, sizeof(input), 4, false, true);
         EXPECT_GT(written, 0u);
 
         // Expected: "AAEC\nAwQF\nBgcI\nCQoL" (16 chars + 3 newlines = 19)
@@ -831,7 +831,7 @@ TEST(Utility, Base64LineBreakPositions)
         SCOPED_TRACE("line_len=8");
         // 12 bytes input -> 16 base64 chars -> 2 lines of 8 chars with 1 newline
         const uint8_t input[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B};
-        auto written = encode_base64(output, sizeof(output), input, sizeof(input), 8, false, true);
+        auto written          = encode_base64(output, sizeof(output), input, sizeof(input), 8, false, true);
         EXPECT_GT(written, 0u);
 
         verify_linebreaks(output, written, 8);
@@ -848,7 +848,7 @@ TEST(Utility, Base64LineBreakPositions)
         SCOPED_TRACE("line_len=64 (PEM)");
         // 48 bytes input -> 64 base64 chars -> exactly 1 line, no newlines
         const uint8_t input[48] = {0};
-        auto written = encode_base64(output, sizeof(output), input, sizeof(input), 64, false, true);
+        auto written            = encode_base64(output, sizeof(output), input, sizeof(input), 64, false, true);
         EXPECT_GT(written, 0u);
         EXPECT_EQ(written, 64u);  // exactly 64 chars, no newline
 
@@ -864,7 +864,7 @@ TEST(Utility, Base64LineBreakPositions)
         SCOPED_TRACE("line_len=64, overflow");
         // 49 bytes input -> 68 base64 chars (with padding) -> 1 line of 64 + 1 line of 4
         const uint8_t input[49] = {0};
-        auto written = encode_base64(output, sizeof(output), input, sizeof(input), 64, false, true);
+        auto written            = encode_base64(output, sizeof(output), input, sizeof(input), 64, false, true);
         EXPECT_GT(written, 0u);
 
         verify_linebreaks(output, written, 64);
@@ -881,7 +881,7 @@ TEST(Utility, Base64LineBreakPositions)
         SCOPED_TRACE("short input");
         // 3 bytes input -> 4 base64 chars -> no newlines needed
         const uint8_t input[] = {0x01, 0x02, 0x03};
-        auto written = encode_base64(output, sizeof(output), input, sizeof(input), 64, false, true);
+        auto written          = encode_base64(output, sizeof(output), input, sizeof(input), 64, false, true);
         EXPECT_EQ(written, 4u);
 
         uint32_t newline_count = 0;
@@ -896,7 +896,7 @@ TEST(Utility, Base64LineBreakPositions)
         SCOPED_TRACE("padding with linebreak");
         // 5 bytes -> 8 chars (with ==) -> with line_len=4: "AQID\nBAU=" (4+1+4=9)
         const uint8_t input[] = {0x01, 0x02, 0x03, 0x04, 0x05};
-        auto written = encode_base64(output, sizeof(output), input, sizeof(input), 4, false, true);
+        auto written          = encode_base64(output, sizeof(output), input, sizeof(input), 4, false, true);
         EXPECT_GT(written, 0u);
 
         verify_linebreaks(output, written, 4);
@@ -916,7 +916,7 @@ TEST(Utility, Base64EncodeErrors)
     {
         SCOPED_TRACE("null output");
         const uint8_t input[] = {0x01, 0x02, 0x03};
-        auto written = encode_base64(nullptr, 128, input, sizeof(input), 0, false, true);
+        auto written          = encode_base64(nullptr, 128, input, sizeof(input), 0, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -924,7 +924,7 @@ TEST(Utility, Base64EncodeErrors)
     {
         SCOPED_TRACE("zero output length");
         const uint8_t input[] = {0x01, 0x02, 0x03};
-        auto written = encode_base64(output, 0, input, sizeof(input), 0, false, true);
+        auto written          = encode_base64(output, 0, input, sizeof(input), 0, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -939,7 +939,7 @@ TEST(Utility, Base64EncodeErrors)
     {
         SCOPED_TRACE("zero input length");
         const uint8_t input[] = {0x01, 0x02, 0x03};
-        auto written = encode_base64(output, sizeof(output), input, 0, 0, false, true);
+        auto written          = encode_base64(output, sizeof(output), input, 0, 0, false, true);
         EXPECT_EQ(written, 0u);
     }
 
@@ -1009,7 +1009,7 @@ TEST(Utility, Base64EncodeErrors)
     {
         SCOPED_TRACE("buffer too small for padding");
         const uint8_t input[] = {0x01, 0x02};  // 2 bytes -> "AQI=" (4 chars with padding)
-        auto written = encode_base64(output, 4, input, sizeof(input), 0, false, true);
+        auto written          = encode_base64(output, 4, input, sizeof(input), 0, false, true);
         EXPECT_EQ(written, 0u);  // needs 5 for null
     }
 
@@ -1017,7 +1017,7 @@ TEST(Utility, Base64EncodeErrors)
     {
         SCOPED_TRACE("without padding shorter");
         const uint8_t input[] = {0x01, 0x02};  // 2 bytes -> "AQI" (3 chars without padding)
-        auto written = encode_base64(output, 4, input, sizeof(input), 0, false, false);
+        auto written          = encode_base64(output, 4, input, sizeof(input), 0, false, false);
         EXPECT_EQ(written, 3u);
         EXPECT_STREQ(output, "AQI");
     }
@@ -1026,7 +1026,7 @@ TEST(Utility, Base64EncodeErrors)
     {
         SCOPED_TRACE("large input buffer boundary");
         const uint8_t input[48] = {0};  // 48 bytes -> 64 chars + null = 65 bytes needed
-        auto written = encode_base64(output, 64, input, sizeof(input), 0, false, true);
+        auto written            = encode_base64(output, 64, input, sizeof(input), 0, false, true);
         EXPECT_EQ(written, 0u);  // needs 65
 
         written = encode_base64(output, 65, input, sizeof(input), 0, false, true);

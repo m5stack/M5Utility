@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ * SPDX-FileCopyrightText: 2026 M5Stack Technology CO LTD
  *
  * SPDX-License-Identifier: MIT
  */
@@ -48,7 +48,7 @@ TEST(CompatibilityFeature, MicrosGreaterThanMillis)
 TEST(CompatibilityFeature, DelayApproximateTime)
 {
     // delay() should pause for approximately the specified time
-    const unsigned long delay_ms = 50;
+    const unsigned long delay_ms     = 50;
     const unsigned long tolerance_ms = 20;  // Allow 20ms tolerance
 
     unsigned long start = millis();
@@ -64,7 +64,7 @@ TEST(CompatibilityFeature, DelayApproximateTime)
 TEST(CompatibilityFeature, DelayMicrosecondsApproximateTime)
 {
     // delayMicroseconds() should pause for approximately the specified time
-    const unsigned int delay_us   = 5000;   // 5ms in microseconds
+    const unsigned int delay_us      = 5000;  // 5ms in microseconds
     const unsigned long tolerance_us = 3000;  // Allow 3ms tolerance
 
     unsigned long start = micros();
@@ -100,8 +100,8 @@ TEST(CompatibilityFeature, DelayMicrosecondsZero)
 TEST(CompatibilityFeature, MultipleDelays)
 {
     // Multiple delays should accumulate
-    const unsigned long delay_ms = 20;
-    const int count = 3;
+    const unsigned long delay_ms     = 20;
+    const int count                  = 3;
     const unsigned long tolerance_ms = 30;
 
     unsigned long start = millis();
@@ -131,7 +131,7 @@ TEST(CompatibilityFeature, ConsistencyBetweenMillisAndMicros)
 
     // us_diff should be approximately ms_diff * 1000 (with tolerance)
     unsigned long expected_us = ms_diff * 1000;
-    unsigned long tolerance = 10000;  // 10ms tolerance
+    unsigned long tolerance   = 10000;  // 10ms tolerance
 
     EXPECT_GE(us_diff + tolerance, expected_us);
     EXPECT_LE(us_diff, expected_us + tolerance);

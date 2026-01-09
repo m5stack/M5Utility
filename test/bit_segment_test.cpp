@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ * SPDX-FileCopyrightText: 2026 M5Stack Technology CO LTD
  *
  * SPDX-License-Identifier: MIT
  */
@@ -62,7 +62,7 @@ TEST(BitSegment, Assignment)
     {
         BitSegment<4, uint8_t> seg(0x56);
         BitSegment<4, uint8_t>& ref = seg;
-        seg = ref;
+        seg                         = ref;
         EXPECT_EQ(seg.raw(), 0x56);
     }
 }
@@ -99,7 +99,7 @@ TEST(BitSegment, GetterSetter_uint8)
 
     // Getter
     {
-        BS seg(0xA5);  // binary: 1010 0101
+        BS seg(0xA5);                  // binary: 1010 0101
         EXPECT_EQ(seg.upper(), 0xAU);  // upper 4 bits
         EXPECT_EQ(seg.lower(), 0x5U);  // lower 4 bits
         EXPECT_EQ(seg.raw(), 0xA5);
@@ -194,17 +194,17 @@ TEST(BitSegment, AsymmetricBits)
     // 3 lower bits in uint8_t (5 upper bits)
     {
         using BS = BitSegment<3, uint8_t>;
-        BS seg(0b11111111);  // 0xFF
-        EXPECT_EQ(seg.lower(), 0b111U);   // 7
-        EXPECT_EQ(seg.upper(), 0b11111U); // 31
+        BS seg(0b11111111);                // 0xFF
+        EXPECT_EQ(seg.lower(), 0b111U);    // 7
+        EXPECT_EQ(seg.upper(), 0b11111U);  // 31
     }
 
     // 5 lower bits in uint8_t (3 upper bits)
     {
         using BS = BitSegment<5, uint8_t>;
         BS seg(0xFF);
-        EXPECT_EQ(seg.lower(), 0b11111U); // 31
-        EXPECT_EQ(seg.upper(), 0b111U);   // 7
+        EXPECT_EQ(seg.lower(), 0b11111U);  // 31
+        EXPECT_EQ(seg.upper(), 0b111U);    // 7
     }
 
     // 1 lower bit in uint8_t (7 upper bits)
@@ -233,9 +233,9 @@ TEST(BitSegment, SignedType)
     using BS = BitSegment<4, int8_t>;
 
     // Check constants
-    EXPECT_TRUE(BS::SIGNED);
-    EXPECT_EQ(BS::LOWER_BITS, 4U);
-    EXPECT_EQ(BS::UPPER_BITS, 3U);  // 8 - 4 - 1(sign) = 3
+    EXPECT_TRUE(+BS::SIGNED);
+    EXPECT_EQ(+BS::LOWER_BITS, 4U);
+    EXPECT_EQ(+BS::UPPER_BITS, 3U);  // 8 - 4 - 1(sign) = 3
 
     // Positive value
     {

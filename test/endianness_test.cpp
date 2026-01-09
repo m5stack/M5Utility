@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ * SPDX-FileCopyrightText: 2026 M5Stack Technology CO LTD
  *
  * SPDX-License-Identifier: MIT
  */
@@ -50,8 +50,7 @@ TEST(Endianness, ConstexprValues)
     constexpr bool is_other  = m5::endian::other;
 
     // Static assertions (compile-time checks)
-    static_assert(m5::endian::little || m5::endian::big || m5::endian::other,
-                  "At least one endian type must be true");
+    static_assert(m5::endian::little || m5::endian::big || m5::endian::other, "At least one endian type must be true");
     static_assert((int)m5::endian::little + (int)m5::endian::big + (int)m5::endian::other == 1,
                   "Exactly one endian type must be true");
 

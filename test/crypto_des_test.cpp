@@ -12,8 +12,8 @@
 #include "helper.hpp"
 
 using m5::utility::crypto::TripleDES;
-using test_helper::hex_to_bytes;
 using test_helper::hex_to_array;
+using test_helper::hex_to_bytes;
 
 namespace {
 
@@ -23,7 +23,7 @@ using Key8    = TripleDES::Key8;
 using Key16   = TripleDES::Key16;
 using Key24   = TripleDES::Key24;
 
-constexpr size_t DES_BLOCK_SIZE = 8;
+constexpr size_t DES_BLOCK_SIZE    = 8;
 constexpr size_t MAX_PADDING_BYTES = DES_BLOCK_SIZE * 2;  // Maximum padding for PKCS7/Zero
 
 template <typename KeyT>
@@ -302,12 +302,12 @@ TEST(Crypto_DES, ErrorHandling_NonAlignedWithNoPadding)
     EXPECT_EQ(enc_len, 0u);
 
     // 9 bytes (not aligned)
-    plain = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
+    plain   = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
     enc_len = des.encrypt(enc.data(), plain.data(), static_cast<uint32_t>(plain.size()), key);
     EXPECT_EQ(enc_len, 0u);
 
     // 1 byte
-    plain = {0x01};
+    plain   = {0x01};
     enc_len = des.encrypt(enc.data(), plain.data(), static_cast<uint32_t>(plain.size()), key);
     EXPECT_EQ(enc_len, 0u);
 }
@@ -380,8 +380,7 @@ TEST(Crypto_DES, ErrorHandling_BlockAlignedWithNoPadding)
     EXPECT_TRUE(std::equal(plain.begin(), plain.end(), dec.begin()));
 
     // Exactly 16 bytes
-    plain = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
-             0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10};
+    plain   = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10};
     enc_len = des.encrypt(enc.data(), plain.data(), static_cast<uint32_t>(plain.size()), key);
     EXPECT_EQ(enc_len, 16u);
 
@@ -394,7 +393,7 @@ TEST(Crypto_DES, ErrorHandling_CBCWithDifferentIV)
 {
     SCOPED_TRACE("CBC mode: same plaintext with different IV produces different ciphertext");
 
-    const Key8 key = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF};
+    const Key8 key       = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF};
     const uint8_t iv1[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     const uint8_t iv2[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
 
@@ -428,15 +427,14 @@ TEST(Crypto_DES, NIST_TDEA_Keying_Option_1)
 
     // Plaintext: "The quick brown fox jump" (24 bytes = 3 blocks)
     const auto plaintext = hex_to_bytes(
-        "5468652071756963"   // "The quic"
-        "6B2062726F776E20"   // "k brown "
-        "666F78206A756D70"); // "fox jump"
+        "5468652071756963"    // "The quic"
+        "6B2062726F776E20"    // "k brown "
+        "666F78206A756D70");  // "fox jump"
 
     TripleDES des(Mode::ECB, Padding::None);
 
     std::vector<uint8_t> enc(plaintext.size());
-    uint32_t enc_len = des.encrypt(enc.data(), plaintext.data(),
-                                   static_cast<uint32_t>(plaintext.size()), key);
+    uint32_t enc_len = des.encrypt(enc.data(), plaintext.data(), static_cast<uint32_t>(plaintext.size()), key);
     EXPECT_EQ(enc_len, plaintext.size());
 
     // Verify ciphertext is different from plaintext
@@ -462,8 +460,7 @@ TEST(Crypto_DES, NIST_TDEA_Keying_Option_2)
     TripleDES des(Mode::ECB, Padding::None);
 
     std::vector<uint8_t> enc(8);
-    uint32_t enc_len = des.encrypt(enc.data(), plaintext.data(),
-                                   static_cast<uint32_t>(plaintext.size()), key);
+    uint32_t enc_len = des.encrypt(enc.data(), plaintext.data(), static_cast<uint32_t>(plaintext.size()), key);
     EXPECT_EQ(enc_len, 8u);
 
     // Verify roundtrip
@@ -479,15 +476,14 @@ TEST(Crypto_DES, NIST_Single_DES_Vector)
 
     // FIPS 46-3 / NBS Special Publication 500-20
     // This is the classic DES test vector
-    const auto key = hex_to_array<8>("133457799BBCDFF1");
-    const auto plaintext = hex_to_bytes("0123456789ABCDEF");
+    const auto key         = hex_to_array<8>("133457799BBCDFF1");
+    const auto plaintext   = hex_to_bytes("0123456789ABCDEF");
     const auto expected_ct = hex_to_bytes("85E813540F0AB405");
 
     TripleDES des(Mode::ECB, Padding::None);
 
     uint8_t enc[8]{};
-    uint32_t enc_len = des.encrypt(enc, plaintext.data(),
-                                   static_cast<uint32_t>(plaintext.size()), key);
+    uint32_t enc_len = des.encrypt(enc, plaintext.data(), static_cast<uint32_t>(plaintext.size()), key);
     EXPECT_EQ(enc_len, 8u);
     EXPECT_TRUE(std::equal(enc, enc + 8, expected_ct.begin()));
 
@@ -527,21 +523,19 @@ TEST(Crypto_DES, NIST_DES_Permutation_Test)
     for (size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); ++i) {
         SCOPED_TRACE(i);
 
-        auto key = hex_to_array<8>(tests[i].key_hex);
-        auto pt = hex_to_bytes(tests[i].pt_hex);
+        auto key         = hex_to_array<8>(tests[i].key_hex);
+        auto pt          = hex_to_bytes(tests[i].pt_hex);
         auto expected_ct = hex_to_bytes(tests[i].ct_hex);
 
         uint8_t enc[8]{};
         uint32_t enc_len = des.encrypt(enc, pt.data(), static_cast<uint32_t>(pt.size()), key);
         EXPECT_EQ(enc_len, 8u);
-        EXPECT_TRUE(std::equal(enc, enc + 8, expected_ct.begin()))
-            << "Test " << i << " encryption failed";
+        EXPECT_TRUE(std::equal(enc, enc + 8, expected_ct.begin())) << "Test " << i << " encryption failed";
 
         uint8_t dec[8]{};
         uint32_t dec_len = des.decrypt(dec, enc, enc_len, key);
         EXPECT_EQ(dec_len, 8u);
-        EXPECT_TRUE(std::equal(dec, dec + 8, pt.begin()))
-            << "Test " << i << " decryption failed";
+        EXPECT_TRUE(std::equal(dec, dec + 8, pt.begin())) << "Test " << i << " decryption failed";
     }
 }
 
@@ -557,14 +551,13 @@ TEST(Crypto_DES, NIST_CBC_Vector)
     const uint8_t iv[8] = {0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF};
 
     const auto plaintext = hex_to_bytes(
-        "4E6F772069732074"   // "Now is t"
-        "68652074696D6520"); // "he time "
+        "4E6F772069732074"    // "Now is t"
+        "68652074696D6520");  // "he time "
 
     TripleDES des(Mode::CBC, Padding::None, iv);
 
     std::vector<uint8_t> enc(plaintext.size());
-    uint32_t enc_len = des.encrypt(enc.data(), plaintext.data(),
-                                   static_cast<uint32_t>(plaintext.size()), key);
+    uint32_t enc_len = des.encrypt(enc.data(), plaintext.data(), static_cast<uint32_t>(plaintext.size()), key);
     EXPECT_EQ(enc_len, plaintext.size());
 
     // Verify decryption restores plaintext
@@ -578,8 +571,7 @@ TEST(Crypto_DES, NIST_CBC_Vector)
     const uint8_t iv2[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     TripleDES des2(Mode::CBC, Padding::None, iv2);
     std::vector<uint8_t> enc2(plaintext.size());
-    uint32_t enc2_len = des2.encrypt(enc2.data(), plaintext.data(),
-                                     static_cast<uint32_t>(plaintext.size()), key);
+    uint32_t enc2_len = des2.encrypt(enc2.data(), plaintext.data(), static_cast<uint32_t>(plaintext.size()), key);
     EXPECT_EQ(enc2_len, plaintext.size());
     EXPECT_FALSE(std::equal(enc.begin(), enc.end(), enc2.begin()))
         << "Different IV should produce different ciphertext";
