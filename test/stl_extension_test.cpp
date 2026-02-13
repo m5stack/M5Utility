@@ -111,6 +111,40 @@ TEST(StlExtension, SizeConstexpr)
     EXPECT_EQ(s, 7U);
 }
 
+TEST(StlExtension, Clamp_DefaultCompare)
+{
+    EXPECT_EQ(m5::stl::clamp(5, 1, 10), 5);
+    EXPECT_EQ(m5::stl::clamp(-1, 1, 10), 1);
+    EXPECT_EQ(m5::stl::clamp(42, 1, 10), 10);
+    EXPECT_EQ(m5::stl::clamp(1, 1, 10), 1);
+    EXPECT_EQ(m5::stl::clamp(10, 1, 10), 10);
+}
+
+TEST(StlExtension, Clamp_CustomCompare)
+{
+    const int v1 = m5::stl::clamp(5, 10, 1, std::greater<int>{});
+    const int v2 = m5::stl::clamp(11, 10, 1, std::greater<int>{});
+    const int v3 = m5::stl::clamp(0, 10, 1, std::greater<int>{});
+
+    EXPECT_EQ(v1, 5);
+    EXPECT_EQ(v2, 10);
+    EXPECT_EQ(v3, 1);
+}
+
+TEST(StlExtension, Clamp_Constexpr)
+{
+    constexpr int v1 = m5::stl::clamp(5, 1, 10);
+    constexpr int v2 = m5::stl::clamp(-2, 1, 10);
+    constexpr int v3 = m5::stl::clamp(99, 1, 10);
+    static_assert(v1 == 5, "clamp should keep in-range value");
+    static_assert(v2 == 1, "clamp should return low for below-range value");
+    static_assert(v3 == 10, "clamp should return high for above-range value");
+
+    EXPECT_EQ(v1, 5);
+    EXPECT_EQ(v2, 1);
+    EXPECT_EQ(v3, 10);
+}
+
 TEST(StlExtension, ToUnderlying_ScopedEnum)
 {
     // uint8_t underlying type
