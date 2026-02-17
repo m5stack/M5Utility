@@ -17,16 +17,66 @@
 namespace m5 {
 namespace stl {
 
+namespace detail {
+
+template <typename T>
+struct is_int128 : std::false_type {};
+
+#if defined(__SIZEOF_INT128__)
+template <>
+struct is_int128<__int128> : std::true_type {};
+
+template <>
+struct is_int128<unsigned __int128> : std::true_type {};
+#endif
+
+template <typename T>
+struct is_integer_or_enum : std::integral_constant<bool, std::is_integral<typename std::remove_cv<T>::type>::value ||
+                                                             std::is_enum<typename std::remove_cv<T>::type>::value ||
+                                                             is_int128<typename std::remove_cv<T>::type>::value> {};
+
+template <typename T>
+struct is_unsigned_ex : std::is_unsigned<typename std::remove_cv<T>::type> {};
+
+#if defined(__SIZEOF_INT128__)
+template <>
+struct is_unsigned_ex<unsigned __int128> : std::true_type {};
+#endif
+
+template <typename T>
+struct make_unsigned_impl {
+    using type = typename std::make_unsigned<T>::type;
+};
+
+template <typename T>
+struct make_unsigned_ex {
+    using type = typename make_unsigned_impl<typename std::remove_cv<T>::type>::type;
+};
+
+#if defined(__SIZEOF_INT128__)
+template <>
+struct make_unsigned_impl<__int128> {
+    using type = unsigned __int128;
+};
+
+template <>
+struct make_unsigned_impl<unsigned __int128> {
+    using type = unsigned __int128;
+};
+#endif
+
+}  // namespace detail
+
 ///@cond
 template <typename U,
-          typename std::enable_if<sizeof(U) == 2 && std::is_unsigned<U>::value, std::nullptr_t>::type = nullptr>
+          typename std::enable_if<sizeof(U) == 2 && detail::is_unsigned_ex<U>::value, std::nullptr_t>::type = nullptr>
 inline constexpr U bswap_fixed(U x) noexcept
 {
     return static_cast<U>((static_cast<uint16_t>(x >> 8) & 0x00FFu) | (static_cast<uint16_t>(x << 8) & 0xFF00u));
 }
 
 template <typename U,
-          typename std::enable_if<sizeof(U) == 4 && std::is_unsigned<U>::value, std::nullptr_t>::type = nullptr>
+          typename std::enable_if<sizeof(U) == 4 && detail::is_unsigned_ex<U>::value, std::nullptr_t>::type = nullptr>
 inline constexpr U bswap_fixed(U x) noexcept
 {
     return static_cast<U>(((static_cast<uint32_t>(x) >> 24)) | ((static_cast<uint32_t>(x) >> 8) & 0x0000FF00u) |
@@ -34,7 +84,7 @@ inline constexpr U bswap_fixed(U x) noexcept
 }
 
 template <typename U,
-          typename std::enable_if<sizeof(U) == 8 && std::is_unsigned<U>::value, std::nullptr_t>::type = nullptr>
+          typename std::enable_if<sizeof(U) == 8 && detail::is_unsigned_ex<U>::value, std::nullptr_t>::type = nullptr>
 inline constexpr U bswap_fixed(U x) noexcept
 {
     return static_cast<U>(
@@ -48,7 +98,7 @@ inline constexpr U bswap_fixed(U x) noexcept
 
 #if defined(__SIZEOF_INT128__)
 template <typename U,
-          typename std::enable_if<sizeof(U) == 16 && std::is_unsigned<U>::value, std::nullptr_t>::type = nullptr>
+          typename std::enable_if<sizeof(U) == 16 && detail::is_unsigned_ex<U>::value, std::nullptr_t>::type = nullptr>
 inline constexpr U bswap_fixed(U x) noexcept
 {
     return ((static_cast<U>(bswap_fixed<uint64_t>(static_cast<uint64_t>(x))) << 64) |
@@ -57,32 +107,29 @@ inline constexpr U bswap_fixed(U x) noexcept
 #endif
 
 template <typename U,
-          typename std::enable_if<sizeof(U) == 1 && std::is_unsigned<U>::value, std::nullptr_t>::type = nullptr>
+          typename std::enable_if<sizeof(U) == 1 && detail::is_unsigned_ex<U>::value, std::nullptr_t>::type = nullptr>
 inline constexpr U bswap_fixed(U x) noexcept
 {
     return x;
 }
 
-template <typename T, typename std::enable_if<(std::is_integral<T>::value || std::is_enum<T>::value),
-                                              std::nullptr_t>::type = nullptr>
+template <typename T, typename std::enable_if<detail::is_integer_or_enum<T>::value, std::nullptr_t>::type = nullptr>
 inline constexpr T byteswap_constexpr(T v) noexcept
 {
-    using U = typename std::make_unsigned<T>::type;
+    using U = typename detail::make_unsigned_ex<T>::type;
     return static_cast<T>(bswap_fixed<U>(static_cast<U>(v)));
 }
 ///@endcond
 
 //! @brief byteswap for integral type
-template <typename T, typename std::enable_if<(std::is_integral<T>::value || std::is_enum<T>::value),
-                                              std::nullptr_t>::type = nullptr>
+template <typename T, typename std::enable_if<detail::is_integer_or_enum<T>::value, std::nullptr_t>::type = nullptr>
 inline constexpr T byteswap(T v) noexcept
 {
     return byteswap_constexpr(v);
 }
 
 // If the type is not integral , it is prohibited
-template <typename T, typename std::enable_if<!(std::is_integral<T>::value || std::is_enum<T>::value),
-                                              std::nullptr_t>::type = nullptr>
+template <typename T, typename std::enable_if<!detail::is_integer_or_enum<T>::value, std::nullptr_t>::type = nullptr>
 T byteswap(T) = delete;
 
 }  // namespace stl
