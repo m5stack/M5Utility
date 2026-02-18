@@ -11,6 +11,7 @@
 #ifndef M5_UTILITY_STL_EXTENSION_HPP
 #define M5_UTILITY_STL_EXTENSION_HPP
 
+#include <algorithm>
 #include <cstddef>
 #include <type_traits>
 
@@ -30,6 +31,30 @@ constexpr auto size(const T (&)[N]) noexcept -> size_t
 {
     return N;
 }
+
+/*!
+  @brief Like std::clamp C++17 or later
+  @tparam T Type
+  @param v Value to clamp
+  @param low Lower bound
+  @param high Upper bound
+  @return Reference to low, high, or v
+*/
+#if __cplusplus >= 201703L
+using std::clamp;
+#else
+template <class T>
+constexpr const T& clamp(const T& v, const T& low, const T& high)
+{
+    return (v < low) ? low : (high < v) ? high : v;
+}
+
+template <class T, class Compare>
+constexpr const T& clamp(const T& v, const T& low, const T& high, Compare comp)
+{
+    return comp(v, low) ? low : comp(high, v) ? high : v;
+}
+#endif
 
 /*!
   @brief Converts an enumeration to its underlying type.(Like std::to_underlying

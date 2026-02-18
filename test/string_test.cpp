@@ -9,12 +9,99 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 
-TEST(Utility, String)
+TEST(Utility, String_Trim)
 {
-    std::string org = "\t\r\n\v STRING \v\n\r\t";
-    std::string s   = org;
-    s               = m5::utility::trim(s);  // Call trimRight/Left in it
+    // Basic trim
+    std::string s = "\t\r\n\v STRING \v\n\r\t";
+    s             = m5::utility::trim(s);
     EXPECT_STREQ(s.c_str(), "STRING");
+
+    // Empty string
+    s = "";
+    s = m5::utility::trim(s);
+    EXPECT_STREQ(s.c_str(), "");
+
+    // Whitespace only
+    s = "   \t\n\r\v  ";
+    s = m5::utility::trim(s);
+    EXPECT_STREQ(s.c_str(), "");
+
+    // No whitespace
+    s = "NoWhitespace";
+    s = m5::utility::trim(s);
+    EXPECT_STREQ(s.c_str(), "NoWhitespace");
+
+    // Leading whitespace only
+    s = "  \t leading";
+    s = m5::utility::trim(s);
+    EXPECT_STREQ(s.c_str(), "leading");
+
+    // Trailing whitespace only
+    s = "trailing \t  ";
+    s = m5::utility::trim(s);
+    EXPECT_STREQ(s.c_str(), "trailing");
+
+    // Whitespace in middle preserved
+    s = "  hello world  ";
+    s = m5::utility::trim(s);
+    EXPECT_STREQ(s.c_str(), "hello world");
+}
+
+TEST(Utility, String_TrimLeft)
+{
+    std::string s = "  \t left";
+    s             = m5::utility::trimLeft(s);
+    EXPECT_STREQ(s.c_str(), "  \t left");  // trimLeft removes from end
+
+    s = "right  \t ";
+    s = m5::utility::trimLeft(s);
+    EXPECT_STREQ(s.c_str(), "right");
+}
+
+TEST(Utility, String_TrimRight)
+{
+    std::string s = "  \t left";
+    s             = m5::utility::trimRight(s);
+    EXPECT_STREQ(s.c_str(), "left");
+
+    s = "right  \t ";
+    s = m5::utility::trimRight(s);
+    EXPECT_STREQ(s.c_str(), "right  \t ");  // trimRight removes from start
+}
+
+TEST(Utility, String_FormatString)
+{
+    // Basic string formatting
+    auto s = m5::utility::formatString("Hello %s", "World");
+    EXPECT_STREQ(s.c_str(), "Hello World");
+
+    // Integer formatting
+    s = m5::utility::formatString("%d + %d = %d", 1, 2, 3);
+    EXPECT_STREQ(s.c_str(), "1 + 2 = 3");
+
+    // Hex formatting
+    s = m5::utility::formatString("0x%04X", 0x1234);
+    EXPECT_STREQ(s.c_str(), "0x1234");
+
+    // Float formatting
+    s = m5::utility::formatString("%.2f", 3.14159);
+    EXPECT_STREQ(s.c_str(), "3.14");
+
+    // Multiple format specifiers
+    s = m5::utility::formatString("%s: %d (0x%02X)", "Value", 255, 255);
+    EXPECT_STREQ(s.c_str(), "Value: 255 (0xFF)");
+
+    // Empty format string
+    s = m5::utility::formatString("");
+    EXPECT_STREQ(s.c_str(), "");
+
+    // No format specifiers
+    s = m5::utility::formatString("Plain text");
+    EXPECT_STREQ(s.c_str(), "Plain text");
+
+    // Long string
+    s = m5::utility::formatString("%s%s%s", "This is ", "a longer ", "string test");
+    EXPECT_STREQ(s.c_str(), "This is a longer string test");
 }
 
 TEST(Utility, HexString)
@@ -70,4 +157,25 @@ TEST(Utility, HexString)
         s = m5::utility::unsignedToHexString(v);
         EXPECT_STREQ(s.c_str(), "5252DEADBEAF0303");
     }
+}
+
+TEST(Utility, HexString_LowerCase)
+{
+    std::string s;
+
+    // uint8_t lowercase
+    s = m5::utility::unsignedToHexString<uint8_t, false>(0xAB);
+    EXPECT_STREQ(s.c_str(), "ab");
+
+    // uint16_t lowercase
+    s = m5::utility::unsignedToHexString<uint16_t, false>(0xCDEF);
+    EXPECT_STREQ(s.c_str(), "cdef");
+
+    // uint32_t lowercase
+    s = m5::utility::unsignedToHexString<uint32_t, false>(0xDEADBEEF);
+    EXPECT_STREQ(s.c_str(), "deadbeef");
+
+    // uint64_t lowercase
+    s = m5::utility::unsignedToHexString<uint64_t, false>(0xCAFEBABE12345678);
+    EXPECT_STREQ(s.c_str(), "cafebabe12345678");
 }

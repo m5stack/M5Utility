@@ -158,19 +158,442 @@ TEST(Crypto_SHA1, Basic)
         EXPECT_TRUE(memcmp(digest, e.expected, 20) == 0);
     }
 
-    // 'a' String repeated 1000000 times
-    constexpr uint32_t ilen{1000000};
-    constexpr uint8_t a1000000[20] = {0x34, 0xaa, 0x97, 0x3c, 0xd4, 0xc4, 0xda, 0xa4, 0xf6, 0x1e,
-                                      0xeb, 0x2b, 0xdb, 0xad, 0x27, 0x31, 0x65, 0x34, 0x01, 0x6f};
-    uint8_t* in                    = (uint8_t*)malloc(1000000);
+    // 'a' String repeated 1,000,000 times (FIPS 180-1 test vector)
+    constexpr uint32_t MILLION_A_LEN         = 1000000;
+    constexpr uint8_t expected_million_a[20] = {0x34, 0xaa, 0x97, 0x3c, 0xd4, 0xc4, 0xda, 0xa4, 0xf6, 0x1e,
+                                                0xeb, 0x2b, 0xdb, 0xad, 0x27, 0x31, 0x65, 0x34, 0x01, 0x6f};
+    uint8_t* in                              = (uint8_t*)malloc(MILLION_A_LEN);
     if (in) {
-        memset(in, (uint8_t)('a'), ilen);
+        memset(in, (uint8_t)('a'), MILLION_A_LEN);
         uint8_t digest[20]{};
-        SHA1::sha1(digest, in, ilen);
-        EXPECT_TRUE(memcmp(digest, a1000000, 20) == 0);
+        SHA1::sha1(digest, in, MILLION_A_LEN);
+        EXPECT_TRUE(memcmp(digest, expected_million_a, 20) == 0);
 
         free(in);
     } else {
-        M5_LOGW("Cannot allocate %u", ilen);
+        M5_LOGW("Cannot allocate %u", MILLION_A_LEN);
+    }
+}
+
+TEST(Crypto_SHA1, Incremental)
+{
+    SCOPED_TRACE("SHA1 Incremental");
+
+    // Test incremental update produces same result as one-shot
+    {
+        SCOPED_TRACE("incremental vs one-shot");
+
+        for (uint32_t i = 0; i < m5::stl::size(sha1_test_table); ++i) {
+            auto& e = sha1_test_table[i];
+            if (e.ilen == 0) continue;
+            SCOPED_TRACE(e.name);
+
+            // One-shot
+            uint8_t digest_oneshot[20]{};
+            SHA1::sha1(digest_oneshot, e.input, e.ilen);
+
+            // Incremental: 1 byte at a time
+            SHA1 sha1;
+            sha1.init();
+            for (uint32_t j = 0; j < e.ilen; ++j) {
+                sha1.update(&e.input[j], 1);
+            }
+            uint8_t digest_inc[20]{};
+            sha1.finalize(digest_inc);
+
+            EXPECT_TRUE(memcmp(digest_oneshot, digest_inc, 20) == 0);
+        }
+    }
+
+    // Test various chunk sizes
+    {
+        SCOPED_TRACE("various chunk sizes");
+
+        const uint8_t* data     = sha1_test_table[9].input;  // 128-bytes
+        const uint32_t len      = sha1_test_table[9].ilen;
+        const uint8_t* expected = sha1_test_table[9].expected;
+
+        uint32_t chunk_sizes[] = {1, 2, 3, 7, 13, 16, 32, 64, 65, 100};
+        for (uint32_t chunk : chunk_sizes) {
+            SCOPED_TRACE(chunk);
+
+            SHA1 sha1;
+            sha1.init();
+            uint32_t offset = 0;
+            while (offset < len) {
+                uint32_t remaining  = len - offset;
+                uint32_t to_process = (remaining < chunk) ? remaining : chunk;
+                sha1.update(data + offset, to_process);
+                offset += to_process;
+            }
+            uint8_t digest[20]{};
+            sha1.finalize(digest);
+
+            EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+        }
+    }
+
+    // Test init() resets state for reuse
+    {
+        SCOPED_TRACE("init resets state");
+
+        SHA1 sha1;
+
+        // First hash
+        sha1.init();
+        sha1.update(sha1_test_table[0].input, sha1_test_table[0].ilen);  // empty
+        uint8_t digest1[20]{};
+        sha1.finalize(digest1);
+        EXPECT_TRUE(memcmp(digest1, sha1_test_table[0].expected, 20) == 0);
+
+        // Reuse: second hash with init()
+        sha1.init();
+        sha1.update(sha1_test_table[15].input, sha1_test_table[15].ilen);  // "abc"
+        uint8_t digest2[20]{};
+        sha1.finalize(digest2);
+        EXPECT_TRUE(memcmp(digest2, sha1_test_table[15].expected, 20) == 0);
+
+        // Reuse again: third hash
+        sha1.init();
+        sha1.update(sha1_test_table[1].input, sha1_test_table[1].ilen);  // 1-byte
+        uint8_t digest3[20]{};
+        sha1.finalize(digest3);
+        EXPECT_TRUE(memcmp(digest3, sha1_test_table[1].expected, 20) == 0);
+    }
+
+    // Test multiple updates in sequence
+    {
+        SCOPED_TRACE("multiple updates");
+
+        // "abc" = 0x61, 0x62, 0x63
+        SHA1 sha1;
+        sha1.init();
+        uint8_t a = 0x61, b = 0x62, c = 0x63;
+        sha1.update(&a, 1);
+        sha1.update(&b, 1);
+        sha1.update(&c, 1);
+        uint8_t digest[20]{};
+        sha1.finalize(digest);
+
+        EXPECT_TRUE(memcmp(digest, sha1_test_table[15].expected, 20) == 0);  // "abc"
+    }
+
+    // Test empty update calls
+    {
+        SCOPED_TRACE("empty updates");
+
+        SHA1 sha1;
+        sha1.init();
+        sha1.update(nullptr, 0);                                           // empty
+        sha1.update(sha1_test_table[15].input, sha1_test_table[15].ilen);  // "abc"
+        sha1.update(nullptr, 0);                                           // empty
+        uint8_t digest[20]{};
+        sha1.finalize(digest);
+
+        EXPECT_TRUE(memcmp(digest, sha1_test_table[15].expected, 20) == 0);
+    }
+
+    // Test block boundary: exactly 64 bytes then more
+    {
+        SCOPED_TRACE("block boundary 64+1");
+
+        // 64-bytes test case (index 6)
+        const uint8_t* data64 = sha1_test_table[6].input;
+        // 65-bytes test case (index 7)
+        const uint8_t* data65     = sha1_test_table[7].input;
+        const uint8_t* expected65 = sha1_test_table[7].expected;
+
+        SHA1 sha1;
+        sha1.init();
+        sha1.update(data64, 64);      // exactly one block
+        sha1.update(data65 + 64, 1);  // one more byte
+        uint8_t digest[20]{};
+        sha1.finalize(digest);
+
+        EXPECT_TRUE(memcmp(digest, expected65, 20) == 0);
+    }
+}
+
+TEST(Crypto_SHA1, EdgeCases)
+{
+    SCOPED_TRACE("SHA1 Edge Cases");
+
+    // Empty input via static method
+    {
+        SCOPED_TRACE("empty static");
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, nullptr, 0);
+        EXPECT_TRUE(memcmp(digest, sha1_test_table[0].expected, 20) == 0);
+    }
+
+    // Empty input via instance
+    {
+        SCOPED_TRACE("empty instance");
+        SHA1 sha1;
+        sha1.init();
+        uint8_t digest[20]{};
+        sha1.finalize(digest);
+        EXPECT_TRUE(memcmp(digest, sha1_test_table[0].expected, 20) == 0);
+    }
+
+    // Finalize without any update
+    {
+        SCOPED_TRACE("finalize without update");
+        SHA1 sha1;
+        sha1.init();
+        // No update() called
+        uint8_t digest[20]{};
+        sha1.finalize(digest);
+        EXPECT_TRUE(memcmp(digest, sha1_test_table[0].expected, 20) == 0);  // Same as empty
+    }
+
+    // Double finalize (use after finalize - undefined but shouldn't crash)
+    {
+        SCOPED_TRACE("double finalize");
+        SHA1 sha1;
+        sha1.init();
+        sha1.update(sha1_test_table[15].input, sha1_test_table[15].ilen);  // "abc"
+        uint8_t digest1[20]{};
+        sha1.finalize(digest1);
+        EXPECT_TRUE(memcmp(digest1, sha1_test_table[15].expected, 20) == 0);
+
+        // Second finalize - result is undefined but shouldn't crash
+        uint8_t digest2[20]{};
+        sha1.finalize(digest2);
+        // We don't check the result, just that it doesn't crash
+    }
+
+    // Very small chunks crossing block boundary
+    {
+        SCOPED_TRACE("small chunks crossing boundary");
+        // 64 bytes = 1 block, split into many small updates
+        const uint8_t* data     = sha1_test_table[6].input;  // 64-bytes
+        const uint8_t* expected = sha1_test_table[6].expected;
+
+        SHA1 sha1;
+        sha1.init();
+        // Update with varying small sizes: 3, 5, 7, 11, 13, 17, 8 = 64
+        sha1.update(data, 3);
+        sha1.update(data + 3, 5);
+        sha1.update(data + 8, 7);
+        sha1.update(data + 15, 11);
+        sha1.update(data + 26, 13);
+        sha1.update(data + 39, 17);
+        sha1.update(data + 56, 8);
+
+        uint8_t digest[20]{};
+        sha1.finalize(digest);
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // All same byte patterns
+    {
+        SCOPED_TRACE("all zeros");
+        EXPECT_TRUE(memcmp(sha1_test_table[11].input, (const uint8_t[]){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                           32) == 0);
+
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, sha1_test_table[11].input, sha1_test_table[11].ilen);
+        EXPECT_TRUE(memcmp(digest, sha1_test_table[11].expected, 20) == 0);
+    }
+}
+
+// ---------------------- FIPS 180-1 Official Test Vectors ----------------------
+// Official NIST FIPS 180-1 test vectors
+
+TEST(Crypto_SHA1, FIPS_180_1_Vectors)
+{
+    SCOPED_TRACE("FIPS 180-1 Official Test Vectors");
+
+    // FIPS 180-1 Example 1: "abc"
+    {
+        SCOPED_TRACE("FIPS 180-1 Example 1: abc");
+        const uint8_t input[]    = {'a', 'b', 'c'};
+        const uint8_t expected[] = {0xA9, 0x99, 0x3E, 0x36, 0x47, 0x06, 0x81, 0x6A, 0xBA, 0x3E,
+                                    0x25, 0x71, 0x78, 0x50, 0xC2, 0x6C, 0x9C, 0xD0, 0xD8, 0x9D};
+
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, input, sizeof(input));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // FIPS 180-1 Example 2: "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
+    {
+        SCOPED_TRACE("FIPS 180-1 Example 2: abc...nopq (56 bytes)");
+        const char* input_str    = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq";
+        const uint8_t expected[] = {0x84, 0x98, 0x3E, 0x44, 0x1C, 0x3B, 0xD2, 0x6E, 0xBA, 0xAE,
+                                    0x4A, 0xA1, 0xF9, 0x51, 0x29, 0xE5, 0xE5, 0x46, 0x70, 0xF1};
+
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, (const uint8_t*)input_str, 56);
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // FIPS 180-1 Example 3: "a" repeated 1,000,000 times
+    {
+        SCOPED_TRACE("FIPS 180-1 Example 3: 'a' x 1000000");
+        constexpr uint32_t len   = 1000000;
+        const uint8_t expected[] = {0x34, 0xAA, 0x97, 0x3C, 0xD4, 0xC4, 0xDA, 0xA4, 0xF6, 0x1E,
+                                    0xEB, 0x2B, 0xDB, 0xAD, 0x27, 0x31, 0x65, 0x34, 0x01, 0x6F};
+
+        uint8_t* input = (uint8_t*)malloc(len);
+        if (input) {
+            memset(input, 'a', len);
+            uint8_t digest[20]{};
+            SHA1::sha1(digest, input, len);
+            EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+            free(input);
+        } else {
+            M5_LOGW("Cannot allocate %u bytes for FIPS test", len);
+        }
+    }
+}
+
+TEST(Crypto_SHA1, NIST_CAVP_Short_Messages)
+{
+    SCOPED_TRACE("NIST CAVP Short Message Tests");
+
+    // NIST Cryptographic Algorithm Validation Program (CAVP) test vectors
+    // Selected short message test cases
+
+    // 8-bit (1 byte): 0x36
+    {
+        SCOPED_TRACE("8-bit");
+        const uint8_t msg[]      = {0x36};
+        const uint8_t expected[] = {0xC1, 0xDF, 0xD9, 0x6E, 0xEA, 0x8C, 0xC2, 0xB6, 0x27, 0x85,
+                                    0x27, 0x5B, 0xCA, 0x38, 0xAC, 0x26, 0x12, 0x56, 0xE2, 0x78};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 16-bit (2 bytes)
+    {
+        SCOPED_TRACE("16-bit");
+        const uint8_t msg[]      = {0x19, 0x5A};
+        const uint8_t expected[] = {0x0A, 0x1C, 0x2D, 0x55, 0x5B, 0xBE, 0x43, 0x1A, 0xD6, 0x28,
+                                    0x8A, 0xF5, 0xA5, 0x4F, 0x93, 0xE0, 0x44, 0x9C, 0x92, 0x32};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 24-bit (3 bytes)
+    {
+        SCOPED_TRACE("24-bit");
+        const uint8_t msg[]      = {0xDF, 0x4B, 0xD2};
+        const uint8_t expected[] = {0xBF, 0x36, 0xED, 0x5D, 0x74, 0x72, 0x7D, 0xFD, 0x5D, 0x78,
+                                    0x54, 0xEC, 0x6B, 0x1D, 0x49, 0x46, 0x8D, 0x8E, 0xE8, 0xAA};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 32-bit (4 bytes)
+    {
+        SCOPED_TRACE("32-bit");
+        const uint8_t msg[]      = {0x54, 0x9E, 0x95, 0x9E};
+        const uint8_t expected[] = {0xB7, 0x8B, 0xAE, 0x6D, 0x14, 0x33, 0x8F, 0xFC, 0xCF, 0xD5,
+                                    0xD5, 0xB5, 0x67, 0x4A, 0x27, 0x5F, 0x6E, 0xF9, 0xC7, 0x17};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 40-bit (5 bytes) - NIST CAVP
+    {
+        SCOPED_TRACE("40-bit");
+        const uint8_t msg[]      = {0xF7, 0xFB, 0x1B, 0xE2, 0x05};
+        const uint8_t expected[] = {0x60, 0xB7, 0xD5, 0xBB, 0x56, 0x0A, 0x1A, 0xCF, 0x6F, 0xA4,
+                                    0x57, 0x21, 0xBD, 0x0A, 0xBB, 0x41, 0x9A, 0x84, 0x1A, 0x89};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 48-bit (6 bytes) - NIST CAVP
+    {
+        SCOPED_TRACE("48-bit");
+        const uint8_t msg[]      = {0xC0, 0xE5, 0xAB, 0xEA, 0xEA, 0x63};
+        const uint8_t expected[] = {0xA6, 0xD3, 0x38, 0x45, 0x97, 0x80, 0xC0, 0x83, 0x63, 0x09,
+                                    0x0F, 0xD8, 0xFC, 0x7D, 0x28, 0xDC, 0x80, 0xE8, 0xE0, 0x1F};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 56-bit (7 bytes) - NIST CAVP
+    {
+        SCOPED_TRACE("56-bit");
+        const uint8_t msg[]      = {0x63, 0xBF, 0xC1, 0xED, 0x7F, 0x78, 0xAB};
+        const uint8_t expected[] = {0x86, 0x03, 0x28, 0xD8, 0x05, 0x09, 0x50, 0x0C, 0x17, 0x83,
+                                    0x16, 0x9E, 0xBF, 0x0B, 0xA0, 0xC4, 0xB9, 0x4D, 0xA5, 0xE5};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 64-bit (8 bytes) - NIST CAVP
+    {
+        SCOPED_TRACE("64-bit");
+        const uint8_t msg[]      = {0x7E, 0x3D, 0x7B, 0x3E, 0xAD, 0xA9, 0x88, 0x66};
+        const uint8_t expected[] = {0x24, 0xA2, 0xC3, 0x4B, 0x97, 0x63, 0x05, 0x27, 0x7C, 0xE5,
+                                    0x8C, 0x2F, 0x42, 0xD5, 0x09, 0x20, 0x31, 0x57, 0x25, 0x20};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+}
+
+TEST(Crypto_SHA1, NIST_CAVP_Long_Messages)
+{
+    SCOPED_TRACE("NIST CAVP Long Message Tests");
+
+    // 448-bit (56 bytes) - padding boundary case
+    // SHA-1 pads to 512-bit blocks, with 64-bit length field
+    // 56 bytes = 448 bits, leaves exactly 64 bits for padding+length
+    {
+        SCOPED_TRACE("448-bit (56 bytes - padding boundary)");
+        const uint8_t msg[] = {0x03, 0x21, 0x73, 0x6B, 0xEB, 0xA5, 0x78, 0xE9, 0x0A, 0xBC, 0x1A, 0x90, 0xAA, 0x56,
+                               0x15, 0x7D, 0x87, 0x16, 0x18, 0xF6, 0xDE, 0x0D, 0x76, 0x4C, 0xC8, 0xC9, 0x1E, 0x06,
+                               0xC6, 0x8E, 0xCD, 0x3B, 0x9D, 0xE3, 0x82, 0x40, 0x64, 0x50, 0x33, 0x84, 0xDB, 0x67,
+                               0xBE, 0xB7, 0xFE, 0x01, 0x22, 0x32, 0xDA, 0xCA, 0xEF, 0x93, 0xA0, 0x00, 0xFB, 0xA7};
+
+        const uint8_t expected[] = {0xAE, 0xF8, 0x43, 0xB8, 0x69, 0x16, 0xC1, 0x6F, 0x66, 0xC8,
+                                    0x4D, 0x83, 0xA6, 0x00, 0x5D, 0x23, 0xFD, 0x00, 0x5C, 0x9E};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 512-bit (64 bytes) - exactly one block
+    {
+        SCOPED_TRACE("512-bit (64 bytes - exact block)");
+        const uint8_t msg[] = {0x45, 0x92, 0x7E, 0x32, 0xDD, 0xF8, 0x01, 0xCA, 0xF3, 0x5E, 0x18, 0xE7, 0xB5,
+                               0x07, 0x8B, 0x7F, 0x54, 0x35, 0x27, 0x82, 0x12, 0xEC, 0x6B, 0xB9, 0x9D, 0xF8,
+                               0x84, 0xF4, 0x9B, 0x32, 0x7C, 0x64, 0x86, 0xFE, 0xAE, 0x46, 0xBA, 0x18, 0x7D,
+                               0xC1, 0xCC, 0x91, 0x45, 0x12, 0x1E, 0x14, 0x92, 0xE6, 0xB0, 0x6E, 0x90, 0x07,
+                               0x39, 0x4D, 0xC3, 0x3B, 0x77, 0x48, 0xF8, 0x6A, 0xC3, 0x20, 0x7C, 0xFE};
+
+        const uint8_t expected[] = {0xA7, 0x0C, 0xFB, 0xFE, 0x75, 0x63, 0xDD, 0x0E, 0x66, 0x5C,
+                                    0x7C, 0x67, 0x15, 0xA9, 0x6A, 0x8D, 0x75, 0x69, 0x50, 0xC0};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
+    }
+
+    // 256-bit (32 bytes) - half block
+    {
+        SCOPED_TRACE("256-bit (32 bytes)");
+        const uint8_t msg[] = {0x03, 0x21, 0x79, 0x4B, 0x73, 0x94, 0x18, 0xC2, 0x4E, 0x7C, 0x2E,
+                               0x56, 0x52, 0x74, 0x79, 0x1C, 0x4B, 0xE7, 0x49, 0x75, 0x2A, 0xD2,
+                               0x34, 0xED, 0x56, 0xCB, 0x0A, 0x63, 0x47, 0x43, 0x0C, 0x6B};
+
+        const uint8_t expected[] = {0xB8, 0x99, 0x62, 0xC9, 0x4D, 0x60, 0xF6, 0xA3, 0x32, 0xFD,
+                                    0x60, 0xF6, 0xF0, 0x7D, 0x4F, 0x03, 0x2A, 0x58, 0x6B, 0x76};
+        uint8_t digest[20]{};
+        SHA1::sha1(digest, msg, sizeof(msg));
+        EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
     }
 }

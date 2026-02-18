@@ -462,6 +462,247 @@ void cb_iterator_test()
     }
 }
 
+void cb_copy_move_test()
+{
+    SCOPED_TRACE("Copy/Move");
+
+    // Copy constructor
+    {
+        FixedCircularBuffer<int, 4> original = {1, 2, 3};
+        FixedCircularBuffer<int, 4> copied(original);
+
+        EXPECT_EQ(copied.size(), 3U);
+        EXPECT_EQ(copied[0], 1);
+        EXPECT_EQ(copied[1], 2);
+        EXPECT_EQ(copied[2], 3);
+
+        // Verify original unchanged
+        EXPECT_EQ(original.size(), 3U);
+        EXPECT_EQ(original[0], 1);
+    }
+
+    // Move constructor
+    {
+        FixedCircularBuffer<int, 4> original = {4, 5, 6};
+        FixedCircularBuffer<int, 4> moved(std::move(original));
+
+        EXPECT_EQ(moved.size(), 3U);
+        EXPECT_EQ(moved[0], 4);
+        EXPECT_EQ(moved[1], 5);
+        EXPECT_EQ(moved[2], 6);
+    }
+
+    // Copy assignment
+    {
+        FixedCircularBuffer<int, 4> original = {7, 8};
+        FixedCircularBuffer<int, 4> assigned;
+        assigned = original;
+
+        EXPECT_EQ(assigned.size(), 2U);
+        EXPECT_EQ(assigned[0], 7);
+        EXPECT_EQ(assigned[1], 8);
+    }
+
+    // Move assignment
+    {
+        FixedCircularBuffer<int, 4> original = {9, 10};
+        FixedCircularBuffer<int, 4> assigned;
+        assigned = std::move(original);
+
+        EXPECT_EQ(assigned.size(), 2U);
+        EXPECT_EQ(assigned[0], 9);
+        EXPECT_EQ(assigned[1], 10);
+    }
+}
+
+void cb_swap_test()
+{
+    SCOPED_TRACE("Swap");
+
+    // Member swap
+    {
+        FixedCircularBuffer<int, 4> a = {1, 2, 3};
+        FixedCircularBuffer<int, 4> b = {4, 5};
+
+        a.swap(b);
+
+        EXPECT_EQ(a.size(), 2U);
+        EXPECT_EQ(a[0], 4);
+        EXPECT_EQ(a[1], 5);
+
+        EXPECT_EQ(b.size(), 3U);
+        EXPECT_EQ(b[0], 1);
+        EXPECT_EQ(b[1], 2);
+        EXPECT_EQ(b[2], 3);
+    }
+
+    // std::swap specialization
+    {
+        FixedCircularBuffer<int, 4> a = {10, 20};
+        FixedCircularBuffer<int, 4> b = {30, 40, 50};
+
+        std::swap(a, b);
+
+        EXPECT_EQ(a.size(), 3U);
+        EXPECT_EQ(a[0], 30);
+        EXPECT_EQ(a[1], 40);
+        EXPECT_EQ(a[2], 50);
+
+        EXPECT_EQ(b.size(), 2U);
+        EXPECT_EQ(b[0], 10);
+        EXPECT_EQ(b[1], 20);
+    }
+
+    // Swap with empty
+    {
+        FixedCircularBuffer<int, 4> a = {1, 2, 3, 4};
+        FixedCircularBuffer<int, 4> b;
+
+        a.swap(b);
+
+        EXPECT_TRUE(a.empty());
+        EXPECT_TRUE(b.full());
+        EXPECT_EQ(b.size(), 4U);
+    }
+
+    // Self swap
+    {
+        FixedCircularBuffer<int, 4> a = {1, 2, 3};
+        a.swap(a);
+
+        EXPECT_EQ(a.size(), 3U);
+        EXPECT_EQ(a[0], 1);
+        EXPECT_EQ(a[1], 2);
+        EXPECT_EQ(a[2], 3);
+    }
+}
+
+void cb_assign_test()
+{
+    SCOPED_TRACE("Assign");
+
+    // assign with initializer_list
+    {
+        FixedCircularBuffer<int, 4> rb = {1, 2, 3, 4};
+        rb.assign({10, 20});
+
+        EXPECT_EQ(rb.size(), 2U);
+        EXPECT_EQ(rb[0], 10);
+        EXPECT_EQ(rb[1], 20);
+    }
+
+    // assign with count and value (use size_t to avoid template overload)
+    {
+        FixedCircularBuffer<int, 4> rb;
+        rb.assign(size_t(3), 42);
+
+        EXPECT_EQ(rb.size(), 3U);
+        EXPECT_EQ(rb[0], 42);
+        EXPECT_EQ(rb[1], 42);
+        EXPECT_EQ(rb[2], 42);
+    }
+
+    // assign with iterators
+    {
+        std::vector<int> src = {100, 200, 300};
+        FixedCircularBuffer<int, 4> rb;
+        rb.assign(src.begin(), src.end());
+
+        EXPECT_EQ(rb.size(), 3U);
+        EXPECT_EQ(rb[0], 100);
+        EXPECT_EQ(rb[1], 200);
+        EXPECT_EQ(rb[2], 300);
+    }
+}
+
+void cb_dynamic_buffer_test()
+{
+    SCOPED_TRACE("DynamicBuffer");
+
+    // CircularBuffer (dynamic size)
+    {
+        CircularBuffer<int> rb(4);
+
+        EXPECT_TRUE(rb.empty());
+        EXPECT_EQ(rb.capacity(), 4U);
+
+        rb.push_back(1);
+        rb.push_back(2);
+        rb.push_back(3);
+
+        EXPECT_EQ(rb.size(), 3U);
+        EXPECT_EQ(rb[0], 1);
+        EXPECT_EQ(rb[1], 2);
+        EXPECT_EQ(rb[2], 3);
+    }
+
+    // CircularBuffer with assign (full fill)
+    {
+        CircularBuffer<int> rb(4);
+        rb.assign(size_t(4), 99);
+
+        EXPECT_TRUE(rb.full());
+        EXPECT_EQ(rb.size(), 4U);
+        EXPECT_EQ(rb[0], 99);
+        EXPECT_EQ(rb[1], 99);
+        EXPECT_EQ(rb[2], 99);
+        EXPECT_EQ(rb[3], 99);
+    }
+
+    // CircularBuffer with assign (partial fill)
+    {
+        CircularBuffer<int> rb(4);
+        rb.assign(size_t(3), 99);
+
+        EXPECT_EQ(rb.size(), 3U);
+        EXPECT_EQ(rb[0], 99);
+        EXPECT_EQ(rb[1], 99);
+        EXPECT_EQ(rb[2], 99);
+    }
+
+    // CircularBuffer with iterator constructor
+    {
+        std::vector<int> src = {1, 2, 3, 4, 5};
+        CircularBuffer<int> rb(3, src.begin(), src.end());
+
+        EXPECT_TRUE(rb.full());
+        EXPECT_EQ(rb.size(), 3U);
+        EXPECT_EQ(rb[0], 3);  // Last 3 elements
+        EXPECT_EQ(rb[1], 4);
+        EXPECT_EQ(rb[2], 5);
+    }
+
+    // CircularBuffer with initializer_list constructor
+    {
+        CircularBuffer<int> rb(4, {10, 20, 30});
+
+        EXPECT_EQ(rb.size(), 3U);
+        EXPECT_EQ(rb[0], 10);
+        EXPECT_EQ(rb[1], 20);
+        EXPECT_EQ(rb[2], 30);
+    }
+
+    // CircularBuffer swap
+    {
+        CircularBuffer<int> a(4);
+        CircularBuffer<int> b(6);
+
+        a.push_back(1);
+        a.push_back(2);
+        b.push_back(10);
+
+        a.swap(b);
+
+        EXPECT_EQ(a.capacity(), 6U);
+        EXPECT_EQ(a.size(), 1U);
+        EXPECT_EQ(a[0], 10);
+
+        EXPECT_EQ(b.capacity(), 4U);
+        EXPECT_EQ(b.size(), 2U);
+        EXPECT_EQ(b[0], 1);
+    }
+}
+
 }  // namespace
 
 TEST(Utility, CircularBuffer)
@@ -470,4 +711,8 @@ TEST(Utility, CircularBuffer)
     cb_constructor_test();
     cb_read();
     cb_iterator_test();
+    cb_copy_move_test();
+    cb_swap_test();
+    cb_assign_test();
+    cb_dynamic_buffer_test();
 }

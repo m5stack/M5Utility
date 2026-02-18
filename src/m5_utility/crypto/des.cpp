@@ -9,6 +9,7 @@
 */
 #include "des.hpp"
 #include <cstring>
+// #include "m5_utility/log/library_log.hpp"
 
 namespace {
 constexpr uint32_t BS{8};  // block size
@@ -284,6 +285,10 @@ void TripleDES::process_block(uint8_t out[8], const uint8_t in[8], const Key& ke
 uint32_t TripleDES::encrypt_3key(uint8_t* out, const uint8_t* in, uint32_t in_len, const Key& k1, const Key& k2,
                                  const Key& k3)
 {
+    if (!out || !in || !in_len) {
+        return 0;
+    }
+
     uint32_t full = in_len / BS;
     uint32_t rem  = in_len % BS;
 
@@ -371,7 +376,7 @@ void TripleDES::encrypt_block_3key(uint8_t out[8], const uint8_t in[8], const Ke
 uint32_t TripleDES::decrypt_3key(uint8_t* out, const uint8_t* in, uint32_t in_len, const Key& k1, const Key& k2,
                                  const Key& k3)
 {
-    if (in_len == 0) {
+    if (!out || !in || !in_len) {
         return 0;
     }
 

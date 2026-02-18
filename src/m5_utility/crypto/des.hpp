@@ -5,7 +5,7 @@
  */
 /*!
   @file des.hpp
-  @brief Data Encryption Standar (DES)
+  @brief Data Encryption Standard (DES)
 */
 #ifndef M5_UTILITY_DES_HPP
 #define M5_UTILITY_DES_HPP
@@ -18,7 +18,7 @@ namespace crypto {
 
 /*!
   @class TrippleDES
-  @brief Triple Data Encryption Standar(3DES)
+  @brief Triple Data Encryption Standard(3DES)
 */
 class TripleDES {
 public:
@@ -64,8 +64,8 @@ public:
       @param key Key
       @return Output length
       @note Same as single DES
-      @note out at leaset in_len if Padding::None
-      @note out at leaset (in_len + 7)/8+8 if Padding::Zero, PKCS7
+      @note out at least in_len if Padding::None
+      @note out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7
      */
     inline uint32_t encrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key& key)
     {
@@ -79,8 +79,8 @@ public:
       @param key1 Key1
       @param key2 Key2
       @return Output length
-      @note out at leaset in_len if Padding::None
-      @note out at leaset (in_len + 7)/8+8 if Padding::Zero, PKCS7
+      @note out at least in_len if Padding::None
+      @note out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7
      */
     inline uint32_t encrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key& key1, const Key& key2)
     {
@@ -93,8 +93,8 @@ public:
       @param in_len Input length
       @param key Key
       @return Output length
-      @note out at leaset in_len if Padding::None
-      @note out at leaset (in_len + 7)/8+8 if Padding::Zero, PKCS7
+      @note out at least in_len if Padding::None
+      @note out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7
      */
     uint32_t encrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key16& key);
     /*!
@@ -106,8 +106,8 @@ public:
       @param key2 Key2
       @param key3 Key3
       @return Output length
-      @note out at leaset in_len if Padding::None
-      @note out at leaset (in_len + 7)/8+8 if Padding::Zero, PKCS7
+      @note out at least in_len if Padding::None
+      @note out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7
      */
     inline uint32_t encrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key& key1, const Key& key2,
                             const Key& key3)
@@ -121,8 +121,8 @@ public:
       @param in_len Input length
       @param key Key
       @return Output length
-      @note out at leaset in_len if Padding::None
-      @note out at leaset (in_len + 7)/8+8 if Padding::Zero, PKCS7
+      @note out at least in_len if Padding::None
+      @note out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7
      */
     uint32_t encrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key24& key);
     ///@}

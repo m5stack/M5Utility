@@ -43,7 +43,9 @@ jobs:
   formatting-check:
     name: Formatting Check
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     strategy:
+      max-parallel: 20
       matrix:
         path:
           #- check: './'    # path to include
@@ -59,11 +61,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Run clang-format style check for C/C++/Protobuf programs.
-        uses: jidicula/clang-format-action@v4.10.2 # Using include-regex 10.x or later
+        uses: jidicula/clang-format-action@v4.16.0 # Using include-regex 10.x or later
         with:
           clang-format-version: '13'
           check-path: ${{ matrix.path['check'] }}
