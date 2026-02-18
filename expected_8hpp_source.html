@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.9 git rev:d29fae5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
    </div>
   </td>
  </tr>
@@ -327,8 +327,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 </div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_struct" href="structm5_1_1stl_1_1unexpect__t.html">unexpect_t</a> unexpect{};</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="foldopen" id="foldopen00227" data-start="{" data-end="}">
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="namespacem5_1_1stl_1_1detail.html">  227</a></span><span class="keyword">namespace </span>detail {</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keyword">namespace </span>detail {</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> E&gt;</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>[[noreturn]] TL_EXPECTED_11_CONSTEXPR <span class="keywordtype">void</span> throw_exception(E &amp;&amp;e)</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>{</div>
@@ -360,11 +359,11 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment">// std::conjunction from C++17</span></div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="keyword">template</span> &lt;<span class="keyword">class</span>...&gt;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1conjunction.html">conjunction</a> : std::true_type {};</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="keyword">struct </span>conjunction : std::true_type {};</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> B&gt;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1conjunction.html">conjunction&lt;B&gt;</a> : B {};</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="keyword">struct </span>conjunction&lt;B&gt; : B {};</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>B, <span class="keyword">class</span>... Bs&gt;</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1conjunction.html">conjunction</a>&lt;B, Bs...&gt; : std::conditional&lt;bool(B::value), conjunction&lt;Bs...&gt;, B&gt;::type {};</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="keyword">struct </span>conjunction&lt;B, Bs...&gt; : std::conditional&lt;bool(B::value), conjunction&lt;Bs...&gt;, B&gt;::type {};</div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">#if defined(_LIBCPP_VERSION) &amp;&amp; __cplusplus == 201103L</span></div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="preprocessor">#define TL_TRAITS_LIBCXX_MEM_FN_WORKAROUND</span></div>
@@ -420,26 +419,26 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment">// std::invoke_result from C++17</span></div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>F, <span class="keyword">class</span>, <span class="keyword">class</span>... Us&gt;</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1invoke__result__impl.html">invoke_result_impl</a>;</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keyword">struct </span>invoke_result_impl;</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>F, <span class="keyword">class</span>... Us&gt;</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1invoke__result__impl.html">invoke_result_impl</a>&lt;F, decltype(detail::invoke(std::declval&lt;F&gt;(), std::declval&lt;Us&gt;()...), void()), Us...&gt; {</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keyword">struct </span>invoke_result_impl&lt;F, decltype(detail::invoke(std::declval&lt;F&gt;(), std::declval&lt;Us&gt;()...), void()), Us...&gt; {</div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keyword">using </span>type = <span class="keyword">decltype</span>(detail::invoke(std::declval&lt;F&gt;(), std::declval&lt;Us&gt;()...));</div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>};</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>F, <span class="keyword">class</span>... Us&gt;</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="keyword">using </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1invoke__result__impl.html">invoke_result</a> = <a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1invoke__result__impl.html">invoke_result_impl</a>&lt;F, void, Us...&gt;;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="keyword">using </span>invoke_result = invoke_result_impl&lt;F, void, Us...&gt;;</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>F, <span class="keyword">class</span>... Us&gt;</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="keyword">using </span>invoke_result_t = <span class="keyword">typename</span> <a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1invoke__result__impl.html">invoke_result</a>&lt;F, Us...&gt;::type;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="keyword">using </span>invoke_result_t = <span class="keyword">typename</span> invoke_result&lt;F, Us...&gt;::type;</div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; _MSC_VER &lt;= 1900</span></div>
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="comment">// TODO make a version which works with MSVC 2015</span></div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> U = T&gt;</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1is__swappable.html">is_swappable</a> : std::true_type {};</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="keyword">struct </span>is_swappable : std::true_type {};</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> U = T&gt;</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html">is_nothrow_swappable</a> : std::true_type {};</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="keyword">struct </span>is_nothrow_swappable : std::true_type {};</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="comment">// https://stackoverflow.com/questions/26744589/what-is-a-proper-way-to-implement-is-swappable-to-test-for-the-swappable-concept</span></div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="keyword">namespace </span>swap_adl_tests {</div>
@@ -455,17 +454,17 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="comment">// helper functions to test if an unqualified swap is possible, and if it</span></div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="comment">// becomes std::swap</span></div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span><span class="keyword">template</span> &lt;<span class="keyword">class</span>, <span class="keyword">class</span>&gt;</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>std::false_type can_swap(...) <span class="keyword">noexcept</span>(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>std::false_type can_swap(...) noexcept(false);</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>template &lt;class T, class U, class = decltype(swap(std::declval&lt;T &amp;&gt;(), std::declval&lt;U &amp;&gt;()))&gt;</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>std::true_type can_swap(<span class="keywordtype">int</span>) <span class="keyword">noexcept</span>(<span class="keyword">noexcept</span>(swap(std::declval&lt;T &amp;&gt;(), std::declval&lt;U &amp;&gt;())));</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>std::true_type can_swap(<span class="keywordtype">int</span>) noexcept(noexcept(swap(std::declval&lt;T &amp;&gt;(), std::declval&lt;U &amp;&gt;())));</div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="keyword">template</span> &lt;<span class="keyword">class</span>, <span class="keyword">class</span>&gt;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>template &lt;class, class&gt;</div>
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>std::false_type uses_std(...);</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> U&gt;</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>template &lt;class T, class U&gt;</div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>std::is_same&lt;decltype(swap(std::declval&lt;T &amp;&gt;(), std::declval&lt;U &amp;&gt;())), tag&gt; uses_std(<span class="keywordtype">int</span>);</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="keyword">struct </span>is_std_swap_noexcept : std::integral_constant&lt;bool, std::is_nothrow_move_constructible&lt;T&gt;::value &amp;&amp;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>template &lt;class T&gt;</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>struct is_std_swap_noexcept : std::integral_constant&lt;<span class="keywordtype">bool</span>, std::is_nothrow_move_constructible&lt;T&gt;::value &amp;&amp;</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>                                                               std::is_nothrow_move_assignable&lt;T&gt;::value&gt; {};</div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
@@ -476,20 +475,20 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>}  <span class="comment">// namespace swap_adl_tests</span></div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span> </div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> U = T&gt;</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1is__swappable.html">is_swappable</a></div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span><span class="keyword">struct </span>is_swappable</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    : std::integral_constant&lt;bool, decltype(detail::swap_adl_tests::can_swap&lt;T, U&gt;(0))::value &amp;&amp;</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>                                       (!decltype(detail::swap_adl_tests::uses_std&lt;T, U&gt;(0))::value ||</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                                        (std::is_move_assignable&lt;T&gt;::value &amp;&amp; std::is_move_constructible&lt;T&gt;::value))&gt; {</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>};</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1is__swappable.html">is_swappable</a>&lt;T[N], T[N]&gt;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span><span class="keyword">struct </span>is_swappable&lt;T[N], T[N]&gt;</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    : std::integral_constant&lt;bool, decltype(detail::swap_adl_tests::can_swap&lt;T[N], T[N]&gt;(0))::value &amp;&amp;</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>                                       (!decltype(detail::swap_adl_tests::uses_std&lt;T[N], T[N]&gt;(0))::value ||</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>                                        is_swappable&lt;T, T&gt;::value)&gt; {};</div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> U = T&gt;</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html">is_nothrow_swappable</a></div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span><span class="keyword">struct </span>is_nothrow_swappable</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    : std::integral_constant&lt;bool, is_swappable&lt;T, U&gt;::value &amp;&amp;</div>
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>                                       ((decltype(detail::swap_adl_tests::uses_std&lt;T, U&gt;(0))::value &amp;&amp;</div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>                                         detail::swap_adl_tests::is_std_swap_noexcept&lt;T&gt;::value) ||</div>
@@ -537,7 +536,6 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span><span class="keyword">using </span>is_move_assignable_or_void = is_void_or&lt;T, std::is_move_assignable&lt;T&gt;&gt;;</div>
 <div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span> </div>
 <div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>}  <span class="comment">// namespace detail</span></div>
-</div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span> </div>
 <div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span><span class="keyword">namespace </span>detail {</div>
 <div class="line"><a id="l00438" name="l00438"></a><span class="lineno"><a class="line" href="structm5_1_1stl_1_1detail_1_1no__init__t.html">  438</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1no__init__t.html">no_init_t</a> {};</div>
@@ -2680,7 +2678,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="ttc" id="aclassm5_1_1stl_1_1bad__expected__access_html"><div class="ttname"><a href="classm5_1_1stl_1_1bad__expected__access.html">m5::stl::bad_expected_access</a></div><div class="ttdef"><b>Definition</b> expected.hpp:1261</div></div>
 <div class="ttc" id="aclassm5_1_1stl_1_1expected_html"><div class="ttname"><a href="classm5_1_1stl_1_1expected.html">m5::stl::expected</a></div><div class="ttdef"><b>Definition</b> expected.hpp:1304</div></div>
 <div class="ttc" id="aclassm5_1_1stl_1_1unexpected_html"><div class="ttname"><a href="classm5_1_1stl_1_1unexpected.html">m5::stl::unexpected</a></div><div class="ttdef"><b>Definition</b> expected.hpp:135</div></div>
-<div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5.</div><div class="ttdef"><b>Definition</b> base64.cpp:18</div></div>
+<div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5.</div><div class="ttdef"><b>Definition</b> base64.cpp:39</div></div>
 <div class="ttc" id="anamespacestl_html"><div class="ttname"><a href="namespacestl.html">stl</a></div><div class="ttdoc">STL compatibility functions and classes.</div></div>
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1_t_c_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1_t_c.html">m5::stl::detail::TC</a></div><div class="ttdef"><b>Definition</b> expected.hpp:2188</div></div>
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1conjunction_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1conjunction.html">m5::stl::detail::conjunction</a></div><div class="ttdef"><b>Definition</b> optional.hpp:132</div></div>
@@ -2695,7 +2693,6 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1expected__operations__base_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1expected__operations__base.html">m5::stl::detail::expected_operations_base</a></div><div class="ttdef"><b>Definition</b> expected.hpp:724</div></div>
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01true_01_4_1_1dummy_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01true_01_4_1_1dummy.html">m5::stl::detail::expected_storage_base&lt; void, E, false, true &gt;::dummy</a></div><div class="ttdef"><b>Definition</b> expected.hpp:672</div></div>
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1expected__storage__base_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1expected__storage__base.html">m5::stl::detail::expected_storage_base</a></div><div class="ttdef"><b>Definition</b> expected.hpp:449</div></div>
-<div class="ttc" id="astructm5_1_1stl_1_1detail_1_1invoke__result__impl_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1invoke__result__impl.html">m5::stl::detail::invoke_result_impl</a></div><div class="ttdef"><b>Definition</b> optional.hpp:192</div></div>
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1is__expected__impl_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1is__expected__impl.html">m5::stl::detail::is_expected_impl</a></div><div class="ttdef"><b>Definition</b> expected.hpp:399</div></div>
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1is__nothrow__swappable_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html">m5::stl::detail::is_nothrow_swappable</a></div><div class="ttdef"><b>Definition</b> optional.hpp:266</div></div>
 <div class="ttc" id="astructm5_1_1stl_1_1detail_1_1is__swappable_html"><div class="ttname"><a href="structm5_1_1stl_1_1detail_1_1is__swappable.html">m5::stl::detail::is_swappable</a></div><div class="ttdef"><b>Definition</b> optional.hpp:251</div></div>

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.9 git rev:d29fae5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
    </div>
   </td>
  </tr>
@@ -97,6 +97,7 @@ $(function(){initNavTree('byteswap_8hpp.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">byteswap.hpp File Reference</div></div>
@@ -111,21 +112,37 @@ $(function(){initNavTree('byteswap_8hpp.html',''); initResizable(true); });
 </div>
 <p><a href="byteswap_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structm5_1_1stl_1_1detail_1_1is__int128.html">m5::stl::detail::is_int128&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html">m5::stl::detail::is_integer_or_enum&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structm5_1_1stl_1_1detail_1_1is__unsigned__ex.html">m5::stl::detail::is_unsigned_ex&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structm5_1_1stl_1_1detail_1_1make__unsigned__impl.html">m5::stl::detail::make_unsigned_impl&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structm5_1_1stl_1_1detail_1_1make__unsigned__ex.html">m5::stl::detail::make_unsigned_ex&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacem5.html">m5</a></td></tr>
 <tr class="memdesc:namespacem5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level namespace of M5. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacem5_1_1stl_1_1detail.html">m5::stl::detail</a></td></tr>
+<tr class="memdesc:namespacem5_1_1stl_1_1detail"><td class="mdescLeft">&#160;</td><td class="mdescRight">\exclude <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a73080885a711563fa5f0bcf78994b73b" id="r_a73080885a711563fa5f0bcf78994b73b"><td class="memTemplParams" colspan="2"><a id="a73080885a711563fa5f0bcf78994b73b" name="a73080885a711563fa5f0bcf78994b73b"></a>
-template&lt;typename T , typename std::enable_if&lt;(std::is_integral&lt; T &gt;::value||std::is_enum&lt; T &gt;::value), std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
+template&lt;typename T , typename std::enable_if&lt; <a class="el" href="structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html">detail::is_integer_or_enum</a>&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
 <tr class="memitem:a73080885a711563fa5f0bcf78994b73b"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>m5::stl::byteswap</b> (T v) noexcept</td></tr>
 <tr class="memdesc:a73080885a711563fa5f0bcf78994b73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">byteswap for integral type <br /></td></tr>
 <tr class="separator:a73080885a711563fa5f0bcf78994b73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3edf7d2185f0f1bce1e1d56386308b7" id="r_ae3edf7d2185f0f1bce1e1d56386308b7"><td class="memTemplParams" colspan="2"><a id="ae3edf7d2185f0f1bce1e1d56386308b7" name="ae3edf7d2185f0f1bce1e1d56386308b7"></a>
-template&lt;typename T , typename std::enable_if&lt;!(std::is_integral&lt; T &gt;::value||std::is_enum&lt; T &gt;::value), std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
+template&lt;typename T , typename std::enable_if&lt;!<a class="el" href="structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html">detail::is_integer_or_enum</a>&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
 <tr class="memitem:ae3edf7d2185f0f1bce1e1d56386308b7"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>m5::stl::byteswap</b> (T)=delete</td></tr>
 <tr class="memdesc:ae3edf7d2185f0f1bce1e1d56386308b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">byteswap for integral type <br /></td></tr>
 <tr class="separator:ae3edf7d2185f0f1bce1e1d56386308b7"><td class="memSeparator" colspan="2">&#160;</td></tr>

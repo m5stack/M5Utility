@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.9 git rev:d29fae5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
    </div>
   </td>
  </tr>
@@ -119,10 +119,71 @@ Functions</h2></td></tr>
 <tr class="memitem:a379a5f0d73f7d6191487a4f76b165ec8" id="r_a379a5f0d73f7d6191487a4f76b165ec8"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a379a5f0d73f7d6191487a4f76b165ec8">m5::utility::encode_base64</a> (char *out, const uint32_t olen, const uint8_t *buf, const uint32_t blen, const uint8_t line_len, const bool urlEncode, const bool padding)</td></tr>
 <tr class="memdesc:a379a5f0d73f7d6191487a4f76b165ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">encode Base64  <br /></td></tr>
 <tr class="separator:a379a5f0d73f7d6191487a4f76b165ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af758df20aea5c390beb661d89c276795" id="r_af758df20aea5c390beb661d89c276795"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af758df20aea5c390beb661d89c276795">m5::utility::decode_base64</a> (uint8_t *out, const uint32_t olen, const char *buf, const uint32_t blen, const bool urlEncode, const bool padding)</td></tr>
+<tr class="memdesc:af758df20aea5c390beb661d89c276795"><td class="mdescLeft">&#160;</td><td class="mdescRight">decode Base64 / Base64URL  <br /></td></tr>
+<tr class="separator:af758df20aea5c390beb661d89c276795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>base64 encoding </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="af758df20aea5c390beb661d89c276795" name="af758df20aea5c390beb661d89c276795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af758df20aea5c390beb661d89c276795">&#9670;&#160;</a></span>decode_base64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t m5::utility::decode_base64 </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>out</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>olen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>blen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>urlEncode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>padding</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>decode Base64 / Base64URL </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Output buffer (decoded bytes) </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">olen</td><td>Output buffer length </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">buf</td><td>Input buffer (base64 text; may include CR/LF/spaces) </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">blen</td><td>Input buffer length </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">urlEncode</td><td>base64url decoding if true </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">padding</td><td>Expect/allow padding if true </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Decoded length </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>padding true: Input must contain '='’ padding (RFC 4648 standard) </dd>
+<dd>
+padding false: Input must not contain' ='’. Incomplete groups are auto-completed </dd></dl>
+
+</div>
+</div>
 <a id="a379a5f0d73f7d6191487a4f76b165ec8" name="a379a5f0d73f7d6191487a4f76b165ec8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a379a5f0d73f7d6191487a4f76b165ec8">&#9670;&#160;</a></span>encode_base64()</h2>
 

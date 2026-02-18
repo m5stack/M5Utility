@@ -65,6 +65,7 @@ var hierarchy =
     [ "m5::stl::detail::expected_storage_base< void, E, false, true >", "structm5_1_1stl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01true_01_4.html", null ],
     [ "std::false_type", null, [
       [ "m5::stl::detail::is_expected_impl< T >", "structm5_1_1stl_1_1detail_1_1is__expected__impl.html", null ],
+      [ "m5::stl::detail::is_int128< T >", "structm5_1_1stl_1_1detail_1_1is__int128.html", null ],
       [ "m5::stl::detail::is_optional_impl< T >", "structm5_1_1stl_1_1detail_1_1is__optional__impl.html", null ]
     ] ],
     [ "m5::utility::FibonacciLFSR_Left< N, Taps >", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___left.html", null ],
@@ -73,6 +74,7 @@ var hierarchy =
     [ "m5::stl::detail::i_am_secret", "structm5_1_1stl_1_1detail_1_1i__am__secret.html", null ],
     [ "m5::stl::in_place_t", "structm5_1_1stl_1_1in__place__t.html", null ],
     [ "std::integral_constant", null, [
+      [ "m5::stl::detail::is_integer_or_enum< T >", "structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html", null ],
       [ "m5::stl::detail::is_nothrow_swappable< T, U >", "structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html", null ],
       [ "m5::stl::detail::is_nothrow_swappable< T, U >", "structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html", null ],
       [ "m5::stl::detail::is_swappable< T, U >", "structm5_1_1stl_1_1detail_1_1is__swappable.html", null ],
@@ -89,9 +91,14 @@ var hierarchy =
     ] ],
     [ "m5::stl::detail::invoke_result_impl< F, class, Us >", "structm5_1_1stl_1_1detail_1_1invoke__result__impl.html", null ],
     [ "m5::stl::detail::invoke_result_impl< F, decltype(detail::invoke(std::declval< F >(), std::declval< Us >()...), void()), Us... >", "structm5_1_1stl_1_1detail_1_1invoke__result__impl_3_01_f_00_01decltype_07detail_1_1invoke_07std_94c46d3c64c9e9a8be03dd4395cd83dc.html", null ],
+    [ "std::is_unsigned", null, [
+      [ "m5::stl::detail::is_unsigned_ex< T >", "structm5_1_1stl_1_1detail_1_1is__unsigned__ex.html", null ]
+    ] ],
     [ "std::is_void", null, [
       [ "m5::stl::detail::returns_void_impl< F, void_t< invoke_result_t< F, U... > >, U... >", "structm5_1_1stl_1_1detail_1_1returns__void__impl_3_01_f_00_01void__t_3_01invoke__result__t_3_01_afa1056e8bd9a2dbf7016404c7ce1169.html", null ]
     ] ],
+    [ "m5::stl::detail::make_unsigned_ex< T >", "structm5_1_1stl_1_1detail_1_1make__unsigned__ex.html", null ],
+    [ "m5::stl::detail::make_unsigned_impl< T >", "structm5_1_1stl_1_1detail_1_1make__unsigned__impl.html", null ],
     [ "m5::stl::monostate", "classm5_1_1stl_1_1monostate.html", null ],
     [ "m5::stl::detail::no_init_t", "structm5_1_1stl_1_1detail_1_1no__init__t.html", null ],
     [ "m5::stl::nullopt_t", "structm5_1_1stl_1_1nullopt__t.html", null ],
