@@ -20,20 +20,24 @@ namespace stl {
 namespace detail {
 
 template <typename T>
-struct is_int128 : std::false_type {};
+struct is_int128 : std::false_type {  //
+};
 
 #if defined(__SIZEOF_INT128__)
 template <>
-struct is_int128<__int128> : std::true_type {};
+struct is_int128<__int128> : std::true_type {  //
+};
 
 template <>
-struct is_int128<unsigned __int128> : std::true_type {};
+struct is_int128<unsigned __int128> : std::true_type {  //
+};
 #endif
 
 template <typename T>
 struct is_integer_or_enum : std::integral_constant<bool, std::is_integral<typename std::remove_cv<T>::type>::value ||
                                                              std::is_enum<typename std::remove_cv<T>::type>::value ||
-                                                             is_int128<typename std::remove_cv<T>::type>::value> {};
+                                                             is_int128<typename std::remove_cv<T>::type>::value> {  //
+};
 
 template <typename T>
 struct is_unsigned_ex : std::is_unsigned<typename std::remove_cv<T>::type> {};
