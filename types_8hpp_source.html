@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.11 git rev:e58debb</span>
    </div>
   </td>
  </tr>
@@ -100,7 +100,7 @@ $(function(){initNavTree('types_8hpp_source.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 <a href="types_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * SPDX-Filecopyrighttext: 2024 M5Stack Technology CO LTD</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * SPDX-License-Identifier: MIT</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> */</span></div>
@@ -156,7 +156,7 @@ $(function(){initNavTree('types_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_struct" href="unionm5_1_1types_1_1_u16.html">U16</a>&amp; operator=(<a class="code hl_struct" href="unionm5_1_1types_1_1_u16.html">U16</a>&amp;&amp;) noexcept = default;</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    template &lt;<span class="keywordtype">bool</span> PELittle = <a class="code hl_namespace" href="namespacem5.html">m5</a>::endian::little&gt;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    template &lt;<span class="keywordtype">bool</span> PELittle = <a class="code hl_namespace" href="namespacem5.html">m5</a>::<a class="code hl_namespace" href="namespaceendian.html">endian</a>::little&gt;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_struct" href="unionm5_1_1types_1_1_u16.html">U16</a>&amp; operator=(const uint16_t v)</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    {</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <a class="code hl_function" href="unionm5_1_1types_1_1_u16.html#ae5170402440f945a3178b6937dc9f646">set&lt;PELittle&gt;</a>(v);</div>
@@ -185,7 +185,7 @@ $(function(){initNavTree('types_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
 </div>
 <div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="unionm5_1_1types_1_1_u16.html#a3e4dcbe3bb096eaea52a98e1bda759fe">   96</a></span>    <span class="keyword">inline</span> <span class="keyword">explicit</span> <span class="keyword">operator</span> uint8_t*() <span class="keyword">const</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="unionm5_1_1types_1_1_u16.html#a2c68b8804d16326eb1f71967c89092a4">   96</a></span>    <span class="keyword">inline</span> <span class="keyword">explicit</span> <span class="keyword">operator</span> uint8_t*()</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    {</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="unionm5_1_1types_1_1_u16.html#a6ed5a11c9144e256152efb60733b16f9">data</a>();</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
@@ -366,6 +366,7 @@ $(function(){initNavTree('types_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>}  <span class="comment">// namespace m5</span></div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aendianness_8hpp_html"><div class="ttname"><a href="endianness_8hpp.html">endianness.hpp</a></div><div class="ttdoc">Compile-time endian identification.</div></div>
+<div class="ttc" id="anamespaceendian_html"><div class="ttname"><a href="namespaceendian.html">endian</a></div><div class="ttdoc">endianness detection</div></div>
 <div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5.</div><div class="ttdef"><b>Definition</b> base64.cpp:39</div></div>
 <div class="ttc" id="aunionm5_1_1types_1_1_u16_html"><div class="ttname"><a href="unionm5_1_1types_1_1_u16.html">m5::types::U16</a></div><div class="ttdoc">Endian-compliant uint16.</div><div class="ttdef"><b>Definition</b> types.hpp:28</div></div>
 <div class="ttc" id="aunionm5_1_1types_1_1_u16_html_a08381439d6878068db39b4a0f8955a42"><div class="ttname"><a href="unionm5_1_1types_1_1_u16.html#a08381439d6878068db39b4a0f8955a42">m5::types::U16::get</a></div><div class="ttdeci">uint16_t get() const</div><div class="ttdoc">Gets value with specified endianness.</div><div class="ttdef"><b>Definition</b> types.hpp:126</div></div>

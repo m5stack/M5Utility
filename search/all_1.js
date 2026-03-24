@@ -12,5 +12,6 @@ var searchData=
   ['button_5fstatus_2ecpp_9',['button_status.cpp',['../button__status_8cpp.html',1,'']]],
   ['button_5fstatus_2ehpp_10',['button_status.hpp',['../button__status_8hpp.html',1,'']]],
   ['byteswap_11',['byteswap',['../byteswap_8hpp.html#a73080885a711563fa5f0bcf78994b73b',1,'m5::stl::byteswap(T v) noexcept'],['../byteswap_8hpp.html#ae3edf7d2185f0f1bce1e1d56386308b7',1,'m5::stl::byteswap(T)=delete']]],
-  ['byteswap_2ehpp_12',['byteswap.hpp',['../byteswap_8hpp.html',1,'']]]
+  ['byteswap_2ehpp_12',['byteswap.hpp',['../byteswap_8hpp.html',1,'']]],
+  ['byteswap_5fwith_5fportable_13',['byteswap_with_portable',['../byteswap_8hpp.html#a4a0821b41e7548a988d3f18a6bd567aa',1,'m5::stl']]]
 ];

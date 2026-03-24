@@ -20,6 +20,6 @@ var classm5_1_1container_1_1_circular_buffer =
     [ "push_front", "classm5_1_1container_1_1_circular_buffer.html#a133844b204be5189ba1a6b088cc31299", null ],
     [ "read", "classm5_1_1container_1_1_circular_buffer.html#af7257fa95a9fa598399813b54989aa44", null ],
     [ "size", "classm5_1_1container_1_1_circular_buffer.html#aeb5e57a76490debbb201634f89a18167", null ],
-    [ "swap", "classm5_1_1container_1_1_circular_buffer.html#a49dc7a4407558b7434dbd03e465c569d", null ],
-    [ "swap", "classm5_1_1container_1_1_circular_buffer.html#a7b74032c9c9f2c4e916fd32e3f3b7be5", null ]
+    [ "swap", "classm5_1_1container_1_1_circular_buffer.html#a8900c7103d7da550d5897ac33af43bc5", null ],
+    [ "swap", "classm5_1_1container_1_1_circular_buffer.html#a87b8e5b6a42aae40db4d9f49932cb63e", null ]
 ];

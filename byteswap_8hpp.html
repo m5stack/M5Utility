@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.11 git rev:e58debb</span>
    </div>
   </td>
  </tr>
@@ -141,6 +141,11 @@ template&lt;typename T , typename std::enable_if&lt; <a class="el" href="structm
 <tr class="memitem:a73080885a711563fa5f0bcf78994b73b"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>m5::stl::byteswap</b> (T v) noexcept</td></tr>
 <tr class="memdesc:a73080885a711563fa5f0bcf78994b73b"><td class="mdescLeft">&#160;</td><td class="mdescRight">byteswap for integral type <br /></td></tr>
 <tr class="separator:a73080885a711563fa5f0bcf78994b73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a0821b41e7548a988d3f18a6bd567aa" id="r_a4a0821b41e7548a988d3f18a6bd567aa"><td class="memTemplParams" colspan="2"><a id="a4a0821b41e7548a988d3f18a6bd567aa" name="a4a0821b41e7548a988d3f18a6bd567aa"></a>
+template&lt;typename T , typename std::enable_if&lt; <a class="el" href="structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html">detail::is_integer_or_enum</a>&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
+<tr class="memitem:a4a0821b41e7548a988d3f18a6bd567aa"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>m5::stl::byteswap_with_portable</b> (T v) noexcept</td></tr>
+<tr class="memdesc:a4a0821b41e7548a988d3f18a6bd567aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">byteswap using portable bit manipulation (always available, for testing both paths) <br /></td></tr>
+<tr class="separator:a4a0821b41e7548a988d3f18a6bd567aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3edf7d2185f0f1bce1e1d56386308b7" id="r_ae3edf7d2185f0f1bce1e1d56386308b7"><td class="memTemplParams" colspan="2"><a id="ae3edf7d2185f0f1bce1e1d56386308b7" name="ae3edf7d2185f0f1bce1e1d56386308b7"></a>
 template&lt;typename T , typename std::enable_if&lt;!<a class="el" href="structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html">detail::is_integer_or_enum</a>&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
 <tr class="memitem:ae3edf7d2185f0f1bce1e1d56386308b7"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>m5::stl::byteswap</b> (T)=delete</td></tr>

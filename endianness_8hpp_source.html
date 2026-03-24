@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.11 git rev:e58debb</span>
    </div>
   </td>
  </tr>
@@ -104,8 +104,8 @@ $(function(){initNavTree('endianness_8hpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * SPDX-License-Identifier: MIT</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef M5_UTILITY_STL_ENDIANESS_HPP</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define M5_UTILITY_STL_ENDIANESS_HPP</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef M5_UTILITY_STL_ENDIANNESS_HPP</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define M5_UTILITY_STL_ENDIANNESS_HPP</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#if __cplusplus &gt;= 202002L</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// #pragma message &quot;Using std::endian&quot;</span></div>
@@ -127,12 +127,12 @@ $(function(){initNavTree('endianness_8hpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// C++20 or later</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#if __cplusplus &gt;= 202002L || DOXYGEN_PROCESS</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">using </span>endian = std::endian;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">using </span><a class="code hl_namespace" href="namespaceendian.html">endian</a> = std::endian;</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// endian header</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#elif __has_include(&lt;endian.h&gt;) || __has_include(&lt;machine/endian.h&gt;)</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">enum class</span> endian {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">enum class</span> <a class="code hl_namespace" href="namespaceendian.html">endian</a> {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#if defined(__BYTE_ORDER)</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> = __LITTLE_ENDIAN,</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a>    = __BIG_ENDIAN,</div>
@@ -152,28 +152,34 @@ $(function(){initNavTree('endianness_8hpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#elif defined(__BYTE_ORDER__)</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">constexpr</span> uint32_t val32 = 0x11223344;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">constexpr</span> uint8_t ref8   = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>uint8_t&amp;<span class="keyword">&gt;</span>(val32);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">enum class</span> endian { <a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> = 0x44, <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a> = 0x11, native = ref8 };</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}  <span class="comment">// namespace stl</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">namespace </span>endian {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">   75</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> = m5::stl::endian::native == m5::stl::endian::little;  </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">   76</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a>    = m5::stl::endian::native == m5::stl::endian::big;     </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">   77</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">other</a>  = !<a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> &amp;&amp; !<a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a>;                                     </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">static_assert</span>(<a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> || <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a> || <a class="code hl_variable" href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">other</a>, <span class="stringliteral">&quot;Unable to determine endianness&quot;</span>);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">static_assert</span>(((int)little + (<span class="keywordtype">int</span>)<a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a> + (int)other) == 1, <span class="stringliteral">&quot;Endian matches more than one&quot;</span>);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}  <span class="comment">// namespace endian</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}  <span class="comment">// namespace m5</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">enum class</span> <a class="code hl_namespace" href="namespaceendian.html">endian</a> { <a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> = __ORDER_LITTLE_ENDIAN__, <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a> = __ORDER_BIG_ENDIAN__, native = __BYTE_ORDER__ };</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#pragma message \</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">    &quot;Cannot determine byte order at compile time. Falling back to runtime detection (strict aliasing violation).&quot;</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">constexpr</span> uint32_t val32 = 0x11223344;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">constexpr</span> uint8_t ref8   = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span>uint8_t&amp;<span class="keyword">&gt;</span>(val32);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">enum class</span> <a class="code hl_namespace" href="namespaceendian.html">endian</a> { <a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> = 0x44, <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a> = 0x11, native = ref8 };</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}  <span class="comment">// namespace stl</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceendian.html">endian</a> {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">   80</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> = m5::stl::endian::native == m5::stl::endian::little;  </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">   81</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a>    = m5::stl::endian::native == m5::stl::endian::big;     </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">   82</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">other</a>  = !<a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> &amp;&amp; !<a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a>;                                     </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aendianness_8hpp_html_a08f4bd123f60bea837ed9c45bda3f2b0"><div class="ttname"><a href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">m5::endian::little</a></div><div class="ttdeci">constexpr bool little</div><div class="ttdoc">true if little endian.</div><div class="ttdef"><b>Definition</b> endianness.hpp:75</div></div>
-<div class="ttc" id="aendianness_8hpp_html_a6c3c11bf11340c1e198806f0054ae56b"><div class="ttname"><a href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">m5::endian::other</a></div><div class="ttdeci">constexpr bool other</div><div class="ttdoc">true if other endian.</div><div class="ttdef"><b>Definition</b> endianness.hpp:77</div></div>
-<div class="ttc" id="aendianness_8hpp_html_a9d7e9d404be75ad6e91f734ee42e10a2"><div class="ttname"><a href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">m5::endian::big</a></div><div class="ttdeci">constexpr bool big</div><div class="ttdoc">true if big endian.</div><div class="ttdef"><b>Definition</b> endianness.hpp:76</div></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">static_assert</span>(<a class="code hl_variable" href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">little</a> || <a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a> || <a class="code hl_variable" href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">other</a>, <span class="stringliteral">&quot;Unable to determine endianness&quot;</span>);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">static_assert</span>(((int)little + (<span class="keywordtype">int</span>)<a class="code hl_variable" href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">big</a> + (int)other) == 1, <span class="stringliteral">&quot;Endian matches more than one&quot;</span>);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}  <span class="comment">// namespace endian</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}  <span class="comment">// namespace m5</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aendianness_8hpp_html_a08f4bd123f60bea837ed9c45bda3f2b0"><div class="ttname"><a href="endianness_8hpp.html#a08f4bd123f60bea837ed9c45bda3f2b0">m5::endian::little</a></div><div class="ttdeci">constexpr bool little</div><div class="ttdoc">true if little endian.</div><div class="ttdef"><b>Definition</b> endianness.hpp:80</div></div>
+<div class="ttc" id="aendianness_8hpp_html_a6c3c11bf11340c1e198806f0054ae56b"><div class="ttname"><a href="endianness_8hpp.html#a6c3c11bf11340c1e198806f0054ae56b">m5::endian::other</a></div><div class="ttdeci">constexpr bool other</div><div class="ttdoc">true if other endian.</div><div class="ttdef"><b>Definition</b> endianness.hpp:82</div></div>
+<div class="ttc" id="aendianness_8hpp_html_a9d7e9d404be75ad6e91f734ee42e10a2"><div class="ttname"><a href="endianness_8hpp.html#a9d7e9d404be75ad6e91f734ee42e10a2">m5::endian::big</a></div><div class="ttdeci">constexpr bool big</div><div class="ttdoc">true if big endian.</div><div class="ttdef"><b>Definition</b> endianness.hpp:81</div></div>
+<div class="ttc" id="anamespaceendian_html"><div class="ttname"><a href="namespaceendian.html">endian</a></div><div class="ttdoc">endianness detection</div></div>
 <div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5.</div><div class="ttdef"><b>Definition</b> base64.cpp:39</div></div>
 <div class="ttc" id="anamespacestl_html"><div class="ttname"><a href="namespacestl.html">stl</a></div><div class="ttdoc">STL compatibility functions and classes.</div></div>
 </div><!-- fragment --></div><!-- contents -->

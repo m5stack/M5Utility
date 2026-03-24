@@ -4,7 +4,7 @@ var searchData=
   ['operator_20bool_1',['operator bool',['../classm5_1_1utility_1_1_bit_segment.html#ad2a35a489bc0610ddb734bb30fbb713d',1,'m5::utility::BitSegment::operator bool()'],['../unionm5_1_1types_1_1_u16.html#afc5c29696b7db1ed3e6a29e69c53a297',1,'m5::types::U16::operator bool() const']]],
   ['operator_20const_20uint8_5ft_20_2a_2',['operator const uint8_t *',['../unionm5_1_1types_1_1_u16.html#aeb85d400eb561b1109a97e27f2c4c5ef',1,'m5::types::U16']]],
   ['operator_20uint16_5ft_3',['operator uint16_t',['../unionm5_1_1types_1_1_u16.html#a2dce66662191d43032272fcbcc245746',1,'m5::types::U16']]],
-  ['operator_20uint8_5ft_20_2a_4',['operator uint8_t *',['../unionm5_1_1types_1_1_u16.html#a3e4dcbe3bb096eaea52a98e1bda759fe',1,'m5::types::U16']]],
+  ['operator_20uint8_5ft_20_2a_4',['operator uint8_t *',['../unionm5_1_1types_1_1_u16.html#a2c68b8804d16326eb1f71967c89092a4',1,'m5::types::U16']]],
   ['operator_22_22_5fmmh3_5',['operator&quot;&quot;_mmh3',['../murmurhash3_8hpp.html#a58ea3129d6298270f6bae94e5ea582bb',1,'m5::utility::mmh3']]],
   ['operator_2a_6',['operator*',['../classm5_1_1stl_1_1optional.html#ac03e07acca1a526e8a79ab8aac674d8a',1,'m5::stl::optional::operator*()'],['../classm5_1_1stl_1_1optional_3_01_t_01_6_01_4.html#a4d97d3a18636df4149a9134d5c2a0c72',1,'m5::stl::optional&lt; T &amp; &gt;::operator*()']]],
   ['operator_2d_3e_7',['operator-&gt;',['../classm5_1_1stl_1_1optional.html#a303ae91732762e7dd52474cea4d13cfc',1,'m5::stl::optional::operator-&gt;()'],['../classm5_1_1stl_1_1optional_3_01_t_01_6_01_4.html#a160464d8bc53f533a4bcfa82730c58be',1,'m5::stl::optional&lt; T &amp; &gt;::operator-&gt;()']]],

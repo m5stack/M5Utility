@@ -139,7 +139,6 @@ var hierarchy =
     [ "m5::stl::detail::swap_adl_tests::tag", "structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1tag.html", null ],
     [ "m5::stl::detail::TC< class >", "structm5_1_1stl_1_1detail_1_1_t_c.html", null ],
     [ "m5::utility::crypto::TripleDES", "classm5_1_1utility_1_1crypto_1_1_triple_d_e_s.html", null ],
-    [ "TrippleDES", "class_tripple_d_e_s.html", null ],
     [ "std::true_type", null, [
       [ "m5::stl::detail::conjunction<... >", "structm5_1_1stl_1_1detail_1_1conjunction.html", null ],
       [ "m5::stl::detail::conjunction<... >", "structm5_1_1stl_1_1detail_1_1conjunction.html", null ],

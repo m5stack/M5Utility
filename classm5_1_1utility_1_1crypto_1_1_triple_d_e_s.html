@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.11 git rev:e58debb</span>
    </div>
   </td>
  </tr>
@@ -106,6 +106,11 @@ $(function(){initNavTree('classm5_1_1utility_1_1crypto_1_1_triple_d_e_s.html',''
   <div class="headertitle"><div class="title">m5::utility::crypto::TripleDES Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Triple Data Encryption Standard(3DES)  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="des_8hpp_source.html">des.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -138,23 +143,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aceb7c8b5767d57d511d0d8ebd9847d81" id="r_aceb7c8b5767d57d511d0d8ebd9847d81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aceb7c8b5767d57d511d0d8ebd9847d81">TripleDES</a> (const <a class="el" href="#a3d9711e0374544b93b2214beccd15b45">Mode</a> mode, const <a class="el" href="#aa9b74178b450681da0feacc3ee02bf73">Padding</a> pad, const uint8_t iv[8]=nullptr)</td></tr>
 <tr class="memdesc:aceb7c8b5767d57d511d0d8ebd9847d81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
 <tr class="separator:aceb7c8b5767d57d511d0d8ebd9847d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Encrypto</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Encrypt</div></td></tr>
 <tr class="memitem:a082db5cd5cbd8c03ec0ba124de00ad66" id="r_a082db5cd5cbd8c03ec0ba124de00ad66"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a082db5cd5cbd8c03ec0ba124de00ad66">encrypt</a> (uint8_t *out, const uint8_t *in, const uint32_t in_len, const Key &amp;key)</td></tr>
-<tr class="memdesc:a082db5cd5cbd8c03ec0ba124de00ad66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypto 1-key 3DES.  <br /></td></tr>
+<tr class="memdesc:a082db5cd5cbd8c03ec0ba124de00ad66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypt 1-key 3DES.  <br /></td></tr>
 <tr class="separator:a082db5cd5cbd8c03ec0ba124de00ad66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab6622364428bd7b2570146677862d19" id="r_aab6622364428bd7b2570146677862d19"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab6622364428bd7b2570146677862d19">encrypt</a> (uint8_t *out, const uint8_t *in, const uint32_t in_len, const Key &amp;key1, const Key &amp;key2)</td></tr>
-<tr class="memdesc:aab6622364428bd7b2570146677862d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypto 2-key 3DES.  <br /></td></tr>
+<tr class="memdesc:aab6622364428bd7b2570146677862d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypt 2-key 3DES.  <br /></td></tr>
 <tr class="separator:aab6622364428bd7b2570146677862d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa768e61f0776bb90d8d3ebb14ebd4ed0" id="r_aa768e61f0776bb90d8d3ebb14ebd4ed0"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa768e61f0776bb90d8d3ebb14ebd4ed0">encrypt</a> (uint8_t *out, const uint8_t *in, const uint32_t in_len, const Key16 &amp;key)</td></tr>
-<tr class="memdesc:aa768e61f0776bb90d8d3ebb14ebd4ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypto 2-key 3DES.  <br /></td></tr>
+<tr class="memdesc:aa768e61f0776bb90d8d3ebb14ebd4ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypt 2-key 3DES.  <br /></td></tr>
 <tr class="separator:aa768e61f0776bb90d8d3ebb14ebd4ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad42356fb0d209a5429d62d5342990e84" id="r_ad42356fb0d209a5429d62d5342990e84"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad42356fb0d209a5429d62d5342990e84">encrypt</a> (uint8_t *out, const uint8_t *in, const uint32_t in_len, const Key &amp;key1, const Key &amp;key2, const Key &amp;key3)</td></tr>
-<tr class="memdesc:ad42356fb0d209a5429d62d5342990e84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypto 3-key 3DES.  <br /></td></tr>
+<tr class="memdesc:ad42356fb0d209a5429d62d5342990e84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypt 3-key 3DES.  <br /></td></tr>
 <tr class="separator:ad42356fb0d209a5429d62d5342990e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a225fde79ec13c8c44207968e9657e787" id="r_a225fde79ec13c8c44207968e9657e787"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a225fde79ec13c8c44207968e9657e787">encrypt</a> (uint8_t *out, const uint8_t *in, const uint32_t in_len, const Key24 &amp;key)</td></tr>
-<tr class="memdesc:a225fde79ec13c8c44207968e9657e787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypto 3-key 3DES.  <br /></td></tr>
+<tr class="memdesc:a225fde79ec13c8c44207968e9657e787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encrypt 3-key 3DES.  <br /></td></tr>
 <tr class="separator:a225fde79ec13c8c44207968e9657e787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Decrypto</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Decrypt</div></td></tr>
 <tr class="memitem:a8e301248497fdcef60d3fc464fba1736" id="r_a8e301248497fdcef60d3fc464fba1736"><td class="memItemLeft" align="right" valign="top"><a id="a8e301248497fdcef60d3fc464fba1736" name="a8e301248497fdcef60d3fc464fba1736"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt</b> (uint8_t *out, const uint8_t *in, const uint32_t in_len, const Key &amp;key)</td></tr>
 <tr class="separator:a8e301248497fdcef60d3fc464fba1736"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,7 +215,9 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>encrypt_block_
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt_block_3key</b> (uint8_t out[8], const uint8_t in[8], const Key8 &amp;k1, const Key8 &amp;k2, const Key8 &amp;k3)</td></tr>
 <tr class="separator:a11faea5d89176267fce1cd1cff4e0622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Triple Data Encryption Standard(3DES) </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a3d9711e0374544b93b2214beccd15b45" name="a3d9711e0374544b93b2214beccd15b45"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d9711e0374544b93b2214beccd15b45">&#9670;&#160;</a></span>Mode</h2>
 
@@ -317,7 +324,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>decrypt_block_
 </table>
 </div><div class="memdoc">
 
-<p>Encrypto 1-key 3DES. </p>
+<p>Encrypt 1-key 3DES. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Output buffer </td></tr>
@@ -378,7 +385,7 @@ out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7 </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Encrypto 2-key 3DES. </p>
+<p>Encrypt 2-key 3DES. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Output buffer </td></tr>
@@ -443,7 +450,7 @@ out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7 </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Encrypto 3-key 3DES. </p>
+<p>Encrypt 3-key 3DES. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Output buffer </td></tr>
@@ -491,7 +498,7 @@ out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7 </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Encrypto 2-key 3DES. </p>
+<p>Encrypt 2-key 3DES. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Output buffer </td></tr>
@@ -537,7 +544,7 @@ out at least (in_len + 7)/8+8 if Padding::Zero, PKCS7 </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Encrypto 3-key 3DES. </p>
+<p>Encrypt 3-key 3DES. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Output buffer </td></tr>

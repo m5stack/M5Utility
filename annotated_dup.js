@@ -117,6 +117,5 @@ var annotated_dup =
     [ "std", null, [
       [ "hash< m5::stl::optional< T > >", "structstd_1_1hash_3_01m5_1_1stl_1_1optional_3_01_t_01_4_01_4.html", null ]
     ] ],
-    [ "CRC8_CheckSum", "class_c_r_c8___check_sum.html", null ],
-    [ "TrippleDES", "class_tripple_d_e_s.html", null ]
+    [ "CRC8_CheckSum", "class_c_r_c8___check_sum.html", null ]
 ];

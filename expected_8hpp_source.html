@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.10 git rev:e54335a</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.11 git rev:e58debb</span>
    </div>
   </td>
  </tr>
@@ -1850,7 +1850,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l01697" name="l01697"></a><span class="lineno"> 1697</span> </div>
 <div class="line"><a id="l01698" name="l01698"></a><span class="lineno"> 1698</span>    <span class="keyword">template</span> &lt;<span class="keyword">class </span>U, <span class="keyword">class </span>G,</div>
 <div class="line"><a id="l01699" name="l01699"></a><span class="lineno"> 1699</span>              detail::enable_if_t&lt;!(std::is_convertible&lt;U const &amp;, T&gt;::value &amp;&amp;</div>
-<div class="line"><a id="l01700" name="l01700"></a><span class="lineno"> 1700</span>                                    std::is_convertible&lt;G const &amp;, E&gt;::value)&gt;     * = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l01700" name="l01700"></a><span class="lineno"> 1700</span>                                    std::is_convertible&lt;G const &amp;, E&gt;::value)&gt; *     = <span class="keyword">nullptr</span>,</div>
 <div class="line"><a id="l01701" name="l01701"></a><span class="lineno"> 1701</span>              detail::expected_enable_from_other&lt;T, E, U, G, const U &amp;, const G &amp;&gt; * = <span class="keyword">nullptr</span>&gt;</div>
 <div class="line"><a id="l01702" name="l01702"></a><span class="lineno"> 1702</span>    <span class="keyword">explicit</span> TL_EXPECTED_11_CONSTEXPR <a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected</a>(<span class="keyword">const</span> <a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected&lt;U, G&gt;</a> &amp;rhs) : <a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1expected__default__ctor__base.html">ctor_base</a>(<a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1default__constructor__tag.html">detail::default_constructor_tag</a>{})</div>
 <div class="line"><a id="l01703" name="l01703"></a><span class="lineno"> 1703</span>    {</div>
@@ -1863,7 +1863,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l01710" name="l01710"></a><span class="lineno"> 1710</span> </div>
 <div class="line"><a id="l01711" name="l01711"></a><span class="lineno"> 1711</span>    <span class="keyword">template</span> &lt;<span class="keyword">class </span>U, <span class="keyword">class </span>G,</div>
 <div class="line"><a id="l01712" name="l01712"></a><span class="lineno"> 1712</span>              detail::enable_if_t&lt;(std::is_convertible&lt;U const &amp;, T&gt;::value &amp;&amp;</div>
-<div class="line"><a id="l01713" name="l01713"></a><span class="lineno"> 1713</span>                                   std::is_convertible&lt;G const &amp;, E&gt;::value)&gt;      * = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l01713" name="l01713"></a><span class="lineno"> 1713</span>                                   std::is_convertible&lt;G const &amp;, E&gt;::value)&gt; *      = <span class="keyword">nullptr</span>,</div>
 <div class="line"><a id="l01714" name="l01714"></a><span class="lineno"> 1714</span>              detail::expected_enable_from_other&lt;T, E, U, G, const U &amp;, const G &amp;&gt; * = <span class="keyword">nullptr</span>&gt;</div>
 <div class="line"><a id="l01715" name="l01715"></a><span class="lineno"> 1715</span>    TL_EXPECTED_11_CONSTEXPR <a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected</a>(<span class="keyword">const</span> <a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected&lt;U, G&gt;</a> &amp;rhs) : <a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1expected__default__ctor__base.html">ctor_base</a>(<a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1default__constructor__tag.html">detail::default_constructor_tag</a>{})</div>
 <div class="line"><a id="l01716" name="l01716"></a><span class="lineno"> 1716</span>    {</div>
@@ -1877,7 +1877,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l01724" name="l01724"></a><span class="lineno"> 1724</span>    <span class="keyword">template</span> &lt;</div>
 <div class="line"><a id="l01725" name="l01725"></a><span class="lineno"> 1725</span>        <span class="keyword">class </span>U, <span class="keyword">class </span>G,</div>
 <div class="line"><a id="l01726" name="l01726"></a><span class="lineno"> 1726</span>        detail::enable_if_t&lt;!(std::is_convertible&lt;U &amp;&amp;, T&gt;::value &amp;&amp; std::is_convertible&lt;G &amp;&amp;, E&gt;::value)&gt; * = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l01727" name="l01727"></a><span class="lineno"> 1727</span>        detail::expected_enable_from_other&lt;T, E, U, G, U &amp;&amp;, G &amp;&amp;&gt;                                         * = <span class="keyword">nullptr</span>&gt;</div>
+<div class="line"><a id="l01727" name="l01727"></a><span class="lineno"> 1727</span>        detail::expected_enable_from_other&lt;T, E, U, G, U &amp;&amp;, G &amp;&amp;&gt; *                                         = <span class="keyword">nullptr</span>&gt;</div>
 <div class="line"><a id="l01728" name="l01728"></a><span class="lineno"> 1728</span>    <span class="keyword">explicit</span> TL_EXPECTED_11_CONSTEXPR <a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected</a>(<a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected&lt;U, G&gt;</a> &amp;&amp;rhs) : <a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1expected__default__ctor__base.html">ctor_base</a>(<a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1default__constructor__tag.html">detail::default_constructor_tag</a>{})</div>
 <div class="line"><a id="l01729" name="l01729"></a><span class="lineno"> 1729</span>    {</div>
 <div class="line"><a id="l01730" name="l01730"></a><span class="lineno"> 1730</span>        <span class="keywordflow">if</span> (rhs.has_value()) {</div>
@@ -1890,7 +1890,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l01737" name="l01737"></a><span class="lineno"> 1737</span>    <span class="keyword">template</span> &lt;</div>
 <div class="line"><a id="l01738" name="l01738"></a><span class="lineno"> 1738</span>        <span class="keyword">class </span>U, <span class="keyword">class </span>G,</div>
 <div class="line"><a id="l01739" name="l01739"></a><span class="lineno"> 1739</span>        detail::enable_if_t&lt;(std::is_convertible&lt;U &amp;&amp;, T&gt;::value &amp;&amp; std::is_convertible&lt;G &amp;&amp;, E&gt;::value)&gt; * = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l01740" name="l01740"></a><span class="lineno"> 1740</span>        detail::expected_enable_from_other&lt;T, E, U, G, U &amp;&amp;, G &amp;&amp;&gt;                                        * = <span class="keyword">nullptr</span>&gt;</div>
+<div class="line"><a id="l01740" name="l01740"></a><span class="lineno"> 1740</span>        detail::expected_enable_from_other&lt;T, E, U, G, U &amp;&amp;, G &amp;&amp;&gt; *                                        = <span class="keyword">nullptr</span>&gt;</div>
 <div class="line"><a id="l01741" name="l01741"></a><span class="lineno"> 1741</span>    TL_EXPECTED_11_CONSTEXPR <a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected</a>(<a class="code hl_class" href="classm5_1_1stl_1_1expected.html">expected&lt;U, G&gt;</a> &amp;&amp;rhs) : <a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1expected__default__ctor__base.html">ctor_base</a>(<a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1default__constructor__tag.html">detail::default_constructor_tag</a>{})</div>
 <div class="line"><a id="l01742" name="l01742"></a><span class="lineno"> 1742</span>    {</div>
 <div class="line"><a id="l01743" name="l01743"></a><span class="lineno"> 1743</span>        <span class="keywordflow">if</span> (rhs.has_value()) {</div>
@@ -1914,7 +1914,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l01761" name="l01761"></a><span class="lineno"> 1761</span> </div>
 <div class="line"><a id="l01762" name="l01762"></a><span class="lineno"> 1762</span>    <span class="keyword">template</span> &lt;</div>
 <div class="line"><a id="l01763" name="l01763"></a><span class="lineno"> 1763</span>        <span class="keyword">class </span>U = T, <span class="keyword">class </span>G = T, detail::enable_if_t&lt;std::is_nothrow_constructible&lt;T, U &amp;&amp;&gt;::value&gt; * = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l01764" name="l01764"></a><span class="lineno"> 1764</span>        detail::enable_if_t&lt;!std::is_void&lt;G&gt;::value&gt;                        * = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l01764" name="l01764"></a><span class="lineno"> 1764</span>        detail::enable_if_t&lt;!std::is_void&lt;G&gt;::value&gt; *                        = <span class="keyword">nullptr</span>,</div>
 <div class="line"><a id="l01765" name="l01765"></a><span class="lineno"> 1765</span>        detail::enable_if_t&lt;(!std::is_same&lt;expected&lt;T, E&gt;, detail::decay_t&lt;U&gt;&gt;::value &amp;&amp;</div>
 <div class="line"><a id="l01766" name="l01766"></a><span class="lineno"> 1766</span>                             !<a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1conjunction.html">detail::conjunction&lt;std::is_scalar&lt;T&gt;</a>, std::is_same&lt;T, detail::decay_t&lt;U&gt;&gt;&gt;::value &amp;&amp;</div>
 <div class="line"><a id="l01767" name="l01767"></a><span class="lineno"> 1767</span>                             std::is_constructible&lt;T, U&gt;::value &amp;&amp; std::is_assignable&lt;G &amp;, U&gt;::value &amp;&amp;</div>
@@ -1934,7 +1934,7 @@ $(function(){initNavTree('expected_8hpp_source.html',''); initResizable(true); }
 <div class="line"><a id="l01781" name="l01781"></a><span class="lineno"> 1781</span> </div>
 <div class="line"><a id="l01782" name="l01782"></a><span class="lineno"> 1782</span>    <span class="keyword">template</span> &lt;</div>
 <div class="line"><a id="l01783" name="l01783"></a><span class="lineno"> 1783</span>        <span class="keyword">class </span>U = T, <span class="keyword">class </span>G = T, detail::enable_if_t&lt;!std::is_nothrow_constructible&lt;T, U &amp;&amp;&gt;::value&gt; * = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l01784" name="l01784"></a><span class="lineno"> 1784</span>        detail::enable_if_t&lt;!std::is_void&lt;U&gt;::value&gt;                        * = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l01784" name="l01784"></a><span class="lineno"> 1784</span>        detail::enable_if_t&lt;!std::is_void&lt;U&gt;::value&gt; *                        = <span class="keyword">nullptr</span>,</div>
 <div class="line"><a id="l01785" name="l01785"></a><span class="lineno"> 1785</span>        detail::enable_if_t&lt;(!std::is_same&lt;expected&lt;T, E&gt;, detail::decay_t&lt;U&gt;&gt;::value &amp;&amp;</div>
 <div class="line"><a id="l01786" name="l01786"></a><span class="lineno"> 1786</span>                             !<a class="code hl_struct" href="structm5_1_1stl_1_1detail_1_1conjunction.html">detail::conjunction&lt;std::is_scalar&lt;T&gt;</a>, std::is_same&lt;T, detail::decay_t&lt;U&gt;&gt;&gt;::value &amp;&amp;</div>
 <div class="line"><a id="l01787" name="l01787"></a><span class="lineno"> 1787</span>                             std::is_constructible&lt;T, U&gt;::value &amp;&amp; std::is_assignable&lt;G &amp;, U&gt;::value &amp;&amp;</div>
