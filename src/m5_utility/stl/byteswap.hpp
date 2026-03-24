@@ -40,11 +40,13 @@ struct is_integer_or_enum : std::integral_constant<bool, std::is_integral<typena
 };
 
 template <typename T>
-struct is_unsigned_ex : std::is_unsigned<typename std::remove_cv<T>::type> {};
+struct is_unsigned_ex : std::is_unsigned<typename std::remove_cv<T>::type> {
+};
 
 #if defined(__SIZEOF_INT128__)
 template <>
-struct is_unsigned_ex<unsigned __int128> : std::true_type {};
+struct is_unsigned_ex<unsigned __int128> : std::true_type {
+};
 #endif
 
 template <typename T>
