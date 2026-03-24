@@ -49,24 +49,54 @@ TEST(Utility, String_Trim)
 
 TEST(Utility, String_TrimLeft)
 {
-    std::string s = "  \t left";
+    std::string s = "  \tTest  \t";
     s             = m5::utility::trimLeft(s);
-    EXPECT_STREQ(s.c_str(), "  \t left");  // trimLeft removes from end
+    EXPECT_STREQ(s.c_str(), "Test  \t");
 
-    s = "right  \t ";
+    s = "NoSpace";
     s = m5::utility::trimLeft(s);
-    EXPECT_STREQ(s.c_str(), "right");
+    EXPECT_STREQ(s.c_str(), "NoSpace");
+
+    // Empty string
+    s = "";
+    s = m5::utility::trimLeft(s);
+    EXPECT_STREQ(s.c_str(), "");
+
+    // Whitespace only
+    s = "   \t\n";
+    s = m5::utility::trimLeft(s);
+    EXPECT_STREQ(s.c_str(), "");
+
+    // Trailing whitespace only — should NOT be removed
+    s = "trailing   ";
+    s = m5::utility::trimLeft(s);
+    EXPECT_STREQ(s.c_str(), "trailing   ");
 }
 
 TEST(Utility, String_TrimRight)
 {
-    std::string s = "  \t left";
+    std::string s = "  \tTest  \t";
     s             = m5::utility::trimRight(s);
-    EXPECT_STREQ(s.c_str(), "left");
+    EXPECT_STREQ(s.c_str(), "  \tTest");
 
-    s = "right  \t ";
+    s = "NoSpace";
     s = m5::utility::trimRight(s);
-    EXPECT_STREQ(s.c_str(), "right  \t ");  // trimRight removes from start
+    EXPECT_STREQ(s.c_str(), "NoSpace");
+
+    // Empty string
+    s = "";
+    s = m5::utility::trimRight(s);
+    EXPECT_STREQ(s.c_str(), "");
+
+    // Whitespace only
+    s = "   \t\n";
+    s = m5::utility::trimRight(s);
+    EXPECT_STREQ(s.c_str(), "");
+
+    // Leading whitespace only — should NOT be removed
+    s = "   leading";
+    s = m5::utility::trimRight(s);
+    EXPECT_STREQ(s.c_str(), "   leading");
 }
 
 TEST(Utility, String_FormatString)
@@ -102,6 +132,14 @@ TEST(Utility, String_FormatString)
     // Long string
     s = m5::utility::formatString("%s%s%s", "This is ", "a longer ", "string test");
     EXPECT_STREQ(s.c_str(), "This is a longer string test");
+
+    // Large string (> 256 bytes)
+    {
+        std::string large(512, 'X');
+        auto r = m5::utility::formatString("%s", large.c_str());
+        EXPECT_EQ(r.size(), 512U);
+        EXPECT_EQ(r, large);
+    }
 }
 
 TEST(Utility, HexString)

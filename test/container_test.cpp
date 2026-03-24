@@ -9,6 +9,7 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 #include <M5Unified.hpp>
+#include <list>
 
 namespace {
 
@@ -575,6 +576,28 @@ void cb_swap_test()
         EXPECT_EQ(a[1], 2);
         EXPECT_EQ(a[2], 3);
     }
+
+    // ADL swap (using std::swap should find m5::container::swap via ADL)
+    {
+        CircularBuffer<int> a(4);
+        CircularBuffer<int> b(6);
+
+        a.push_back(1);
+        b.push_back(10);
+        b.push_back(20);
+
+        using std::swap;
+        swap(a, b);
+
+        EXPECT_EQ(a.capacity(), 6U);
+        EXPECT_EQ(a.size(), 2U);
+        EXPECT_EQ(a[0], 10);
+        EXPECT_EQ(a[1], 20);
+
+        EXPECT_EQ(b.capacity(), 4U);
+        EXPECT_EQ(b.size(), 1U);
+        EXPECT_EQ(b[0], 1);
+    }
 }
 
 void cb_assign_test()
@@ -612,6 +635,30 @@ void cb_assign_test()
         EXPECT_EQ(rb[0], 100);
         EXPECT_EQ(rb[1], 200);
         EXPECT_EQ(rb[2], 300);
+    }
+
+    // assign with non-random-access iterators (std::list = BidirectionalIterator)
+    {
+        std::list<int> src = {10, 20, 30, 40, 50};
+        FixedCircularBuffer<int, 3> rb;
+        rb.assign(src.begin(), src.end());
+
+        // capacity=3, input=5 => last 3 elements
+        EXPECT_EQ(rb.size(), 3U);
+        EXPECT_EQ(rb[0], 30);
+        EXPECT_EQ(rb[1], 40);
+        EXPECT_EQ(rb[2], 50);
+    }
+
+    // assign with list that fits
+    {
+        std::list<int> src = {1, 2};
+        FixedCircularBuffer<int, 4> rb;
+        rb.assign(src.begin(), src.end());
+
+        EXPECT_EQ(rb.size(), 2U);
+        EXPECT_EQ(rb[0], 1);
+        EXPECT_EQ(rb[1], 2);
     }
 }
 
