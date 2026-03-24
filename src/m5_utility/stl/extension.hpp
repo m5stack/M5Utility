@@ -1,5 +1,5 @@
 /*!
-  @file stl_extension.hpp
+  @file extension.hpp
   @brief STL extensions
 
   Add features that cannot be used depending on the C++ version, etc.

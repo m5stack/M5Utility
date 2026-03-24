@@ -9,15 +9,19 @@
 */
 #include "compatibility_feature.hpp"
 
-#if defined(CONFIG_IDF_TARGET_ESP32) || defined(CONFIG_IDF_TARGET_ESP32S2) || defined(CONFIG_IDF_TARGET_ESP32S3) ||   \
-    defined(CONFIG_IDF_TARGET_ESP32C3) || defined(CONFIG_IDF_TARGET_ESP32C6) || defined(CONFIG_IDF_TARGET_ESP32H2) || \
-    defined(CONFIG_IDF_TARGET_ESP32P4)
-#defined USING_ESP_PLATFORM
+#if defined(ESP_PLATFORM) || defined(CONFIG_IDF_TARGET_ESP32) || defined(CONFIG_IDF_TARGET_ESP32S2) ||                 \
+    defined(CONFIG_IDF_TARGET_ESP32S3) || defined(CONFIG_IDF_TARGET_ESP32C2) || defined(CONFIG_IDF_TARGET_ESP32C3) ||  \
+    defined(CONFIG_IDF_TARGET_ESP32C5) || defined(CONFIG_IDF_TARGET_ESP32C6) || defined(CONFIG_IDF_TARGET_ESP32C61) || \
+    defined(CONFIG_IDF_TARGET_ESP32H2) || defined(CONFIG_IDF_TARGET_ESP32P4)
+#define USING_ESP_PLATFORM
+#pragma message("Using ESP Platform")
+#else
+#pragma message("NOT Using ESP Platform")
 #endif
 
 #if defined(USING_ESP_PLATFORM)
-// #include <freertos/task.h>
 #include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
 #include <esp_cpu.h>
 #include <esp_timer.h>
 #else
@@ -79,18 +83,7 @@ void delayMicroseconds(const unsigned int us)
 {
 #if defined(USING_ESP_PLATFORM)
     if (us) {
-        // Using esp_rom_delay if less than 1ms
-        if (us < 1000 || xPortInIsrContext()) {
-            esp_rom_delay_us(us);
-            return;
-        }
-
-        // vTaskDelay + esp_rom_delay
-        vTaskDelay(pdMS_TO_TICKS(us / 1000));
-        const uint32_t us_rem = us % 1000;
-        if (us_rem) {
-            esp_rom_delay_us(us_rem);
-        }
+        esp_rom_delay_us(us);
     }
 #else
     std::this_thread::sleep_for(std::chrono::microseconds(us));

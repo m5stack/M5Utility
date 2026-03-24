@@ -112,6 +112,15 @@ TEST(Utility, Types_U16)
     // set() is using in operator=
     // get() is using in cast to uint16
     // data() is using in cast to const uint8_t*
+
+    // Non-const uint8_t* cast (mutable access)
+    {
+        big_uint16_t bg_mut{0x12, 0x34};
+        uint8_t* p = static_cast<uint8_t*>(bg_mut);
+        EXPECT_EQ(p[0], 0x12);
+        p[0] = 0xAA;
+        EXPECT_EQ(bg_mut.u8[0], 0xAA);
+    }
 }
 
 TEST(Utility, Types_U16_Accessors)

@@ -1697,7 +1697,7 @@ public:
 
     template <class U, class G,
               detail::enable_if_t<!(std::is_convertible<U const &, T>::value &&
-                                    std::is_convertible<G const &, E>::value)>     * = nullptr,
+                                    std::is_convertible<G const &, E>::value)> *     = nullptr,
               detail::expected_enable_from_other<T, E, U, G, const U &, const G &> * = nullptr>
     explicit TL_EXPECTED_11_CONSTEXPR expected(const expected<U, G> &rhs) : ctor_base(detail::default_constructor_tag{})
     {
@@ -1710,7 +1710,7 @@ public:
 
     template <class U, class G,
               detail::enable_if_t<(std::is_convertible<U const &, T>::value &&
-                                   std::is_convertible<G const &, E>::value)>      * = nullptr,
+                                   std::is_convertible<G const &, E>::value)> *      = nullptr,
               detail::expected_enable_from_other<T, E, U, G, const U &, const G &> * = nullptr>
     TL_EXPECTED_11_CONSTEXPR expected(const expected<U, G> &rhs) : ctor_base(detail::default_constructor_tag{})
     {
@@ -1724,7 +1724,7 @@ public:
     template <
         class U, class G,
         detail::enable_if_t<!(std::is_convertible<U &&, T>::value && std::is_convertible<G &&, E>::value)> * = nullptr,
-        detail::expected_enable_from_other<T, E, U, G, U &&, G &&>                                         * = nullptr>
+        detail::expected_enable_from_other<T, E, U, G, U &&, G &&> *                                         = nullptr>
     explicit TL_EXPECTED_11_CONSTEXPR expected(expected<U, G> &&rhs) : ctor_base(detail::default_constructor_tag{})
     {
         if (rhs.has_value()) {
@@ -1737,7 +1737,7 @@ public:
     template <
         class U, class G,
         detail::enable_if_t<(std::is_convertible<U &&, T>::value && std::is_convertible<G &&, E>::value)> * = nullptr,
-        detail::expected_enable_from_other<T, E, U, G, U &&, G &&>                                        * = nullptr>
+        detail::expected_enable_from_other<T, E, U, G, U &&, G &&> *                                        = nullptr>
     TL_EXPECTED_11_CONSTEXPR expected(expected<U, G> &&rhs) : ctor_base(detail::default_constructor_tag{})
     {
         if (rhs.has_value()) {
@@ -1761,7 +1761,7 @@ public:
 
     template <
         class U = T, class G = T, detail::enable_if_t<std::is_nothrow_constructible<T, U &&>::value> * = nullptr,
-        detail::enable_if_t<!std::is_void<G>::value>                        * = nullptr,
+        detail::enable_if_t<!std::is_void<G>::value> *                        = nullptr,
         detail::enable_if_t<(!std::is_same<expected<T, E>, detail::decay_t<U>>::value &&
                              !detail::conjunction<std::is_scalar<T>, std::is_same<T, detail::decay_t<U>>>::value &&
                              std::is_constructible<T, U>::value && std::is_assignable<G &, U>::value &&
@@ -1781,7 +1781,7 @@ public:
 
     template <
         class U = T, class G = T, detail::enable_if_t<!std::is_nothrow_constructible<T, U &&>::value> * = nullptr,
-        detail::enable_if_t<!std::is_void<U>::value>                        * = nullptr,
+        detail::enable_if_t<!std::is_void<U>::value> *                        = nullptr,
         detail::enable_if_t<(!std::is_same<expected<T, E>, detail::decay_t<U>>::value &&
                              !detail::conjunction<std::is_scalar<T>, std::is_same<T, detail::decay_t<U>>>::value &&
                              std::is_constructible<T, U>::value && std::is_assignable<G &, U>::value &&

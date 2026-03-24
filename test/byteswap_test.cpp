@@ -101,3 +101,39 @@ TEST(Utility, Byteswap)
     }
 #endif
 }
+
+// Verify portable and default (builtin on GCC/Clang) implementations produce identical results
+TEST(Utility, ByteswapPortable)
+{
+    constexpr uint8_t u8{127};
+    constexpr int8_t i8{-128};
+    constexpr uint16_t u16{0x1234};
+    constexpr int16_t i16{-0x1234};
+    constexpr uint32_t u32{0x12345678};
+    constexpr int32_t i32{-0x12345678};
+    constexpr uint64_t u64{0x123456789ABCDEF0};
+    constexpr int64_t i64{-0x123456789ABCDEF0};
+
+    EXPECT_EQ(m5::stl::byteswap_with_portable(u8), m5::stl::byteswap(u8));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(i8), m5::stl::byteswap(i8));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(u16), m5::stl::byteswap(u16));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(i16), m5::stl::byteswap(i16));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(u32), m5::stl::byteswap(u32));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(i32), m5::stl::byteswap(i32));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(u64), m5::stl::byteswap(u64));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(i64), m5::stl::byteswap(i64));
+
+    // Also verify round-trip with portable
+    EXPECT_EQ(m5::stl::byteswap_with_portable(m5::stl::byteswap_with_portable(u16)), u16);
+    EXPECT_EQ(m5::stl::byteswap_with_portable(m5::stl::byteswap_with_portable(u32)), u32);
+    EXPECT_EQ(m5::stl::byteswap_with_portable(m5::stl::byteswap_with_portable(u64)), u64);
+
+#if defined(__SIZEOF_INT128__)
+    constexpr u128_t u128 = make_u128(u64, u64);
+    constexpr i128_t i128 = make_i128(i64, (uint64_t)i64);
+
+    EXPECT_EQ(m5::stl::byteswap_with_portable(u128), m5::stl::byteswap(u128));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(i128), m5::stl::byteswap(i128));
+    EXPECT_EQ(m5::stl::byteswap_with_portable(m5::stl::byteswap_with_portable(u128)), u128);
+#endif
+}

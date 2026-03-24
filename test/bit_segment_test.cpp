@@ -253,6 +253,37 @@ TEST(BitSegment, SignedType)
         EXPECT_EQ(seg.lower(), 15U);
         EXPECT_EQ(seg.raw(), 0x7F);  // 0111 1111
     }
+
+    // Negative raw value — upper/lower should still extract correctly
+    {
+        BS seg(static_cast<int8_t>(0x80));  // -128: 1000 0000
+        // sign bit = 1, upper 3 bits = 000, lower 4 bits = 0000
+        EXPECT_EQ(seg.upper(), 0U);
+        EXPECT_EQ(seg.lower(), 0U);
+    }
+
+    {
+        BS seg(static_cast<int8_t>(0xFF));  // -1: 1111 1111
+        // sign bit = 1, upper 3 bits = 111, lower 4 bits = 1111
+        EXPECT_EQ(seg.upper(), 7U);
+        EXPECT_EQ(seg.lower(), 15U);
+    }
+
+    {
+        BS seg(static_cast<int8_t>(0xA5));  // -91: 1010 0101
+        // sign bit = 1, upper 3 bits = 010, lower 4 bits = 0101
+        EXPECT_EQ(seg.upper(), 2U);
+        EXPECT_EQ(seg.lower(), 5U);
+    }
+
+    // Setter on negative value — preserve sign bit
+    {
+        BS seg(static_cast<int8_t>(0x80));  // -128
+        seg.upper(0x05);
+        seg.lower(0x0A);
+        EXPECT_EQ(seg.upper(), 5U);
+        EXPECT_EQ(seg.lower(), 10U);
+    }
 }
 
 TEST(BitSegment, CompareWithSameType)

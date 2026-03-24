@@ -43,7 +43,7 @@ constexpr log_level_t logOutputLevel = static_cast<log_level_t>(CORE_DEBUG_LEVEL
   @var logOutputLevel
   @brief Base value of log level to be output
   @details The value can be specified in the compile options.
-  -DM5_LOG_LEVEL=[0..5] or -DCORE_LOG_LEVEL=[0...5]
+  -DM5_LOG_LEVEL=[0..5] or -DCORE_DEBUG_LEVEL=[0..5]
   default as NONE
   @warning No output if NDEBUG defined
  */
@@ -52,9 +52,9 @@ constexpr log_level_t logOutputLevel = log_level_t::None;
 
 /// @cond
 // Does the string contain slash?
-constexpr bool containss_slash(const char* s)
+constexpr bool contains_slash(const char* s)
 {
-    return *s ? (*s == '/' ? true : containss_slash(s + 1)) : false;
+    return *s ? (*s == '/' ? true : contains_slash(s + 1)) : false;
 }
 // Returns the next position after the right-most slash
 constexpr const char* after_right_slash(const char* s)
@@ -75,7 +75,7 @@ constexpr const char* tail(const char* s)
  */
 constexpr const char* pathToFilename(const char* path)
 {
-    return (path && path[0]) ? (containss_slash(path) ? after_right_slash(tail(path)) : path) : "";
+    return (path && path[0]) ? (contains_slash(path) ? after_right_slash(tail(path)) : path) : "";
 }
 
 //! @brief Output formatted strings

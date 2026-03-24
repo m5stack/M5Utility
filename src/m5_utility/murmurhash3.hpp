@@ -58,7 +58,7 @@ constexpr uint32_t str2uint32_big(const char* str, const size_t getc = sizeof(ui
     return getc ? str2uint32_big(str + 1, getc - 1, (v << 8) | *str) : v;
 }
 
-// Switch between little and big enfian.
+// Switch between little and big endian.
 template <uint32_t Endian>
 constexpr typename std::enable_if<Endian, uint32_t>::type str2uint32(const char* str,
                                                                      const size_t getc = sizeof(uint32_t),
@@ -133,7 +133,7 @@ constexpr uint32_t calculate(const char* str, const size_t len)
   @brief User-defined literals "_mmh3"
   @return 32bit MurmurHash3 from input string
   @code
-  using namespace m5::unit::mmh3;
+  using namespace m5::utility::mmh3;
   uint32_t h = "M5 Stack"_mmh3;
   @endcode
 */

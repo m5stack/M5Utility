@@ -21,26 +21,23 @@ std::string formatString(const char* fmt, ...)
     size_t sz = vsnprintf(nullptr, 0U, fmt, args);  // calculate length
     va_end(args);
 
-    char buf[sz + 1];
-    va_start(args, fmt);  // Reinitiaize args (args cannot reuse because
-                          // indefinite value after vsnprintf)
-    vsnprintf(buf, sizeof(buf), fmt, args);
+    std::string result(sz, '\0');
+    va_start(args, fmt);
+    vsnprintf(&result[0], sz + 1, fmt, args);
     va_end(args);
-    // String don't has constructor(const char*, const size_t);
-    buf[sz] = '\0';
-    return std::string(buf);
+    return result;
 }
 
 std::string& trimRight(std::string& s)
 {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](std::string::value_type& ch) { return !std::isspace(ch); }));
+    s.erase(std::find_if(s.rbegin(), s.rend(), [](std::string::value_type& ch) { return !std::isspace(ch); }).base(),
+            s.end());
     return s;
 }
 
 std::string& trimLeft(std::string& s)
 {
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](std::string::value_type& ch) { return !std::isspace(ch); }).base(),
-            s.end());
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](std::string::value_type& ch) { return !std::isspace(ch); }));
     return s;
 }
 
