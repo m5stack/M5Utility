@@ -16,7 +16,7 @@
 namespace m5 {
 namespace utility {
 
-//! @ brief Create a string in a format similar to printf
+//! @brief Create a string in a format similar to printf
 std::string formatString(const char* fmt, ...);
 
 ///@name Trim

@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: MIT
  */
 /*!
-  @file des.hpp
-  @brief Data Encryption Standar (DES)
+  @file des.cpp
+  @brief Data Encryption Standard (DES)
 */
 #include "des.hpp"
 #include <cstring>

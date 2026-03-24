@@ -49,8 +49,8 @@ inline uint32_t encodeBase64URL(char* out, const uint32_t olen, const uint8_t* b
   @param urlEncode base64url decoding if true
   @param padding Expect/allow padding if true
   @return Decoded length
-  @note padding  true: Input must contain '='’ padding (RFC 4648 standard)
-  @note padding false: Input must not contain' ='’. Incomplete groups are auto-completed
+  @note padding  true: Input must contain ‘=’ padding (RFC 4648 standard)
+  @note padding false: Input must not contain ‘=’. Incomplete groups are auto-completed
 */
 uint32_t decode_base64(uint8_t* out, const uint32_t olen, const char* buf, const uint32_t blen, const bool urlEncode,
                        const bool padding);

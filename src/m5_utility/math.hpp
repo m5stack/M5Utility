@@ -15,14 +15,13 @@
 
 namespace m5 {
 namespace math {
-template <typename T>
-
 /*!
   @brief Is value power of 2?
-  @tparam Type of the value
+  @tparam T Type of the value
   @param v Value
   @return True if value is power of 2
  */
+template <typename T>
 inline constexpr bool is_powerof2(const T v)
 {
     static_assert(std::is_integral<T>::value, "The argument v is only an integer value.");

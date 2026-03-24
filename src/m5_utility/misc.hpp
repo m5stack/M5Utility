@@ -80,7 +80,7 @@ struct uint_least_for_bits {
                 >::type                         //
             >::type;
 #else
-    static_assert(N <= 64, "N must be <= 64m");
+    static_assert(N <= 64, "N must be <= 64");
     using type =                            //
         typename std::conditional<          //
             (N <= 8), uint8_t,              //

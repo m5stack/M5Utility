@@ -26,7 +26,7 @@ public:
     CRC8() = delete;
     /*!
       @param init Initial value
-      @param polynormal Generated polynomial
+      @param polynomial Generated polynomial
       @param refIn Inverted input?
       @param refOut Inverted output?
       @param xorout Exclusive OR output
@@ -72,11 +72,11 @@ public:
       @brief Calculate CRC8
       @param data Pointer of the array
       @param len Length of the array
-      @param polynormal Generated polynomial
+      @param polynomial Generated polynomial
       @param refIn Inverted input?
       @param refOut Inverted output?
       @param xorout Exclusive OR output
-      @param do_finalize Apply processing to output values?(true as defaut)
+      @param do_finalize Apply processing to output values?(true as default)
       @return CRC value
     */
     static uint8_t calculate(const uint8_t* data, size_t len, const uint8_t init, const uint8_t polynomial,
@@ -124,7 +124,7 @@ public:
     CRC16() = delete;
     /*!
       @param init Initial value
-      @param polynormal Generated polynomial
+      @param polynomial Generated polynomial
       @param refIn Inverted input?
       @param refOut Inverted output?
       @param xorout Exclusive OR output
@@ -170,11 +170,11 @@ public:
       @brief Calculate CRC16
       @param data Pointer of the array
       @param len Length of the array
-      @param polynormal Generated polynomial
+      @param polynomial Generated polynomial
       @param refIn Inverted input?
       @param refOut Inverted output?
       @param xorout Exclusive OR output
-      @param do_finalize Apply processing to output values?(true as defaut)
+      @param do_finalize Apply processing to output values?(true as default)
       @return CRC value
     */
     static uint16_t calculate(const uint8_t* data, size_t len, const uint16_t init, const uint16_t polynomial,

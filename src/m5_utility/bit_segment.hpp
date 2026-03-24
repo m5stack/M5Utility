@@ -89,7 +89,7 @@ public:
     /*! @brief Gets the value of upper segment */
     inline constexpr unsigned_type upper() const
     {
-        return (_v >> UPPER_SHIFT) & UPPER_MASK;
+        return (static_cast<unsigned_type>(_v) >> UPPER_SHIFT) & UPPER_MASK;
     }
     //! @brief Gets the value of lower segment
     inline constexpr unsigned_type lower() const
@@ -108,7 +108,8 @@ public:
     /*! @brief Set the value of upper segment */
     inline void upper(const unsigned_type v)
     {
-        _v = (_v & ~(UPPER_MASK << UPPER_SHIFT)) | ((v & UPPER_MASK) << UPPER_SHIFT);
+        _v = static_cast<base_type>((static_cast<unsigned_type>(_v) & ~(UPPER_MASK << UPPER_SHIFT)) |
+                                    ((v & UPPER_MASK) << UPPER_SHIFT));
     }
     //! @brief Set the value of lower segment
     inline void lower(const unsigned_type v)

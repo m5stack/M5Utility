@@ -12,6 +12,7 @@
 
 #include <cstdint>
 #include <cstring>
+#include "../stl/byteswap.hpp"
 
 namespace m5 {
 namespace utility {
@@ -66,15 +67,15 @@ public:
     {
         uint8_t padding[64]{0x80};
         uint8_t length[8]{};
-        uint64_t count_be = __builtin_bswap64(_count);
+        uint64_t count_be = m5::stl::byteswap(_count);
         memcpy(length, &count_be, 8);
 
         size_t padLen = (_bufferLen < 56) ? (56 - _bufferLen) : (120 - _bufferLen);
         update(padding, padLen);
         update(length, 8);
 
-        for (int i = 0; i < 5; ++i) {
-            uint32_t be = __builtin_bswap32(_state[i]);
+        for (size_t i = 0; i < 5; ++i) {
+            uint32_t be = m5::stl::byteswap(_state[i]);
             memcpy(digest + i * 4, &be, 4);
         }
     }

@@ -7,8 +7,8 @@
   @file endianness.hpp
   @brief Compile-time endian identification
 */
-#ifndef M5_UTILITY_STL_ENDIANESS_HPP
-#define M5_UTILITY_STL_ENDIANESS_HPP
+#ifndef M5_UTILITY_STL_ENDIANNESS_HPP
+#define M5_UTILITY_STL_ENDIANNESS_HPP
 
 #if __cplusplus >= 202002L
 // #pragma message "Using std::endian"
@@ -55,8 +55,13 @@ enum class endian {
 #endif
 };
 
-#else
+#elif defined(__BYTE_ORDER__)
 
+enum class endian { little = __ORDER_LITTLE_ENDIAN__, big = __ORDER_BIG_ENDIAN__, native = __BYTE_ORDER__ };
+
+#else
+#pragma message \
+    "Cannot determine byte order at compile time. Falling back to runtime detection (strict aliasing violation)."
 /// @cond
 constexpr uint32_t val32 = 0x11223344;
 constexpr uint8_t ref8   = static_cast<const uint8_t&>(val32);
@@ -66,7 +71,7 @@ enum class endian { little = 0x44, big = 0x11, native = ref8 };
 }  // namespace stl
 
 /*!
-  @namespace enidan
+  @namespace endian
   @brief endianness detection
  */
 namespace endian {

@@ -87,9 +87,9 @@ public:
     void assign(InputIterator first, InputIterator last)
     {
         clear();
-        size_type sz = last - first;
+        size_type sz = static_cast<size_type>(std::distance(first, last));
         if (sz > _cap) {
-            first += (sz - _cap);
+            std::advance(first, sz - _cap);
         }
         auto n = std::min(_cap, sz);
         while (n--) {
@@ -295,9 +295,9 @@ public:
     }
     /*!
       @brief Swaps the contents
-      @param o Ccontainer to exchange the contents with
+      @param o Container to exchange the contents with
     */
-    void swap(CircularBuffer& o)
+    void swap(CircularBuffer& o) noexcept
     {
         if (this != &o) {
             std::swap(_buf, o._buf);
@@ -478,7 +478,7 @@ private:
   @class FixedCircularBuffer
   @brief Type CircularBuffer giving size in template parameter
   @tparam T Type of the element
-  @tpatam N Capacity of the buffer
+  @tparam N Capacity of the buffer
 */
 template <typename T, size_t N>
 class FixedCircularBuffer : public CircularBuffer<T> {
@@ -516,20 +516,21 @@ public:
     FixedCircularBuffer& operator=(FixedCircularBuffer&&) noexcept = default;
 };
 
-}  // namespace container
-}  // namespace m5
-
-namespace std {
+// ADL swap (placed in the same namespace as CircularBuffer)
+// std namespace specialization for function templates is undefined behavior per C++17 [namespace.std],
+// so we provide a free swap via ADL instead.
 /*!
-  @brief Specializes the std::swap algorithm
-  @related m5::container::CircularBuffer
+  @brief Swaps the contents of two CircularBuffer instances
+  @related CircularBuffer
   @param a,b Containers whose contents to swap
 */
 template <typename T>
-inline void swap(m5::container::CircularBuffer<T>& a, m5::container::CircularBuffer<T>& b)
+inline void swap(CircularBuffer<T>& a, CircularBuffer<T>& b) noexcept
 {
     a.swap(b);
 }
-}  // namespace std
+
+}  // namespace container
+}  // namespace m5
 
 #endif

@@ -1,5 +1,5 @@
 /*
- * SPDX-Filecopyrighttext: 2024 M5Stack Technology CO LTD
+ * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
  *
  * SPDX-License-Identifier: MIT
  */
@@ -26,7 +26,7 @@ namespace types {
 */
 template <bool DELittle>
 union U16 {
-    /// @name Constrcutor
+    /// @name Constructor
     ///@{
     /*! @brief default constructor */
     constexpr U16() : u16{0}
@@ -93,7 +93,7 @@ union U16 {
         return data();
     }
     /*! @brief To uint8_t* */
-    inline explicit operator uint8_t*() const
+    inline explicit operator uint8_t*()
     {
         return data();
     }

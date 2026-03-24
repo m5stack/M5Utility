@@ -17,7 +17,7 @@ namespace utility {
 namespace crypto {
 
 /*!
-  @class TrippleDES
+  @class TripleDES
   @brief Triple Data Encryption Standard(3DES)
 */
 class TripleDES {
@@ -54,10 +54,10 @@ public:
      */
     TripleDES(const Mode mode, const Padding pad, const uint8_t iv[8] = nullptr);
 
-    ///@name Encrypto
+    ///@name Encrypt
     ///@{
     /*!
-      @brief Encrypto 1-key 3DES
+      @brief Encrypt 1-key 3DES
       @param[out] out Output buffer
       @param in Input
       @param in_len Input length
@@ -72,7 +72,7 @@ public:
         return encrypt_3key(out, in, in_len, key, key, key);
     }
     /*!
-      @brief Encrypto 2-key 3DES
+      @brief Encrypt 2-key 3DES
       @param[out] out Output buffer
       @param in Input
       @param in_len Input length
@@ -87,7 +87,7 @@ public:
         return encrypt_3key(out, in, in_len, key1, key2, key1);
     }
     /*!
-      @brief Encrypto 2-key 3DES
+      @brief Encrypt 2-key 3DES
       @param[out] out Output buffer
       @param in Input
       @param in_len Input length
@@ -98,7 +98,7 @@ public:
      */
     uint32_t encrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key16& key);
     /*!
-      @brief Encrypto 3-key 3DES
+      @brief Encrypt 3-key 3DES
       @param[out] out Output buffer
       @param in Input
       @param in_len Input length
@@ -115,7 +115,7 @@ public:
         return encrypt_3key(out, in, in_len, key1, key2, key3);
     }
     /*!
-      @brief Encrypto 3-key 3DES
+      @brief Encrypt 3-key 3DES
       @param[out] out Output buffer
       @param in Input
       @param in_len Input length
@@ -127,7 +127,7 @@ public:
     uint32_t encrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key24& key);
     ///@}
 
-    ///@name Decrypto
+    ///@name Decrypt
     ///@{
     inline uint32_t decrypt(uint8_t* out, const uint8_t* in, const uint32_t in_len, const Key& key)
     {
