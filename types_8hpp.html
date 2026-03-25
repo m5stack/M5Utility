@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.11 git rev:e58debb</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.0.12 git rev:13bfbd6</span>
    </div>
   </td>
  </tr>
@@ -104,20 +104,21 @@ $(function(){initNavTree('types_8hpp.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 
-<p>Type and enumerator definitions.  
+<p>Endian-aware integer types for safe register access.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;tuple&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 <code>#include &quot;<a class="el" href="endianness_8hpp_source.html">stl/endianness.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="byteswap_8hpp_source.html">stl/byteswap.hpp</a>&quot;</code><br />
 </div>
 <p><a href="types_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionm5_1_1types_1_1_u16.html">m5::types::U16&lt; DELittle &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endian-compliant uint16.  <a href="unionm5_1_1types_1_1_u16.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unionm5_1_1types_1_1_endian_int.html">m5::types::EndianInt&lt; T, DataIsLittle &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Endian-compliant integer type.  <a href="unionm5_1_1types_1_1_endian_int.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -128,15 +129,53 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a0caa7777399991c9bf36a83c88333630" id="r_a0caa7777399991c9bf36a83c88333630"><td class="memItemLeft" align="right" valign="top"><a id="a0caa7777399991c9bf36a83c88333630" name="a0caa7777399991c9bf36a83c88333630"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::big_uint16_t</b> = <a class="el" href="unionm5_1_1types_1_1_u16.html">U16</a>&lt;false&gt;</td></tr>
-<tr class="separator:a0caa7777399991c9bf36a83c88333630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e8a6e166f76df8bb622472f8a0e1185" id="r_a9e8a6e166f76df8bb622472f8a0e1185"><td class="memItemLeft" align="right" valign="top"><a id="a9e8a6e166f76df8bb622472f8a0e1185" name="a9e8a6e166f76df8bb622472f8a0e1185"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::little_uint16_t</b> = <a class="el" href="unionm5_1_1types_1_1_u16.html">U16</a>&lt;true&gt;</td></tr>
-<tr class="separator:a9e8a6e166f76df8bb622472f8a0e1185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81d21d06b47c8816564e5c0c19e66731" id="r_a81d21d06b47c8816564e5c0c19e66731"><td class="memItemLeft" align="right" valign="top"><a id="a81d21d06b47c8816564e5c0c19e66731" name="a81d21d06b47c8816564e5c0c19e66731"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::big_uint16_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;uint16_t, false&gt;</td></tr>
+<tr class="separator:a81d21d06b47c8816564e5c0c19e66731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae14b29b5f24c26ec6fae6e7f29d8da2c" id="r_ae14b29b5f24c26ec6fae6e7f29d8da2c"><td class="memItemLeft" align="right" valign="top"><a id="ae14b29b5f24c26ec6fae6e7f29d8da2c" name="ae14b29b5f24c26ec6fae6e7f29d8da2c"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::little_uint16_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;uint16_t, true&gt;</td></tr>
+<tr class="separator:ae14b29b5f24c26ec6fae6e7f29d8da2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96bbd0d1f2641e396e0d7934f3c2bcd1" id="r_a96bbd0d1f2641e396e0d7934f3c2bcd1"><td class="memItemLeft" align="right" valign="top"><a id="a96bbd0d1f2641e396e0d7934f3c2bcd1" name="a96bbd0d1f2641e396e0d7934f3c2bcd1"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::big_int16_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;int16_t, false&gt;</td></tr>
+<tr class="separator:a96bbd0d1f2641e396e0d7934f3c2bcd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84ce930edb6451b574900f2e019c290" id="r_ab84ce930edb6451b574900f2e019c290"><td class="memItemLeft" align="right" valign="top"><a id="ab84ce930edb6451b574900f2e019c290" name="ab84ce930edb6451b574900f2e019c290"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::little_int16_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;int16_t, true&gt;</td></tr>
+<tr class="separator:ab84ce930edb6451b574900f2e019c290"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add504f9a7cbe0d4140b839486b18a24f" id="r_add504f9a7cbe0d4140b839486b18a24f"><td class="memItemLeft" align="right" valign="top"><a id="add504f9a7cbe0d4140b839486b18a24f" name="add504f9a7cbe0d4140b839486b18a24f"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::big_uint32_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;uint32_t, false&gt;</td></tr>
+<tr class="separator:add504f9a7cbe0d4140b839486b18a24f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7565e8d184ad4364be4d4b2aac45b187" id="r_a7565e8d184ad4364be4d4b2aac45b187"><td class="memItemLeft" align="right" valign="top"><a id="a7565e8d184ad4364be4d4b2aac45b187" name="a7565e8d184ad4364be4d4b2aac45b187"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::little_uint32_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;uint32_t, true&gt;</td></tr>
+<tr class="separator:a7565e8d184ad4364be4d4b2aac45b187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeae6dfd6580879057cc7917cbfb89f09" id="r_aeae6dfd6580879057cc7917cbfb89f09"><td class="memItemLeft" align="right" valign="top"><a id="aeae6dfd6580879057cc7917cbfb89f09" name="aeae6dfd6580879057cc7917cbfb89f09"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::big_int32_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;int32_t, false&gt;</td></tr>
+<tr class="separator:aeae6dfd6580879057cc7917cbfb89f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae123d94e2a929f10fc07b72301cad3a7" id="r_ae123d94e2a929f10fc07b72301cad3a7"><td class="memItemLeft" align="right" valign="top"><a id="ae123d94e2a929f10fc07b72301cad3a7" name="ae123d94e2a929f10fc07b72301cad3a7"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::little_int32_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;int32_t, true&gt;</td></tr>
+<tr class="separator:ae123d94e2a929f10fc07b72301cad3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fc06ded4b04c72fa777621f9b9c8537" id="r_a0fc06ded4b04c72fa777621f9b9c8537"><td class="memItemLeft" align="right" valign="top"><a id="a0fc06ded4b04c72fa777621f9b9c8537" name="a0fc06ded4b04c72fa777621f9b9c8537"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::big_uint64_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;uint64_t, false&gt;</td></tr>
+<tr class="separator:a0fc06ded4b04c72fa777621f9b9c8537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea43b603976b3995696a2c5c7a6c0106" id="r_aea43b603976b3995696a2c5c7a6c0106"><td class="memItemLeft" align="right" valign="top"><a id="aea43b603976b3995696a2c5c7a6c0106" name="aea43b603976b3995696a2c5c7a6c0106"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::little_uint64_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;uint64_t, true&gt;</td></tr>
+<tr class="separator:aea43b603976b3995696a2c5c7a6c0106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a235642f77fb21d8de6867c55b1dceba4" id="r_a235642f77fb21d8de6867c55b1dceba4"><td class="memItemLeft" align="right" valign="top"><a id="a235642f77fb21d8de6867c55b1dceba4" name="a235642f77fb21d8de6867c55b1dceba4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::big_int64_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;int64_t, false&gt;</td></tr>
+<tr class="separator:a235642f77fb21d8de6867c55b1dceba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21574aab7e4d688824c47bc12c995ead" id="r_a21574aab7e4d688824c47bc12c995ead"><td class="memItemLeft" align="right" valign="top"><a id="a21574aab7e4d688824c47bc12c995ead" name="a21574aab7e4d688824c47bc12c995ead"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::types::little_int64_t</b> = <a class="el" href="unionm5_1_1types_1_1_endian_int.html">EndianInt</a>&lt;int64_t, true&gt;</td></tr>
+<tr class="separator:a21574aab7e4d688824c47bc12c995ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Type and enumerator definitions. </p>
+<div class="textblock"><p>Endian-aware integer types for safe register access. </p>
+<dl class="section user"><dt>Motivation</dt><dd>Casting raw byte buffers to integer pointers causes undefined behavior: <div class="fragment"><div class="line"><span class="comment">// UB: alignment violation + wrong endianness</span></div>
+<div class="line">uint16_t val = *(uint16_t*)buf;</div>
+</div><!-- fragment --></dd></dl>
+<dl class="section user"><dt>Safe usage with endian-aware types</dt><dd><div class="fragment"><div class="line"><span class="comment">// I2C sensor register (big-endian)</span></div>
+<div class="line">big_uint16_t reg;</div>
+<div class="line">memcpy(reg.data(), buf, 2);</div>
+<div class="line">uint16_t val = reg.get();  <span class="comment">// correct endian conversion</span></div>
+</div><!-- fragment --> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

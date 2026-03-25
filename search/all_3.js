@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['data_0',['data',['../unionm5_1_1types_1_1_u16.html#a6ed5a11c9144e256152efb60733b16f9',1,'m5::types::U16::data() const'],['../unionm5_1_1types_1_1_u16.html#aa95c8f2726467f9ab23a1d97e4af5307',1,'m5::types::U16::data()']]],
+  ['data_0',['data',['../unionm5_1_1types_1_1_endian_int.html#a0cd15200fd73c1c84a9c295e460a727d',1,'m5::types::EndianInt::data() const'],['../unionm5_1_1types_1_1_endian_int.html#a7f4344c40081bf1f05069ec03c3a1d08',1,'m5::types::EndianInt::data()']]],
   ['debug_1',['Debug',['../library__log_8hpp.html#a24c0e9852209aacc5a8616ff02cd99f3aa603905470e2a5b8c13e96b579ef0dba',1,'m5::utility::log']]],
   ['decode_5fbase64_2',['decode_base64',['../base64_8cpp.html#af758df20aea5c390beb661d89c276795',1,'m5::utility']]],
   ['decodebase64_3',['decodeBase64',['../base64_8hpp.html#a12da23e4d6a48bdd0c0488f2afd566f2',1,'m5::utility']]],

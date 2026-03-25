@@ -12,12 +12,12 @@ var hierarchy =
     [ "m5::utility::CRC8", "classm5_1_1utility_1_1_c_r_c8.html", [
       [ "m5::utility::CRC8_Checksum", "classm5_1_1utility_1_1_c_r_c8___checksum.html", null ]
     ] ],
-    [ "CRC8_CheckSum", "class_c_r_c8___check_sum.html", null ],
     [ "m5::stl::detail::default_constructor_tag", "structm5_1_1stl_1_1detail_1_1default__constructor__tag.html", null ],
     [ "m5::stl::nullopt_t::do_not_use", "structm5_1_1stl_1_1nullopt__t_1_1do__not__use.html", null ],
     [ "m5::stl::detail::expected_storage_base< void, E, false, true >::dummy", "structm5_1_1stl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01true_01_4_1_1dummy.html", null ],
     [ "m5::stl::detail::optional_storage_base< T, bool >::dummy", "structm5_1_1stl_1_1detail_1_1optional__storage__base_1_1dummy.html", null ],
     [ "m5::stl::detail::optional_storage_base< T, true >::dummy", "structm5_1_1stl_1_1detail_1_1optional__storage__base_3_01_t_00_01true_01_4_1_1dummy.html", null ],
+    [ "m5::types::EndianInt< T, DataIsLittle >", "unionm5_1_1types_1_1_endian_int.html", null ],
     [ "std::exception", null, [
       [ "m5::stl::bad_expected_access< E >", "classm5_1_1stl_1_1bad__expected__access.html", null ],
       [ "m5::stl::bad_optional_access", "classm5_1_1stl_1_1bad__optional__access.html", null ]
@@ -149,7 +149,6 @@ var hierarchy =
       [ "m5::stl::detail::conjunction< B, Bs... >", "structm5_1_1stl_1_1detail_1_1conjunction_3_01_b_00_01_bs_8_8_8_01_4.html", null ],
       [ "m5::stl::detail::conjunction< B, Bs... >", "structm5_1_1stl_1_1detail_1_1conjunction_3_01_b_00_01_bs_8_8_8_01_4.html", null ]
     ] ],
-    [ "m5::types::U16< DELittle >", "unionm5_1_1types_1_1_u16.html", null ],
     [ "m5::utility::uint_least_for_bits< N >", "structm5_1_1utility_1_1uint__least__for__bits.html", null ],
     [ "m5::stl::unexpect_t", "structm5_1_1stl_1_1unexpect__t.html", null ],
     [ "m5::stl::unexpected< E >", "classm5_1_1stl_1_1unexpected.html", null ],
