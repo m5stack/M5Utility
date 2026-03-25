@@ -77,7 +77,7 @@ TEST(Utility, BitSegment)
     }
 #endif
 
-    // Constructor/Assignemt
+    // Constructor/Assignment
     {
         using bs_t = m5::utility::BitSegment<6, uint8_t>;
         bs_t v0{0x84};  // base_type constructor
@@ -290,7 +290,7 @@ namespace {
 using clock = std::chrono::high_resolution_clock;
 }
 
-TEST(Utility, comatibility)
+TEST(Utility, compatibility)
 {
     // millis
     {

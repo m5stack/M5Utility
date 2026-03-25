@@ -109,12 +109,12 @@ public:
     //!@brief Shift 16 bits and get
     inline uint16_t next16() noexcept
     {
-        return (uint16_t)step(16);
+        return static_cast<uint16_t>(step(16));
     }
     //!@brief Shift 32 bits and get
     inline uint32_t next32() noexcept
     {
-        return (uint32_t)step(32);
+        return static_cast<uint32_t>(step(32));
     }
     //!@brief Shift 64 bits and get
     inline uint64_t next64() noexcept
@@ -221,11 +221,11 @@ public:
     /// @{
     inline uint16_t next16() noexcept
     {
-        return (uint16_t)step(16);
+        return static_cast<uint16_t>(step(16));
     }
     inline uint32_t next32() noexcept
     {
-        return (uint32_t)step(32);
+        return static_cast<uint32_t>(step(32));
     }
     inline uint64_t next64() noexcept
     {

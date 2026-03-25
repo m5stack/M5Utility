@@ -348,7 +348,7 @@ uint32_t TripleDES::encrypt_3key(uint8_t* out, const uint8_t* in, uint32_t in_le
         if (rem > 0) {
             std::memcpy(last, in + full * BS, rem);
         }
-        std::memset(last + rem, pad_len, BS - rem);
+        std::memset(last + rem, static_cast<int>(pad_len), BS - rem);
 
         if (_mode == Mode::CBC) {
             for (uint32_t j = 0; j < BS; ++j) {
