@@ -18,9 +18,8 @@ namespace utility {
 namespace log {
 
 /*!
-  @enum log_level_t
+  @enum LogLevel
   @brief Log output control level
-  @details
 */
 enum class LogLevel : uint8_t {
     None,     //!< No output

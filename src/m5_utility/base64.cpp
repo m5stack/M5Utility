@@ -131,24 +131,25 @@ uint32_t decode_base64(uint8_t* out, const uint32_t olen, const char* buf, const
         int8_t v3 = (quad[3] == '=') ? 0 : b64_value(quad[3], urlEncode);
         if (v2 < 0 || v3 < 0) return false;
 
-        uint32_t val = ((uint32_t)v0 << 18) | ((uint32_t)v1 << 12) | ((uint32_t)v2 << 6) | (uint32_t)v3;
+        uint32_t val = (static_cast<uint32_t>(v0) << 18) | (static_cast<uint32_t>(v1) << 12) |
+                       (static_cast<uint32_t>(v2) << 6) | static_cast<uint32_t>(v3);
 
         if (written + 1 > olen) return false;
-        out[written++] = (uint8_t)((val >> 16) & 0xFF);
+        out[written++] = static_cast<uint8_t>((val >> 16) & 0xFF);
 
         if (pad < 2) {
             if (written + 1 > olen) return false;
-            out[written++] = (uint8_t)((val >> 8) & 0xFF);
+            out[written++] = static_cast<uint8_t>((val >> 8) & 0xFF);
         }
         if (pad < 1) {
             if (written + 1 > olen) return false;
-            out[written++] = (uint8_t)(val & 0xFF);
+            out[written++] = static_cast<uint8_t>(val & 0xFF);
         }
         return true;
     };
 
     for (uint32_t i = 0; i < blen; ++i) {
-        uint8_t c = (uint8_t)buf[i];
+        uint8_t c = static_cast<uint8_t>(buf[i]);
 
         if (is_ignored_b64_char(c)) continue;
 

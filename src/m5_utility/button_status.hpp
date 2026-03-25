@@ -34,7 +34,7 @@ public:
       @param hold_ms Time to be considered hold(ms)
       @param debounce_ms Debounce time(ms)
      */
-    Status(const uint16_t hold_ms = 500, const uint16_t debounce_ms = 10)
+    explicit Status(const uint16_t hold_ms = 500, const uint16_t debounce_ms = 10)
         : _msecHold{hold_ms}, _msecDebounce{debounce_ms}
     {
     }

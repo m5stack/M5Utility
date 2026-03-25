@@ -214,7 +214,7 @@ private:
 };
 
 /*!
-  @class CRC8_CheckSum
+  @class CRC8_Checksum
   @brief Typical CRC8 calculator used for read and write data with the chip
 */
 class CRC8_Checksum : public CRC8 {

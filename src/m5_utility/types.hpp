@@ -5,7 +5,22 @@
  */
 /*!
   @file types.hpp
-  @brief Type and enumerator definitions
+  @brief Endian-aware integer types for safe register access
+
+  @par Motivation
+  Casting raw byte buffers to integer pointers causes undefined behavior:
+  @code
+  // UB: alignment violation + wrong endianness
+  uint16_t val = *(uint16_t*)buf;
+  @endcode
+
+  @par Safe usage with endian-aware types
+  @code
+  // I2C sensor register (big-endian)
+  big_uint16_t reg;
+  memcpy(reg.data(), buf, 2);
+  uint16_t val = reg.get();  // correct endian conversion
+  @endcode
 */
 #ifndef M5_UTILITY_TYPES_HPP
 #define M5_UTILITY_TYPES_HPP
@@ -13,65 +28,72 @@
 #include <cstdint>
 #include <cstddef>
 #include <utility>
-#include <tuple>
+#include <type_traits>
 #include "stl/endianness.hpp"
+#include "stl/byteswap.hpp"
 
 namespace m5 {
 namespace types {
 
 /*!
-  @struct U16
-  @tparam DELittle Endian type specification<br> true: Little false: Big
-  @brief Endian-compliant uint16
+  @struct EndianInt
+  @tparam T Underlying integer type (uint16_t, int16_t, uint32_t, int32_t, etc.)
+  @tparam DataIsLittle Data endianness<br> true: Little false: Big
+  @brief Endian-compliant integer type
 */
-template <bool DELittle>
-union U16 {
+template <typename T, bool DataIsLittle>
+union EndianInt {
+    static_assert(m5::stl::detail::is_integer_or_enum<T>::value, "T must be an integral type");
+
     /// @name Constructor
     ///@{
     /*! @brief default constructor */
-    constexpr U16() : u16{0}
+    constexpr EndianInt() : value{0}
     {
     }
-    //!@brief from uint16_t
-#if 0
-    template <bool PELittle = m5::endian::little>
-    constexpr explicit U16(const uint16_t v) : u8{
-        static_cast<uint8_t>(
-            DELittle == PELittle ? (v & 0XFF) : (v >> 8)),
-        u8[1] = static_cast<uint8_t>(
-            DELittle == PELittle ? (v >> 8) : (v & 0xFF)) } {}
-#else
-    template <bool PELittle = m5::endian::little>
-    explicit U16(const uint16_t v)
+    //! @brief from T
+    template <bool HostIsLittle = m5::endian::little>
+    explicit EndianInt(const T v)
     {
-        set<PELittle>(v);
+        set<HostIsLittle>(v);
     }
-
-#endif
-    //! @brief Stored in order of high and low
-    constexpr U16(const uint8_t high, const uint8_t low) : u8{high, low}
+    //! @brief Stored in order of bytes (2-byte types)
+    template <typename U = T, typename std::enable_if<sizeof(U) == 2, int>::type = 0>
+    constexpr EndianInt(const uint8_t b0, const uint8_t b1) : u8{b0, b1}
     {
     }
+    //! @brief Stored in order of bytes (4-byte types)
+    template <typename U = T, typename std::enable_if<sizeof(U) == 4, int>::type = 0>
+    constexpr EndianInt(const uint8_t b0, const uint8_t b1, const uint8_t b2, const uint8_t b3) : u8{b0, b1, b2, b3}
+    {
+    }
+    //! @brief Stored in order of bytes (8-byte types)
+    template <typename U = T, typename std::enable_if<sizeof(U) == 8, int>::type = 0>
+    constexpr EndianInt(const uint8_t b0, const uint8_t b1, const uint8_t b2, const uint8_t b3, const uint8_t b4,
+                        const uint8_t b5, const uint8_t b6, const uint8_t b7)
+        : u8{b0, b1, b2, b3, b4, b5, b6, b7}
+    {
+    }
 
-    constexpr U16(const U16&) = default;
+    constexpr EndianInt(const EndianInt&) = default;
 
-    constexpr U16(U16&& o) noexcept = default;
+    constexpr EndianInt(EndianInt&& o) noexcept = default;
     ///@}
 
     ///@name Assignment
     ///@{
-    U16& operator=(const U16&) = default;
+    EndianInt& operator=(const EndianInt&) = default;
 
-    U16& operator=(U16&&) noexcept = default;
+    EndianInt& operator=(EndianInt&&) noexcept = default;
 
-    template <bool PELittle = m5::endian::little>
-    U16& operator=(const uint16_t v)
+    template <bool HostIsLittle = m5::endian::little>
+    EndianInt& operator=(const T v)
     {
-        set<PELittle>(v);
+        set<HostIsLittle>(v);
         return *this;
     }
-    template <typename H, typename L>
-    U16& operator=(const std::pair<H, L>& o)
+    template <typename H, typename L, typename U = T, typename std::enable_if<sizeof(U) == 2, int>::type = 0>
+    EndianInt& operator=(const std::pair<H, L>& o)
     {
         static_assert(std::is_integral<H>::value && std::is_integral<L>::value, "HIGH & LOW Must be integral");
         u8[0] = static_cast<uint8_t>(o.first);
@@ -85,7 +107,7 @@ union U16 {
     /*! @brief To boolean */
     inline explicit operator bool() const
     {
-        return u16;
+        return value != 0;
     }
     /*! @brief To const uint8_t* */
     inline explicit operator const uint8_t*() const
@@ -97,8 +119,8 @@ union U16 {
     {
         return data();
     }
-    //! @brief To uint16_t on processor endianness
-    inline explicit operator uint16_t() const
+    //! @brief To T on processor endianness
+    inline explicit operator T() const
     {
         return get();
     }
@@ -106,40 +128,38 @@ union U16 {
 
     /*!
       @brief Set value with specified endianness
-      @tparam PELittle Endianness (default as processor endianness)
+      @tparam HostIsLittle Host endianness (default as processor endianness)
     */
-    template <bool PELittle = m5::endian::little>
-    inline void set(const uint16_t v)
+    template <bool HostIsLittle = m5::endian::little>
+    inline void set(const T v)
     {
-        if (DELittle == PELittle) {
-            u16 = v;
+        if (DataIsLittle == HostIsLittle) {
+            value = v;
         } else {
-            u8[0] = static_cast<uint8_t>(v >> 8);
-            u8[1] = static_cast<uint8_t>(v & 0xFF);
+            value = m5::stl::byteswap(v);
         }
     }
     /*!
       @brief Gets value with specified endianness
-      @tparam PELittle Endianness (default as processor endianness)
+      @tparam HostIsLittle Host endianness (default as processor endianness)
      */
-    template <bool PELittle = m5::endian::little>
-    inline uint16_t get() const
+    template <bool HostIsLittle = m5::endian::little>
+    inline T get() const
     {
-        uint16_t r{u16};
-        if (DELittle != PELittle) {
-            r = U16<DELittle>{u8[1], u8[0]}.u16;
+        if (DataIsLittle == HostIsLittle) {
+            return value;
         }
-        return r;
-    };
-    //! @brief Gets the high byte
+        return m5::stl::byteswap(value);
+    }
+    //! @brief Gets the high byte (u8[0])
     inline uint8_t high() const
     {
         return u8[0];
     }
-    //! @brief Gets the low byte
+    //! @brief Gets the low byte (u8[sizeof(T)-1])
     inline uint8_t low() const
     {
-        return u8[1];
+        return u8[sizeof(T) - 1];
     }
     //! @brief Gets the const pointer
     inline const uint8_t* data() const
@@ -154,118 +174,69 @@ union U16 {
     //! @brief Gets size in uint8_t units.
     inline size_t size() const
     {
-        return 2;
+        return sizeof(T);
     }
 
-    uint16_t u16{};  //!< @brief Raw value
-    uint8_t u8[2];   //!< @brief Raw value according to uint8_t
+    T value{};              //!< @brief Raw value
+    uint8_t u8[sizeof(T)];  //!< @brief Raw value according to uint8_t
 };
 
-using big_uint16_t    = U16<false>;
-using little_uint16_t = U16<true>;
+// 16-bit type aliases
+using big_uint16_t    = EndianInt<uint16_t, false>;
+using little_uint16_t = EndianInt<uint16_t, true>;
+using big_int16_t     = EndianInt<int16_t, false>;
+using little_int16_t  = EndianInt<int16_t, true>;
+
+// 32-bit type aliases
+using big_uint32_t    = EndianInt<uint32_t, false>;
+using little_uint32_t = EndianInt<uint32_t, true>;
+using big_int32_t     = EndianInt<int32_t, false>;
+using little_int32_t  = EndianInt<int32_t, true>;
+
+// 64-bit type aliases
+using big_uint64_t    = EndianInt<uint64_t, false>;
+using little_uint64_t = EndianInt<uint64_t, true>;
+using big_int64_t     = EndianInt<int64_t, false>;
+using little_int64_t  = EndianInt<int64_t, true>;
+
+#if defined(__SIZEOF_INT128__)
+// 128-bit type aliases (available when __int128 is supported)
+using big_uint128_t    = EndianInt<unsigned __int128, false>;
+using little_uint128_t = EndianInt<unsigned __int128, true>;
+using big_int128_t     = EndianInt<__int128, false>;
+using little_int128_t  = EndianInt<__int128, true>;
+#endif
 
 ///@name Compare
-/// @related m5::types::U16
+/// @related m5::types::EndianInt
 ///@{
-// ==
-inline bool operator==(const big_uint16_t& a, const big_uint16_t& b)
+template <typename T, bool DL1, bool DL2>
+inline bool operator==(const EndianInt<T, DL1>& a, const EndianInt<T, DL2>& b)
 {
-    return a.u16 == b.u16;
+    return a.get() == b.get();
 }
-inline bool operator==(const big_uint16_t& a, const little_uint16_t& b)
-{
-    return std::tie(a.u8[0], a.u8[1]) == std::tie(b.u8[1], b.u8[0]);
-}
-inline bool operator==(const little_uint16_t& a, const big_uint16_t& b)
-{
-    return std::tie(a.u8[1], a.u8[0]) == std::tie(b.u8[0], b.u8[1]);
-}
-inline bool operator==(const little_uint16_t& a, const little_uint16_t& b)
-{
-    return a.u16 == b.u16;
-}
-// !=
-inline bool operator!=(const big_uint16_t& a, const big_uint16_t& b)
+template <typename T, bool DL1, bool DL2>
+inline bool operator!=(const EndianInt<T, DL1>& a, const EndianInt<T, DL2>& b)
 {
     return !(a == b);
 }
-inline bool operator!=(const big_uint16_t& a, const little_uint16_t& b)
+template <typename T, bool DL1, bool DL2>
+inline bool operator<(const EndianInt<T, DL1>& a, const EndianInt<T, DL2>& b)
 {
-    return !(a == b);
+    return a.get() < b.get();
 }
-inline bool operator!=(const little_uint16_t& a, const big_uint16_t& b)
-{
-    return !(a == b);
-}
-inline bool operator!=(const little_uint16_t& a, const little_uint16_t& b)
-{
-    return !(a == b);
-}
-// <
-inline bool operator<(const big_uint16_t& a, const big_uint16_t& b)
-{
-    return a.u16 < b.u16;
-}
-inline bool operator<(const big_uint16_t& a, const little_uint16_t& b)
-{
-    return std::tie(a.u8[0], a.u8[1]) < std::tie(b.u8[1], b.u8[0]);
-}
-inline bool operator<(const little_uint16_t& a, const big_uint16_t& b)
-{
-    return std::tie(a.u8[1], a.u8[0]) < std::tie(b.u8[0], b.u8[1]);
-}
-inline bool operator<(const little_uint16_t& a, const little_uint16_t& b)
-{
-    return a.u16 < b.u16;
-}
-// >
-inline bool operator>(const big_uint16_t& a, const big_uint16_t& b)
+template <typename T, bool DL1, bool DL2>
+inline bool operator>(const EndianInt<T, DL1>& a, const EndianInt<T, DL2>& b)
 {
     return b < a;
 }
-inline bool operator>(const big_uint16_t& a, const little_uint16_t& b)
-{
-    return b < a;
-}
-inline bool operator>(const little_uint16_t& a, const big_uint16_t& b)
-{
-    return b < a;
-}
-inline bool operator>(const little_uint16_t& a, const little_uint16_t& b)
-{
-    return b < a;
-}
-// <=
-inline bool operator<=(const big_uint16_t& a, const big_uint16_t& b)
+template <typename T, bool DL1, bool DL2>
+inline bool operator<=(const EndianInt<T, DL1>& a, const EndianInt<T, DL2>& b)
 {
     return !(a > b);
 }
-inline bool operator<=(const big_uint16_t& a, const little_uint16_t& b)
-{
-    return !(a > b);
-}
-inline bool operator<=(const little_uint16_t& a, const big_uint16_t& b)
-{
-    return !(a > b);
-}
-inline bool operator<=(const little_uint16_t& a, const little_uint16_t& b)
-{
-    return !(a > b);
-}
-// >=
-inline bool operator>=(const big_uint16_t& a, const big_uint16_t& b)
-{
-    return !(a < b);
-}
-inline bool operator>=(const big_uint16_t& a, const little_uint16_t& b)
-{
-    return !(a < b);
-}
-inline bool operator>=(const little_uint16_t& a, const big_uint16_t& b)
-{
-    return !(a < b);
-}
-inline bool operator>=(const little_uint16_t& a, const little_uint16_t& b)
+template <typename T, bool DL1, bool DL2>
+inline bool operator>=(const EndianInt<T, DL1>& a, const EndianInt<T, DL2>& b)
 {
     return !(a < b);
 }

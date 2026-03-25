@@ -142,6 +142,6 @@ TEST(Utility, Chunk)
             }
         }
         EXPECT_EQ(crc_all, crc_chunk);
-        EXPECT_EQ(crc_all, crc_chunk);
+        EXPECT_EQ(crc_all, crc.value());
     }
 }
