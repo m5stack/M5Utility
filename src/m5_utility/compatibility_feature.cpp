@@ -22,7 +22,6 @@
 #if defined(USING_ESP_PLATFORM)
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
-#include <esp_cpu.h>
 #include <esp_timer.h>
 #else
 #include <ctime>

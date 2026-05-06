@@ -14,6 +14,15 @@
 #include <algorithm>
 #include <cctype>
 
+// Build-time notice (emitted only here, not from every translation unit that
+// includes library_log.hpp). Mirrors the conditional in the header so the
+// chosen branch is visible at a glance.
+#if defined(CONFIG_NEWLIB_NANO_FORMAT)
+#  pragma message("M5Utility log: 32-bit timestamp (newlib-nano printf, ~49.7d wrap)")
+#else
+#  pragma message("M5Utility log: 64-bit timestamp (full printf)")
+#endif
+
 namespace {
 using clock = std::chrono::steady_clock;
 // using clock                      = std::chrono::high_resolution_clock;
