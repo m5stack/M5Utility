@@ -137,7 +137,11 @@ constexpr uint32_t calculate(const char* str, const size_t len)
   uint32_t h = "M5 Stack"_mmh3;
   @endcode
 */
+#if __cplusplus >= 202302L  // C++23+: space between "" and suffix is deprecated
+constexpr uint32_t operator""_mmh3(const char* str, const size_t len)
+#else
 constexpr uint32_t operator"" _mmh3(const char* str, const size_t len)
+#endif
 {
     return calculate(str, len);
 };
