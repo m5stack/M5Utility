@@ -2,7 +2,7 @@ description: Pure C++ utilities and STL helpers shared by M5Stack libraries.
 url: https://github.com/m5stack/M5Utility
 issues: https://github.com/m5stack/M5Utility/issues
 license: MIT
-version: "0.0.12"
+version: "0.0.13"
 
 dependencies:
   idf: ">=5.0"
