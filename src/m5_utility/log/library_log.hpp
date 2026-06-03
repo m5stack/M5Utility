@@ -17,9 +17,9 @@
 // CONFIG_NEWLIB_NANO_FORMAT that flags whether the linked printf supports
 // %lld. __has_include keeps this header usable on platforms without it.
 #if defined(__has_include)
-#  if __has_include(<sdkconfig.h>)
-#    include <sdkconfig.h>
-#  endif
+#if __has_include(<sdkconfig.h>)
+#include <sdkconfig.h>
+#endif
 #endif
 
 namespace m5 {
@@ -102,17 +102,17 @@ elapsed_time_t elapsedTime();
 // LoadProhibited crash on the next %s. Detect via CONFIG_NEWLIB_NANO_FORMAT and
 // fall back to a 32-bit timestamp (~49.7 day wrap, acceptable for log use).
 #if defined(CONFIG_NEWLIB_NANO_FORMAT)
-#  define M5_UTILITY_LOG_TS_FMT "%6" PRIu32
-#  define M5_UTILITY_LOG_TS_VAL (uint32_t) m5::utility::log::elapsedTime().count()
+#define M5_UTILITY_LOG_TS_FMT "%6" PRIu32
+#define M5_UTILITY_LOG_TS_VAL (uint32_t) m5::utility::log::elapsedTime().count()
 #else
-#  define M5_UTILITY_LOG_TS_FMT "%6" PRId64
-#  define M5_UTILITY_LOG_TS_VAL (int64_t) m5::utility::log::elapsedTime().count()
+#define M5_UTILITY_LOG_TS_FMT "%6" PRId64
+#define M5_UTILITY_LOG_TS_VAL (int64_t) m5::utility::log::elapsedTime().count()
 #endif
 
 #ifndef M5_UTILITY_LOG_FORMAT
-#define M5_UTILITY_LOG_FORMAT(letter, format)                                       \
-    "[" M5_UTILITY_LOG_TS_FMT "][" #letter "][%s:%u] %s(): " format "\n",           \
-        M5_UTILITY_LOG_TS_VAL, m5::utility::log::pathToFilename(__FILE__), __LINE__, __func__
+#define M5_UTILITY_LOG_FORMAT(letter, format)                                                    \
+    "[" M5_UTILITY_LOG_TS_FMT "][" #letter "][%s:%u] %s(): " format "\n", M5_UTILITY_LOG_TS_VAL, \
+        m5::utility::log::pathToFilename(__FILE__), __LINE__, __func__
 #endif
 ///@endcond
 
