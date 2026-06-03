@@ -12,6 +12,8 @@
     },
     "dependencies": {},
     "version": "0.1.0",
+    "frameworks": "*",
+    "platforms": "*",
     "headers": "M5Utility.h",
     "license": "MIT",
     "export": {
