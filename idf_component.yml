@@ -1,0 +1,27 @@
+description: Pure C++ utilities and STL helpers shared by M5Stack libraries.
+url: https://github.com/m5stack/M5Utility
+issues: https://github.com/m5stack/M5Utility/issues
+license: MIT
+version: "0.1.0"
+
+dependencies:
+  idf: ">=5.0"
+
+targets:
+  - esp32
+  - esp32s3
+  - esp32c3
+  - esp32c6
+  - esp32h2
+  - esp32p4
+
+files:
+  exclude:
+    - "docs/**"
+    - "examples/**"
+    - "test/**"
+    - ".github/**"
+    - "boards/**"
+    - "platformio.ini"
+    - "library.json"
+    - "library.properties"
