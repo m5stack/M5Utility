@@ -7,11 +7,14 @@ var searchData=
   ['is_5fadl_5fswap_5fnoexcept_4',['is_adl_swap_noexcept',['../structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1is__adl__swap__noexcept.html',1,'m5::stl::detail::swap_adl_tests']]],
   ['is_5fexpected_5fimpl_5',['is_expected_impl',['../structm5_1_1stl_1_1detail_1_1is__expected__impl.html',1,'m5::stl::detail']]],
   ['is_5fexpected_5fimpl_3c_20expected_3c_20t_2c_20e_20_3e_20_3e_6',['is_expected_impl&lt; expected&lt; T, E &gt; &gt;',['../structm5_1_1stl_1_1detail_1_1is__expected__impl_3_01expected_3_01_t_00_01_e_01_4_01_4.html',1,'m5::stl::detail']]],
-  ['is_5fnothrow_5fswappable_7',['is_nothrow_swappable',['../structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html',1,'m5::stl::detail']]],
-  ['is_5foptional_5fimpl_8',['is_optional_impl',['../structm5_1_1stl_1_1detail_1_1is__optional__impl.html',1,'m5::stl::detail']]],
-  ['is_5foptional_5fimpl_3c_20optional_3c_20t_20_3e_20_3e_9',['is_optional_impl&lt; optional&lt; T &gt; &gt;',['../structm5_1_1stl_1_1detail_1_1is__optional__impl_3_01optional_3_01_t_01_4_01_4.html',1,'m5::stl::detail']]],
-  ['is_5fstd_5fswap_5fnoexcept_10',['is_std_swap_noexcept',['../structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1is__std__swap__noexcept.html',1,'m5::stl::detail::swap_adl_tests']]],
-  ['is_5fstd_5fswap_5fnoexcept_3c_20t_5bn_5d_3e_11',['is_std_swap_noexcept&lt; T[N]&gt;',['../structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1is__std__swap__noexcept_3_01_t_0f_n_0e_4.html',1,'m5::stl::detail::swap_adl_tests']]],
-  ['is_5fswappable_12',['is_swappable',['../structm5_1_1stl_1_1detail_1_1is__swappable.html',1,'m5::stl::detail']]],
-  ['is_5fswappable_3c_20t_5bn_5d_2c_20t_5bn_5d_3e_13',['is_swappable&lt; T[N], T[N]&gt;',['../structm5_1_1stl_1_1detail_1_1is__swappable_3_01_t_0f_n_0e_00_01_t_0f_n_0e_4.html',1,'m5::stl::detail']]]
+  ['is_5fint128_7',['is_int128',['../structm5_1_1stl_1_1detail_1_1is__int128.html',1,'m5::stl::detail']]],
+  ['is_5finteger_5for_5fenum_8',['is_integer_or_enum',['../structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html',1,'m5::stl::detail']]],
+  ['is_5fnothrow_5fswappable_9',['is_nothrow_swappable',['../structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html',1,'m5::stl::detail']]],
+  ['is_5foptional_5fimpl_10',['is_optional_impl',['../structm5_1_1stl_1_1detail_1_1is__optional__impl.html',1,'m5::stl::detail']]],
+  ['is_5foptional_5fimpl_3c_20optional_3c_20t_20_3e_20_3e_11',['is_optional_impl&lt; optional&lt; T &gt; &gt;',['../structm5_1_1stl_1_1detail_1_1is__optional__impl_3_01optional_3_01_t_01_4_01_4.html',1,'m5::stl::detail']]],
+  ['is_5fstd_5fswap_5fnoexcept_12',['is_std_swap_noexcept',['../structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1is__std__swap__noexcept.html',1,'m5::stl::detail::swap_adl_tests']]],
+  ['is_5fstd_5fswap_5fnoexcept_3c_20t_5bn_5d_3e_13',['is_std_swap_noexcept&lt; T[N]&gt;',['../structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1is__std__swap__noexcept_3_01_t_0f_n_0e_4.html',1,'m5::stl::detail::swap_adl_tests']]],
+  ['is_5fswappable_14',['is_swappable',['../structm5_1_1stl_1_1detail_1_1is__swappable.html',1,'m5::stl::detail']]],
+  ['is_5fswappable_3c_20t_5bn_5d_2c_20t_5bn_5d_3e_15',['is_swappable&lt; T[N], T[N]&gt;',['../structm5_1_1stl_1_1detail_1_1is__swappable_3_01_t_0f_n_0e_00_01_t_0f_n_0e_4.html',1,'m5::stl::detail']]],
+  ['is_5funsigned_5fex_16',['is_unsigned_ex',['../structm5_1_1stl_1_1detail_1_1is__unsigned__ex.html',1,'m5::stl::detail']]]
 ];
