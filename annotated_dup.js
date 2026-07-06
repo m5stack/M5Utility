@@ -48,16 +48,11 @@ var annotated_dup =
           [ "invoke_result_impl< F, decltype(detail::invoke(std::declval< F >(), std::declval< Us >()...), void()), Us... >", "structm5_1_1stl_1_1detail_1_1invoke__result__impl_3_01_f_00_01decltype_07detail_1_1invoke_07std_94c46d3c64c9e9a8be03dd4395cd83dc.html", null ],
           [ "is_expected_impl", "structm5_1_1stl_1_1detail_1_1is__expected__impl.html", null ],
           [ "is_expected_impl< expected< T, E > >", "structm5_1_1stl_1_1detail_1_1is__expected__impl_3_01expected_3_01_t_00_01_e_01_4_01_4.html", null ],
-          [ "is_int128", "structm5_1_1stl_1_1detail_1_1is__int128.html", null ],
-          [ "is_integer_or_enum", "structm5_1_1stl_1_1detail_1_1is__integer__or__enum.html", null ],
           [ "is_nothrow_swappable", "structm5_1_1stl_1_1detail_1_1is__nothrow__swappable.html", null ],
           [ "is_optional_impl", "structm5_1_1stl_1_1detail_1_1is__optional__impl.html", null ],
           [ "is_optional_impl< optional< T > >", "structm5_1_1stl_1_1detail_1_1is__optional__impl_3_01optional_3_01_t_01_4_01_4.html", null ],
           [ "is_swappable", "structm5_1_1stl_1_1detail_1_1is__swappable.html", null ],
           [ "is_swappable< T[N], T[N]>", "structm5_1_1stl_1_1detail_1_1is__swappable_3_01_t_0f_n_0e_00_01_t_0f_n_0e_4.html", null ],
-          [ "is_unsigned_ex", "structm5_1_1stl_1_1detail_1_1is__unsigned__ex.html", null ],
-          [ "make_unsigned_ex", "structm5_1_1stl_1_1detail_1_1make__unsigned__ex.html", null ],
-          [ "make_unsigned_impl", "structm5_1_1stl_1_1detail_1_1make__unsigned__impl.html", null ],
           [ "no_init_t", "structm5_1_1stl_1_1detail_1_1no__init__t.html", null ],
           [ "optional_copy_assign_base", "structm5_1_1stl_1_1detail_1_1optional__copy__assign__base.html", null ],
           [ "optional_copy_assign_base< T, false >", "structm5_1_1stl_1_1detail_1_1optional__copy__assign__base_3_01_t_00_01false_01_4.html", null ],
@@ -101,22 +96,14 @@ var annotated_dup =
         [ "button", null, [
           [ "Status", "classm5_1_1utility_1_1button_1_1_status.html", "classm5_1_1utility_1_1button_1_1_status" ]
         ] ],
-        [ "crypto", null, [
-          [ "TripleDES", "classm5_1_1utility_1_1crypto_1_1_triple_d_e_s.html", "classm5_1_1utility_1_1crypto_1_1_triple_d_e_s" ]
-        ] ],
         [ "BitSegment", "classm5_1_1utility_1_1_bit_segment.html", "classm5_1_1utility_1_1_bit_segment" ],
         [ "CRC16", "classm5_1_1utility_1_1_c_r_c16.html", "classm5_1_1utility_1_1_c_r_c16" ],
         [ "CRC8", "classm5_1_1utility_1_1_c_r_c8.html", "classm5_1_1utility_1_1_c_r_c8" ],
-        [ "CRC8_Checksum", "classm5_1_1utility_1_1_c_r_c8___checksum.html", null ],
-        [ "FibonacciLFSR_Left", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___left.html", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___left" ],
-        [ "FibonacciLFSR_Right", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___right.html", "classm5_1_1utility_1_1_fibonacci_l_f_s_r___right" ],
-        [ "SHA1", "classm5_1_1utility_1_1_s_h_a1.html", null ],
-        [ "uint_least_for_bits", "structm5_1_1utility_1_1uint__least__for__bits.html", null ]
+        [ "CRC8_Checksum", "classm5_1_1utility_1_1_c_r_c8___checksum.html", null ]
       ] ]
     ] ],
     [ "std", null, [
       [ "hash< m5::stl::optional< T > >", "structstd_1_1hash_3_01m5_1_1stl_1_1optional_3_01_t_01_4_01_4.html", null ]
     ] ],
-    [ "CRC8_CheckSum", "class_c_r_c8___check_sum.html", null ],
-    [ "TrippleDES", "class_tripple_d_e_s.html", null ]
+    [ "CRC8_CheckSum", "class_c_r_c8___check_sum.html", null ]
 ];
