@@ -84,6 +84,8 @@ jobs:
           - pico
           # Renesas RA4M1 (renesas-ra platform, Arduino UNO R4 core)
           - uno_r4_wifi
+          # ESP8266 (espressif8266 platform; covers the ESP8266-specific TL_ASSERT path in stl/expected.hpp)
+          - d1_mini
 
     steps:
       - name: Checkout
