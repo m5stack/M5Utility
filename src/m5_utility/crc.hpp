@@ -82,21 +82,21 @@ public:
     static uint8_t calculate(const uint8_t* data, size_t len, const uint8_t init, const uint8_t polynomial,
                              const bool refIn, const bool refOut, const uint8_t xorout, bool do_finalize = true)
     {
-        uint8_t crc{init};
+        // Work in a wider type so the shift loop needs no per-step narrowing
+        // casts; the low 8 bits always equal the plain uint8_t computation
+        uint32_t crc{init};
         while (len--) {
             uint8_t e = refIn ? reverseBitOrder(*data) : *data;
             ++data;
             crc ^= e;
             uint_fast8_t cnt{8};
             while (cnt--) {
-                if (crc & 0x80) {
-                    crc = static_cast<uint8_t>((static_cast<uint16_t>(crc) << 1) ^ polynomial);
-                } else {
-                    crc <<= 1;
-                }
+                crc = (crc & 0x80) ? ((crc << 1) ^ polynomial) : (crc << 1);
             }
+            crc &= 0xFF;
         }
-        return do_finalize ? finalize(crc, refOut, xorout) : crc;
+        const uint8_t out = static_cast<uint8_t>(crc);
+        return do_finalize ? finalize(out, refOut, xorout) : out;
     }
 
     inline void clear()
@@ -180,21 +180,21 @@ public:
     static uint16_t calculate(const uint8_t* data, size_t len, const uint16_t init, const uint16_t polynomial,
                               const bool refIn, const bool refOut, const uint16_t xorout, bool do_finalize = true)
     {
-        uint16_t crc{init};
+        // Work in a wider type so the shift loop needs no per-step narrowing
+        // casts; the low 16 bits always equal the plain uint16_t computation
+        uint32_t crc{init};
         while (len--) {
             uint8_t e{refIn ? reverseBitOrder(*data) : *data};
             ++data;
-            crc ^= static_cast<uint16_t>(static_cast<uint16_t>(e) << 8);
+            crc ^= static_cast<uint32_t>(e) << 8;
             uint_fast8_t cnt{8};
             while (cnt--) {
-                if (crc & 0x8000) {
-                    crc = static_cast<uint16_t>((static_cast<uint32_t>(crc) << 1) ^ polynomial);
-                } else {
-                    crc <<= 1;
-                }
+                crc = (crc & 0x8000) ? ((crc << 1) ^ polynomial) : (crc << 1);
             }
+            crc &= 0xFFFF;
         }
-        return do_finalize ? finalize(crc, refOut, xorout) : crc;
+        const uint16_t out = static_cast<uint16_t>(crc);
+        return do_finalize ? finalize(out, refOut, xorout) : out;
     }
 
     inline void clear()
