@@ -38,7 +38,7 @@ constexpr uint32_t xor_value(const uint32_t v, const uint32_t x)
     return v ^ x;
 }
 
-constexpr uint32_t shift_right(const uint32_t v, const uint8_t s)
+constexpr uint32_t shift_right(const uint32_t v, const uint32_t s)
 {
     return v >> s;
 }
@@ -50,12 +50,12 @@ constexpr uint32_t xor_by_shift_right(const uint32_t v, const uint32_t s)
 
 constexpr uint32_t str2uint32_little(const char* str, const size_t getc = sizeof(uint32_t), uint32_t v = 0)
 {
-    return getc ? str2uint32_little(str, getc - 1, (v << 8) | str[getc - 1]) : v;
+    return getc ? str2uint32_little(str, getc - 1, (v << 8) | static_cast<uint8_t>(str[getc - 1])) : v;
 }
 
 constexpr uint32_t str2uint32_big(const char* str, const size_t getc = sizeof(uint32_t), uint32_t v = 0)
 {
-    return getc ? str2uint32_big(str + 1, getc - 1, (v << 8) | *str) : v;
+    return getc ? str2uint32_big(str + 1, getc - 1, (v << 8) | static_cast<uint8_t>(*str)) : v;
 }
 
 // Switch between little and big endian.
@@ -114,7 +114,9 @@ constexpr uint32_t rest(const char* str, const size_t len, const uint32_t h = 0)
 constexpr uint32_t finalize(uint32_t h, size_t len)
 {
     return xor_by_shift_right(
-        mul(xor_by_shift_right(mul(xor_by_shift_right(xor_value(h, len), 16), 0x85ebca6b), 13), 0xc2b2ae35), 16);
+        mul(xor_by_shift_right(mul(xor_by_shift_right(xor_value(h, static_cast<uint32_t>(len)), 16), 0x85ebca6b), 13),
+            0xc2b2ae35),
+        16);
 }
 /// @endcond
 
@@ -137,11 +139,7 @@ constexpr uint32_t calculate(const char* str, const size_t len)
   uint32_t h = "M5 Stack"_mmh3;
   @endcode
 */
-#if __cplusplus >= 202302L  // C++23+: space between "" and suffix is deprecated
 constexpr uint32_t operator""_mmh3(const char* str, const size_t len)
-#else
-constexpr uint32_t operator"" _mmh3(const char* str, const size_t len)
-#endif
 {
     return calculate(str, len);
 };

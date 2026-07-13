@@ -90,7 +90,7 @@ public:
             uint_fast8_t cnt{8};
             while (cnt--) {
                 if (crc & 0x80) {
-                    crc = (crc << 1) ^ polynomial;
+                    crc = static_cast<uint8_t>((static_cast<uint16_t>(crc) << 1) ^ polynomial);
                 } else {
                     crc <<= 1;
                 }
@@ -184,11 +184,11 @@ public:
         while (len--) {
             uint8_t e{refIn ? reverseBitOrder(*data) : *data};
             ++data;
-            crc ^= (e << 8);
+            crc ^= static_cast<uint16_t>(static_cast<uint16_t>(e) << 8);
             uint_fast8_t cnt{8};
             while (cnt--) {
                 if (crc & 0x8000) {
-                    crc = (crc << 1) ^ polynomial;
+                    crc = static_cast<uint16_t>((static_cast<uint32_t>(crc) << 1) ^ polynomial);
                 } else {
                     crc <<= 1;
                 }

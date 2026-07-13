@@ -6,10 +6,21 @@
 /*!
   @file circular_buffer.cpp
   @brief Circular buffer with STL-like interface
-*/
+ */
 #include "circular_buffer.hpp"
+
 #if __cplusplus >= 201703L
-#pragma message "Using std::optional"
+#pragma message("Using std::optional")
 #else
-#pragma message "Using m5::stl::optional"
+#pragma message("Using m5::stl::optional")
 #endif
+
+namespace m5 {
+namespace container {
+namespace detail {
+void circularBufferTranslationUnitAnchor()
+{
+}
+}  // namespace detail
+}  // namespace container
+}  // namespace m5
