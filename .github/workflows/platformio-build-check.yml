@@ -69,6 +69,10 @@ jobs:
         run: |
           pio test -e test_native -vv --project-dir ./ --project-conf ./platformio.ini
 
+      - name: Run native tests (no-chrono fallback)
+        run: |
+          pio test -e test_native_nochrono -vv --project-dir ./ --project-conf ./platformio.ini
+
   build-non-esp32:
     name: NonESP32:${{ matrix.board }}
     runs-on: ubuntu-latest
