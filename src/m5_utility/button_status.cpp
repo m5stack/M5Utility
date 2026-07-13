@@ -62,7 +62,7 @@ void Status::setRawState(const uint32_t msec, const bool press)
 
         if (press) {
             uint32_t holdPeriod = msec - _lastChange;
-            _lastHoldPeriod     = holdPeriod;
+            _lastHoldPeriod     = static_cast<uint16_t>(holdPeriod);
             if (!oldPress) {
                 _press = 1;
             } else if (oldPress == 1 && (holdPeriod >= _msecHold)) {

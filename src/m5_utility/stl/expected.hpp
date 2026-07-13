@@ -53,7 +53,10 @@
 
 #if !defined(TL_ASSERT)
 // can't have assert in constexpr in C++11 and GCC 4.9 has a compiler bug
-#if (__cplusplus > 201103L) && !defined(TL_EXPECTED_GCC49)
+// ESP8266's newlib assert() expands PSTR() — a static array declaration
+// inside the expression — which is ill-formed in constexpr functions, so
+// that toolchain gets the no-op fallback too.
+#if (__cplusplus > 201103L) && !defined(TL_EXPECTED_GCC49) && !defined(ESP8266)
 #include <cassert>
 #define TL_ASSERT(x) assert(x)
 #else

@@ -50,11 +50,11 @@ uint32_t encode_base64(char* out, const uint32_t olen, const uint8_t* buf, const
     uint32_t line_pos = 0;
 
     for (uint32_t i = 0; i < blen; i += 3) {
-        uint32_t val    = (buf[i] << 16);
+        uint32_t val    = static_cast<uint32_t>(buf[i]) << 16;
         bool has_second = (i + 1 < blen);
         bool has_third  = (i + 2 < blen);
         if (has_second) {
-            val |= (buf[i + 1] << 8);
+            val |= static_cast<uint32_t>(buf[i + 1]) << 8;
         }
         if (has_third) {
             val |= buf[i + 2];

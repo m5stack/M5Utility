@@ -44,12 +44,12 @@ public:
     //! @brief Set debounce time(ms)
     inline void setDebounceThreshold(const uint32_t msec)
     {
-        _msecDebounce = msec;
+        _msecDebounce = static_cast<uint16_t>(msec);
     }
     //! @brief Set time to be considered hold(ms)
     inline void setHoldThreshold(const uint32_t msec)
     {
-        _msecHold = msec;
+        _msecHold = static_cast<uint16_t>(msec);
     }
     //! @brief Gets the debounce time(ms)
     inline uint32_t getDebounceThreshold(void) const
