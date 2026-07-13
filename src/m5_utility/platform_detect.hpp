@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2024 M5Stack Technology CO LTD
+ * SPDX-FileCopyrightText: 2026 M5Stack Technology CO LTD
  *
  * SPDX-License-Identifier: MIT
  */
@@ -18,6 +18,17 @@
 */
 #ifndef M5_UTILITY_PLATFORM_DETECT_HPP
 #define M5_UTILITY_PLATFORM_DETECT_HPP
+
+// Fail fast with a single clear diagnostic on toolchains that ship no C++
+// standard library at all (e.g. avr-gcc for AVR cores); otherwise the first
+// standard header include produces a cascade of unrelated-looking errors.
+// This probes existence only — a header that exists but is unusable is a
+// different problem (see M5UTILITY_HAS_USABLE_CHRONO below).
+#if defined(__has_include)
+#if !__has_include(<type_traits>) || !__has_include(<vector>) || !__has_include(<functional>)
+#error "M5Utility requires the C++ standard library, which this toolchain (e.g. avr-gcc for AVR cores) does not provide"
+#endif
+#endif
 
 #define M5UTILITY_TIME_SOURCE_ESP     1  //!< esp_timer + FreeRTOS (ESP-IDF and Arduino-ESP32)
 #define M5UTILITY_TIME_SOURCE_ARDUINO 2  //!< Arduino API millis()/micros()/delay()
