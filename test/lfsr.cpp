@@ -9,7 +9,6 @@
 
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
-#include <M5Unified.hpp>
 #include <random>
 
 using namespace m5::utility;
@@ -144,12 +143,12 @@ TEST(Utility, DruagaLFSR)
         for (int i = 0; i < 217; ++i) {
             d.step();
             a1.push_back((uint8_t)d.value());
-            // M5_LOGI("[%3d]:%u", i, (uint8_t)d.value());
+            // M5_LIB_LOGI("[%3d]:%u", i, (uint8_t)d.value());
         }
         for (int i = 0; i < 217; ++i) {
             d.step();
             a2.push_back((uint8_t)d.value());
-            // M5_LOGI("[%3d]:%u", i, (uint8_t)d.value());
+            // M5_LIB_LOGI("[%3d]:%u", i, (uint8_t)d.value());
         }
         //        m5::utility::log::dump(a1.data(), a1.size(), false);
         //       m5::utility::log::dump(a2.data(), a2.size(), false);
@@ -163,12 +162,12 @@ TEST(Utility, DruagaLFSR)
         for (int i = 0; i < 31; ++i) {
             d.step();
             a1.push_back((uint8_t)d.value());
-            // M5_LOGI("[%3d]:%u", i, (uint8_t)d.value());
+            // M5_LIB_LOGI("[%3d]:%u", i, (uint8_t)d.value());
         }
         for (int i = 0; i < 31; ++i) {
             d.step();
             a2.push_back((uint8_t)d.value());
-            // M5_LOGI("[%3d]:%u", i, (uint8_t)d.value());
+            // M5_LIB_LOGI("[%3d]:%u", i, (uint8_t)d.value());
         }
         //        m5::utility::log::dump(a1.data(), a1.size(), false);
         //        m5::utility::log::dump(a2.data(), a2.size(), false);
@@ -182,12 +181,12 @@ TEST(Utility, DruagaLFSR)
         for (int i = 0; i < 7; ++i) {
             d.step();
             a1.push_back((uint8_t)d.value());
-            //            M5_LOGI("[%3d]:%u", i, (uint8_t)d.value());
+            //            M5_LIB_LOGI("[%3d]:%u", i, (uint8_t)d.value());
         }
         for (int i = 0; i < 7; ++i) {
             d.step();
             a2.push_back((uint8_t)d.value());
-            //            M5_LOGI("[%3d]:%u", i, (uint8_t)d.value());
+            //            M5_LIB_LOGI("[%3d]:%u", i, (uint8_t)d.value());
         }
         //        m5::utility::log::dump(a1.data(), a1.size(), false);
         //        m5::utility::log::dump(a2.data(), a2.size(), false);

@@ -8,7 +8,6 @@
 */
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
-#include <M5Unified.hpp>
 
 namespace {
 struct CRCType {
@@ -114,7 +113,7 @@ TEST(Utility, Chunk)
         uint8_t crc_chunk{};
         for (int i = 0; i < 4; ++i) {
             crc_chunk = crc.update(d8 + (i * 8), 8);
-            // M5_LOGW("%s:i:%d:[%x/%x]", e.name, i, crc_chunk,
+            // M5_LIB_LOGW("%s:i:%d:[%x/%x]", e.name, i, crc_chunk,
             //         crc.range(d8 + (i * 8), 8));
             if (i == 0) {
                 EXPECT_EQ(crc_chunk, crc.range(d8 + (i * 8), 8));

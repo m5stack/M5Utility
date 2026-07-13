@@ -7,7 +7,6 @@
   UnitTest for utility functions
 */
 #include <gtest/gtest.h>
-#include <M5Unified.h>
 #include <M5Utility.h>
 
 using namespace m5::utility;
@@ -171,7 +170,7 @@ TEST(Crypto_SHA1, Basic)
 
         free(in);
     } else {
-        M5_LOGW("Cannot allocate %u", MILLION_A_LEN);
+        M5_LIB_LOGW("Cannot allocate %u", MILLION_A_LEN);
     }
 }
 
@@ -445,7 +444,7 @@ TEST(Crypto_SHA1, FIPS_180_1_Vectors)
             EXPECT_TRUE(memcmp(digest, expected, 20) == 0);
             free(input);
         } else {
-            M5_LOGW("Cannot allocate %u bytes for FIPS test", len);
+            M5_LIB_LOGW("Cannot allocate %u bytes for FIPS test", len);
         }
     }
 }
