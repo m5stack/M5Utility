@@ -29,7 +29,8 @@ string_t make_random_str()
         "abcdefghijklmnopqrstuvwxyz"
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "0123456789"
-        "!#$%&()=-~^|@[{]}:;+*,.<>/?_";
+        "!#$%&()=-~^|@[{]}:;+*,.<>/?_"
+        "\x80\xA5\xC3\xE6\xFF";  // bytes >= 0x80: negative as signed char, exercises the sign-extension path
 
     string_t s;
     size_t len = 1 + (rng() & 31);
@@ -45,6 +46,9 @@ test_pair_t test_pairs[] = {
     {"", 0},
     {"M5Stack", 0x8c97d1e0U},
     {"M5Stack is a leading provider of IoT solutions.", 0x1a1eca6dU},
+    // Non-ASCII (UTF-8): bytes >= 0x80 are negative as signed char, exercises the sign-extension path
+    {"日本語", 0xa5a47297U},
+    {"M5Stackで日本語", 0xa3b78982U},
 };
 
 }  // namespace
@@ -69,10 +73,14 @@ TEST(MurmurHash3, user_defined_literals)
     constexpr auto h0 = ""_mmh3;
     constexpr auto h1 = "M5Stack"_mmh3;
     constexpr auto h2 = "M5Stack is a leading provider of IoT solutions."_mmh3;
+    constexpr auto h3 = "日本語"_mmh3;
+    constexpr auto h4 = "M5Stackで日本語"_mmh3;
 
     EXPECT_EQ(h0, 0U);
     EXPECT_EQ(h1, 0x8c97d1e0U);
     EXPECT_EQ(h2, 0x1a1eca6dU);
+    EXPECT_EQ(h3, 0xa5a47297U);
+    EXPECT_EQ(h4, 0xa3b78982U);
 }
 
 // Verification of value correctness
