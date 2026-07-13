@@ -1,0 +1,114 @@
+name: Build(arduino-non-esp32)
+
+on:
+  push:
+    tags-ignore:
+      - '*.*.*'
+      - 'v*.*.*'
+    branches:
+      - '*'
+    paths:
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
+      - '.github/arduino_compile_check/**'
+      - '.github/workflows/arduino-non-esp32-build-check.yml'
+  pull_request:
+    paths:
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
+      - '.github/arduino_compile_check/**'
+      - '.github/workflows/arduino-non-esp32-build-check.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: ${{ matrix.fqbn }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+
+      matrix:
+        # Non-ESP32 Arduino cores that ship the C++ standard library
+        include:
+          # SAMD21 (Arduino Zero)
+          - fqbn: arduino:samd:arduino_zero_native
+            platforms: |
+              - name: arduino:samd
+          # RP2040 (Raspberry Pi Pico, mbed core)
+          - fqbn: arduino:mbed_rp2040:pico
+            platforms: |
+              - name: arduino:mbed_rp2040
+          # Renesas RA4M1 (Arduino UNO R4 WiFi)
+          - fqbn: arduino:renesas_uno:unor4wifi
+            platforms: |
+              - name: arduino:renesas_uno
+          # ESP8266 (covers the ESP8266-specific TL_ASSERT path in stl/expected.hpp)
+          - fqbn: esp8266:esp8266:d1_mini
+            platforms: |
+              - name: esp8266:esp8266
+                source-url: http://arduino.esp8266.com/stable/package_esp8266com_index.json
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile check
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.fqbn }}
+          platforms: ${{ matrix.platforms }}
+          libraries: |
+            - source-path: ./
+          sketch-paths: |
+            - .github/arduino_compile_check
+
+  # AVR has no C++ standard library; the build must fail, and must fail
+  # with the single clear #error from platform_detect.hpp
+  avr-expected-error:
+    name: AVR:ExpectedError
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install AVR core
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+
+      - name: Expect the defined error on AVR
+        run: |
+          set +e
+          output=$(arduino-cli compile --fqbn arduino:avr:uno --library . .github/arduino_compile_check 2>&1)
+          status=$?
+          set -e
+          echo "$output" | tail -20
+          if [ "$status" -eq 0 ]; then
+            echo "::error::AVR build unexpectedly succeeded"
+            exit 1
+          fi
+          if ! echo "$output" | grep -q "M5Utility requires the C++ standard library"; then
+            echo "::error::AVR build failed without the expected #error diagnostic"
+            exit 1
+          fi
+          echo "OK: AVR fails with the intended one-line diagnostic"
