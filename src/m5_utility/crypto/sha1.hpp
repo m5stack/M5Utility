@@ -42,6 +42,10 @@ public:
 
     void update(const uint8_t* data, size_t len)
     {
+        // Also makes update(nullptr, 0) legal: memcpy with a null source is UB even when len is 0
+        if (len == 0) {
+            return;
+        }
         _count += static_cast<uint64_t>(len) << 3;
         size_t fill{64 - _bufferLen};
 
