@@ -30,7 +30,6 @@ If you want to output Git commit hashes to html, do it for the git cloned folder
 
 ### Required
 - [Doxygen](https://www.doxygen.nl/)
-- [pcregrep](https://formulae.brew.sh/formula/pcre2)
 - [Git](https://git-scm.com/) (Output commit hash to html)
 
 
@@ -64,7 +63,6 @@ Git コミットのハッシュを html に出力したい場合は、 git ク�
 
 ### 必要な物
 - [Doxygen](https://www.doxygen.nl/)
-- [pcregrep](https://formulae.brew.sh/formula/pcre2)
 - [Git](https://git-scm.com/)
 
 
