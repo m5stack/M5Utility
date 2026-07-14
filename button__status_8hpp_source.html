@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.1.1 git rev:aa78f8e</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
    </div>
   </td>
  </tr>
@@ -127,13 +127,13 @@ $(function(){initNavTree('button__status_8hpp_source.html',''); initResizable(tr
 <div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classm5_1_1utility_1_1button_1_1_status.html#a7114700dee098ccdef3ea539de0fa6d5">   45</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classm5_1_1utility_1_1button_1_1_status.html#a7114700dee098ccdef3ea539de0fa6d5">setDebounceThreshold</a>(<span class="keyword">const</span> uint32_t msec)</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        _msecDebounce = msec;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        _msecDebounce = <span class="keyword">static_cast&lt;</span>uint16_t<span class="keyword">&gt;</span>(msec);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
 </div>
 <div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classm5_1_1utility_1_1button_1_1_status.html#a54692d6cb85fcda7cb11165d6fa41f5e">   50</a></span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classm5_1_1utility_1_1button_1_1_status.html#a54692d6cb85fcda7cb11165d6fa41f5e">setHoldThreshold</a>(<span class="keyword">const</span> uint32_t msec)</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        _msecHold = msec;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        _msecHold = <span class="keyword">static_cast&lt;</span>uint16_t<span class="keyword">&gt;</span>(msec);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
 </div>
 <div class="foldopen" id="foldopen00055" data-start="{" data-end="}">

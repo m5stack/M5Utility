@@ -104,6 +104,9 @@ var annotated_dup =
         [ "crypto", null, [
           [ "TripleDES", "classm5_1_1utility_1_1crypto_1_1_triple_d_e_s.html", "classm5_1_1utility_1_1crypto_1_1_triple_d_e_s" ]
         ] ],
+        [ "log", null, [
+          [ "elapsed_time_t", "structm5_1_1utility_1_1log_1_1elapsed__time__t.html", null ]
+        ] ],
         [ "BitSegment", "classm5_1_1utility_1_1_bit_segment.html", "classm5_1_1utility_1_1_bit_segment" ],
         [ "CRC16", "classm5_1_1utility_1_1_c_r_c16.html", "classm5_1_1utility_1_1_c_r_c16" ],
         [ "CRC8", "classm5_1_1utility_1_1_c_r_c8.html", "classm5_1_1utility_1_1_c_r_c8" ],

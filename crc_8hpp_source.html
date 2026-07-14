@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.1.1 git rev:aa78f8e</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
    </div>
   </td>
  </tr>
@@ -148,21 +148,21 @@ $(function(){initNavTree('crc_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classm5_1_1utility_1_1_c_r_c8.html#aa7aeaed944f560ba2136fd8e5313fdac">   82</a></span>    <span class="keyword">static</span> uint8_t <a class="code hl_function" href="classm5_1_1utility_1_1_c_r_c8.html#aa7aeaed944f560ba2136fd8e5313fdac">calculate</a>(<span class="keyword">const</span> uint8_t* data, <span class="keywordtype">size_t</span> len, <span class="keyword">const</span> uint8_t init, <span class="keyword">const</span> uint8_t polynomial,</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                             <span class="keyword">const</span> <span class="keywordtype">bool</span> refIn, <span class="keyword">const</span> <span class="keywordtype">bool</span> refOut, <span class="keyword">const</span> uint8_t xorout, <span class="keywordtype">bool</span> do_finalize = <span class="keyword">true</span>)</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        uint8_t crc{init};</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">while</span> (len--) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            uint8_t e = refIn ? <a class="code hl_function" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">reverseBitOrder</a>(*data) : *data;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            ++data;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            crc ^= e;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            uint_fast8_t cnt{8};</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">while</span> (cnt--) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                <span class="keywordflow">if</span> (crc &amp; 0x80) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                    crc = (crc &lt;&lt; 1) ^ polynomial;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                    crc &lt;&lt;= 1;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                }</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> do_finalize ? finalize(crc, refOut, xorout) : crc;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="comment">// Work in a wider type so the shift loop needs no per-step narrowing</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="comment">// casts; the low 8 bits always equal the plain uint8_t computation</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        uint32_t crc{init};</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">while</span> (len--) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            uint8_t e = refIn ? <a class="code hl_function" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">reverseBitOrder</a>(*data) : *data;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            ++data;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            crc ^= e;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            uint_fast8_t cnt{8};</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keywordflow">while</span> (cnt--) {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                crc = (crc &amp; 0x80) ? ((crc &lt;&lt; 1) ^ polynomial) : (crc &lt;&lt; 1);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            crc &amp;= 0xFF;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">const</span> uint8_t out = <span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(crc);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> do_finalize ? finalize(out, refOut, xorout) : out;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
 </div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
@@ -217,21 +217,21 @@ $(function(){initNavTree('crc_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="classm5_1_1utility_1_1_c_r_c16.html#a3d5b8c51b65c70b2c9d779eb0862939f">  180</a></span>    <span class="keyword">static</span> uint16_t <a class="code hl_function" href="classm5_1_1utility_1_1_c_r_c16.html#a3d5b8c51b65c70b2c9d779eb0862939f">calculate</a>(<span class="keyword">const</span> uint8_t* data, <span class="keywordtype">size_t</span> len, <span class="keyword">const</span> uint16_t init, <span class="keyword">const</span> uint16_t polynomial,</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                              <span class="keyword">const</span> <span class="keywordtype">bool</span> refIn, <span class="keyword">const</span> <span class="keywordtype">bool</span> refOut, <span class="keyword">const</span> uint16_t xorout, <span class="keywordtype">bool</span> do_finalize = <span class="keyword">true</span>)</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        uint16_t crc{init};</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordflow">while</span> (len--) {</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            uint8_t e{refIn ? <a class="code hl_function" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">reverseBitOrder</a>(*data) : *data};</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            ++data;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            crc ^= (e &lt;&lt; 8);</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            uint_fast8_t cnt{8};</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">while</span> (cnt--) {</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <span class="keywordflow">if</span> (crc &amp; 0x8000) {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                    crc = (crc &lt;&lt; 1) ^ polynomial;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                    crc &lt;&lt;= 1;</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                }</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            }</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        }</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">return</span> do_finalize ? finalize(crc, refOut, xorout) : crc;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="comment">// Work in a wider type so the shift loop needs no per-step narrowing</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="comment">// casts; the low 16 bits always equal the plain uint16_t computation</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        uint32_t crc{init};</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keywordflow">while</span> (len--) {</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            uint8_t e{refIn ? <a class="code hl_function" href="misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4">reverseBitOrder</a>(*data) : *data};</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            ++data;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            crc ^= <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(e) &lt;&lt; 8;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            uint_fast8_t cnt{8};</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <span class="keywordflow">while</span> (cnt--) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                crc = (crc &amp; 0x8000) ? ((crc &lt;&lt; 1) ^ polynomial) : (crc &lt;&lt; 1);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            crc &amp;= 0xFFFF;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        }</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keyword">const</span> uint16_t out = <span class="keyword">static_cast&lt;</span>uint16_t<span class="keyword">&gt;</span>(crc);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">return</span> do_finalize ? finalize(out, refOut, xorout) : out;</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    }</div>
 </div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>

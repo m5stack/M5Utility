@@ -17,6 +17,7 @@ var hierarchy =
     [ "m5::stl::detail::expected_storage_base< void, E, false, true >::dummy", "structm5_1_1stl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01true_01_4_1_1dummy.html", null ],
     [ "m5::stl::detail::optional_storage_base< T, bool >::dummy", "structm5_1_1stl_1_1detail_1_1optional__storage__base_1_1dummy.html", null ],
     [ "m5::stl::detail::optional_storage_base< T, true >::dummy", "structm5_1_1stl_1_1detail_1_1optional__storage__base_3_01_t_00_01true_01_4_1_1dummy.html", null ],
+    [ "m5::utility::log::elapsed_time_t", "structm5_1_1utility_1_1log_1_1elapsed__time__t.html", null ],
     [ "m5::types::EndianInt< T, DataIsLittle >", "unionm5_1_1types_1_1_endian_int.html", null ],
     [ "std::exception", null, [
       [ "m5::stl::bad_expected_access< E >", "classm5_1_1stl_1_1bad__expected__access.html", null ],

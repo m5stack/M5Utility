@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.1.1 git rev:aa78f8e</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
    </div>
   </td>
  </tr>
@@ -97,6 +97,7 @@ $(function(){initNavTree('library__log_8hpp.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
@@ -111,10 +112,17 @@ $(function(){initNavTree('library__log_8hpp.html',''); initResizable(true); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cinttypes&gt;</code><br />
-<code>#include &lt;chrono&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &quot;<a class="el" href="platform__detect_8hpp_source.html">../platform_detect.hpp</a>&quot;</code><br />
 </div>
 <p><a href="library__log_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structm5_1_1utility_1_1log_1_1elapsed__time__t.html">m5::utility::log::elapsed_time_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Millisecond duration count; only <code>.count()</code> is provided, unlike the <code>std::chrono::milliseconds</code> used everywhere else (below).  <a href="structm5_1_1utility_1_1log_1_1elapsed__time__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacem5.html">m5</a></td></tr>
@@ -159,9 +167,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a5864e14d1d7f8a8df23223f6416a1c21" id="r_a5864e14d1d7f8a8df23223f6416a1c21"><td class="memItemLeft" align="right" valign="top"><a id="a5864e14d1d7f8a8df23223f6416a1c21" name="a5864e14d1d7f8a8df23223f6416a1c21"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::utility::log::log_level_t</b> = <a class="el" href="#a24c0e9852209aacc5a8616ff02cd99f3">LogLevel</a></td></tr>
 <tr class="separator:a5864e14d1d7f8a8df23223f6416a1c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381c9c2d43f8a89d1b9096ce7259e081" id="r_a381c9c2d43f8a89d1b9096ce7259e081"><td class="memItemLeft" align="right" valign="top"><a id="a381c9c2d43f8a89d1b9096ce7259e081" name="a381c9c2d43f8a89d1b9096ce7259e081"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>m5::utility::log::elapsed_time_t</b> = std::chrono::milliseconds</td></tr>
-<tr class="separator:a381c9c2d43f8a89d1b9096ce7259e081"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -192,7 +197,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>m5::utility::log::dum
 <tr class="memdesc:a6d92f8ddc68ec78653fc747ae5f5cc11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output dump. <br /></td></tr>
 <tr class="separator:a6d92f8ddc68ec78653fc747ae5f5cc11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cdecbc4047e7b581eb204804ca71682" id="r_a2cdecbc4047e7b581eb204804ca71682"><td class="memItemLeft" align="right" valign="top"><a id="a2cdecbc4047e7b581eb204804ca71682" name="a2cdecbc4047e7b581eb204804ca71682"></a>
-elapsed_time_t&#160;</td><td class="memItemRight" valign="bottom"><b>m5::utility::log::elapsedTime</b> ()</td></tr>
+<a class="el" href="structm5_1_1utility_1_1log_1_1elapsed__time__t.html">elapsed_time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m5::utility::log::elapsedTime</b> ()</td></tr>
 <tr class="memdesc:a2cdecbc4047e7b581eb204804ca71682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the elapsed time for log. <br /></td></tr>
 <tr class="separator:a2cdecbc4047e7b581eb204804ca71682"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">

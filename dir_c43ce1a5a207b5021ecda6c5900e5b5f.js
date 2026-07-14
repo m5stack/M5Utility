@@ -18,6 +18,7 @@ var dir_c43ce1a5a207b5021ecda6c5900e5b5f =
     [ "misc.hpp", "misc_8hpp.html", "misc_8hpp" ],
     [ "murmurhash3.cpp", "murmurhash3_8cpp.html", "murmurhash3_8cpp" ],
     [ "murmurhash3.hpp", "murmurhash3_8hpp.html", "murmurhash3_8hpp" ],
+    [ "platform_detect.hpp", "platform__detect_8hpp.html", "platform__detect_8hpp" ],
     [ "string.cpp", "string_8cpp.html", "string_8cpp" ],
     [ "string.hpp", "string_8hpp.html", "string_8hpp" ],
     [ "types.hpp", "types_8hpp.html", "types_8hpp" ]
