@@ -8,26 +8,31 @@
   @brief Logging for libraries
 */
 #include "library_log.hpp"
+#if !M5UTILITY_HAS_USABLE_CHRONO
+#include "../compatibility_feature.hpp"
+#endif
 #include <cstdio>
 #include <cstdarg>
 #include <inttypes.h>
 #include <algorithm>
 #include <cctype>
 
-// Build-time notice (emitted only here, not from every translation unit that
-// includes library_log.hpp). Mirrors the conditional in the header so the
-// chosen branch is visible at a glance.
+// Emit the selected timestamp representation once from this translation unit.
 #if defined(CONFIG_NEWLIB_NANO_FORMAT)
 #pragma message("M5Utility log: 32-bit timestamp (newlib-nano printf, ~49.7d wrap)")
+#elif !M5UTILITY_HAS_USABLE_CHRONO
+#pragma message("M5Utility log: 32-bit timestamp (Arduino fallback, ~49.7d wrap)")
 #else
 #pragma message("M5Utility log: 64-bit timestamp (full printf)")
 #endif
 
+#if M5UTILITY_HAS_USABLE_CHRONO
 namespace {
 using clock = std::chrono::steady_clock;
 // using clock                      = std::chrono::high_resolution_clock;
 const clock::time_point start_at = clock::now();
 }  // namespace
+#endif
 
 namespace m5 {
 namespace utility {
@@ -58,7 +63,7 @@ void dump(const void* iaddr, const size_t len, const bool align)
 
     // First line
     size_t i{}, ia{};
-    uint_fast8_t cols = std::min(len - i, static_cast<size_t>(16) - skip_left);
+    uint_fast8_t cols = static_cast<uint_fast8_t>(std::min(len - i, static_cast<size_t>(16) - skip_left));
     uint_fast8_t left = static_cast<uint_fast8_t>(
         snprintf(hex, sizeof(hex), "0x%08" PRIxPTR "| ", reinterpret_cast<uintptr_t>(addr) & ~abyte));
 
@@ -91,7 +96,7 @@ void dump(const void* iaddr, const size_t len, const bool align)
 
     // Second line~
     while (i < len) {
-        cols = std::min(len - i, static_cast<size_t>(16U));
+        cols = static_cast<uint_fast8_t>(std::min(len - i, static_cast<size_t>(16U)));
         left = static_cast<uint_fast8_t>(
             snprintf(hex, sizeof(hex), "0x%08" PRIxPTR "| ", reinterpret_cast<uintptr_t>(addr + i) & ~abyte));
         for (uint_fast8_t c = 0; c < cols; ++c) {
@@ -117,7 +122,13 @@ void dump(const void* iaddr, const size_t len, const bool align)
 
 elapsed_time_t elapsedTime()
 {
+#if M5UTILITY_HAS_USABLE_CHRONO
     return std::chrono::duration_cast<elapsed_time_t>(clock::now() - start_at);
+#else
+    // Route through m5::utility::millis() so the clock follows
+    // M5UTILITY_TIME_SOURCE instead of assuming an Arduino environment.
+    return elapsed_time_t{static_cast<uint32_t>(m5::utility::millis())};
+#endif
 }
 
 }  // namespace log

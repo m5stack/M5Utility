@@ -1,0 +1,98 @@
+name: Build(arduino-esp32:3.x)
+
+on:
+  push:
+    tags-ignore:
+      - '*.*.*'
+      - 'v*.*.*'
+    branches:
+      - '*'
+    paths:
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
+      - '.github/arduino_compile_check/**'
+      - '.github/workflows/arduino-esp-v3-build-check.yml'
+  pull_request:
+    paths:
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
+      - '.github/arduino_compile_check/**'
+      - '.github/workflows/arduino-esp-v3-build-check.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: ${{ matrix.board }}@${{ matrix.platform-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+
+      matrix:
+        platform-url:
+          - https://espressif.github.io/arduino-esp32/package_esp32_index.json
+
+        # Cross design: M5Utility has no board-specific code, so one board per
+        # chip generation is enough (siblings kept commented out).
+        # NanoC6 is 'm5stack_nanoc6' in the espressif package (not 'm5stack_nano_c6');
+        # NanoH2 does not exist in the espressif package
+        board:
+          - m5stack_core
+          - m5stack_cores3
+          - m5stack_nanoc6
+          - m5stack_tab5
+#          - arduino_nesso_n1
+#          - m5stack_atom
+#          - m5stack_atoms3
+#          - m5stack_capsule
+#          - m5stack_cardputer
+#          - m5stack_core2
+#          - m5stack_coreink
+#          - m5stack_dial
+#          - m5stack_dinmeter
+#          - m5stack_fire
+#          - m5stack_paper
+#          - m5stack_stamp_s3
+#          - m5stack_stickc_plus
+#          - m5stack_stickc_plus2
+
+        # 3.3.8 breaks Tab5 (BOARD_SDMMC_POWER_CHANNEL undeclared); pin to 3.3.7
+        platform-version:
+          - 3.3.7
+
+        platform:
+          - esp32
+
+        archi:
+          - esp32
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile check
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.platform }}:${{ matrix.archi }}:${{ matrix.board }}
+          platforms: |
+            - name: ${{ matrix.platform }}:${{ matrix.archi }}
+              source-url: ${{ matrix.platform-url }}
+              version: ${{ matrix.platform-version }}
+          libraries: |
+            - source-path: ./
+          sketch-paths: |
+            - .github/arduino_compile_check

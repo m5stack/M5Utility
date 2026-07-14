@@ -7,7 +7,6 @@
   UnitTest for utility functions
 */
 #include <gtest/gtest.h>
-#include <M5Unified.h>
 #include <M5Utility.h>
 
 using namespace m5::utility;

@@ -13,6 +13,10 @@
 #ifndef M5_UTILITY_HPP
 #define M5_UTILITY_HPP
 
+// Keep this first: on toolchains without the C++ standard library (e.g.
+// avr-gcc) its #error must fire before any standard header include fails
+#include "m5_utility/platform_detect.hpp"
+
 #include "m5_utility/stl/expected.hpp"
 #include "m5_utility/stl/extension.hpp"
 #include "m5_utility/stl/optional.hpp"

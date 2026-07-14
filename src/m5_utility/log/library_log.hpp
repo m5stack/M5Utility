@@ -12,7 +12,15 @@
 
 #include <cstdint>
 #include <cinttypes>
+#include <cstddef>
+#include "../platform_detect.hpp"
+
+// Some environments ship a <chrono> that does not compile (see
+// M5UTILITY_HAS_USABLE_CHRONO in platform_detect.hpp); fall back to a 32-bit
+// millisecond timestamp backed by m5::utility::millis() there.
+#if M5UTILITY_HAS_USABLE_CHRONO
 #include <chrono>
+#endif
 // ESP-IDF / Arduino-ESP32 (any platform shipping sdkconfig.h) provides
 // CONFIG_NEWLIB_NANO_FORMAT that flags whether the linked printf supports
 // %lld. __has_include keeps this header usable on platforms without it.
@@ -91,8 +99,36 @@ void logPrintf(const char* format, ...);
 //! @brief Output dump
 void dump(const void* addr, const size_t len, const bool align = true);
 
-using elapsed_time_t = std::chrono::milliseconds;
+#if !M5UTILITY_HAS_USABLE_CHRONO
+/*!
+  @brief Millisecond duration count; only `.count()` is provided, unlike the
+         `std::chrono::milliseconds` used everywhere else (below).
+
+  Deliberate, narrowly-scoped API difference: in this environment <chrono>
+  does not compile at all (see M5UTILITY_HAS_USABLE_CHRONO in
+  platform_detect.hpp), so there is no working `std::chrono::milliseconds`
+  to preserve here. Code that needs duration arithmetic/comparison/`rep`/
+  `period` on `elapsedTime()`'s return value will need to adapt when
+  building for this environment.
+ */
+struct elapsed_time_t {
+    constexpr elapsed_time_t() : ms(0)
+    {
+    }
+    constexpr explicit elapsed_time_t(uint32_t value) : ms(value)
+    {
+    }
+
+    uint32_t ms;
+    constexpr uint32_t count() const
+    {
+        return ms;
+    }
+};
+#else
+using elapsed_time_t                 = std::chrono::milliseconds;
 // using elapsed_time_t = std::chrono::microseconds;
+#endif
 
 //! @brief Gets the elapsed time for log
 elapsed_time_t elapsedTime();
@@ -101,7 +137,11 @@ elapsed_time_t elapsedTime();
 // ESP-IDF newlib-nano printf does not support %lld; misaligned varargs cause a
 // LoadProhibited crash on the next %s. Detect via CONFIG_NEWLIB_NANO_FORMAT and
 // fall back to a 32-bit timestamp (~49.7 day wrap, acceptable for log use).
-#if defined(CONFIG_NEWLIB_NANO_FORMAT)
+// The no-<chrono> fallback takes the same 32-bit branch: those bare-metal
+// cores commonly link newlib-nano too (e.g. the Arduino/Adafruit SAMD core
+// passes --specs=nano.specs) without defining CONFIG_NEWLIB_NANO_FORMAT, and
+// its elapsed_time_t::count() is 32-bit to begin with.
+#if defined(CONFIG_NEWLIB_NANO_FORMAT) || !M5UTILITY_HAS_USABLE_CHRONO
 #define M5_UTILITY_LOG_TS_FMT "%6" PRIu32
 #define M5_UTILITY_LOG_TS_VAL (uint32_t) m5::utility::log::elapsedTime().count()
 #else

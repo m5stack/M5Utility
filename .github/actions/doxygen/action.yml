@@ -49,12 +49,13 @@ runs:
         sudo mv doxygen-${{ inputs.doxygen_version }}/bin/doxygen /usr/local/bin/doxygen
       shell: bash
 
-    - name: Install pcregrep
-      run: sudo apt-get install -y pcregrep
-      shell: bash
-
-    - name: Generate Doxygen Documentation by my shell script
-      run: sh docs/doxy.sh
+    # Self-contained equivalent of each repo's docs/doxy.sh (which remains for
+    # local use): no pcregrep dependency, and honors the config_file input
+    - name: Generate Doxygen Documentation
+      run: |
+        LIB_VERSION="$(grep -E '^[[:space:]]*version[[:space:]]*=' library.properties | head -n1 | cut -d'=' -f2 | tr -d '[:space:]')"
+        GIT_REV="$(git rev-parse --short HEAD 2>/dev/null)"
+        DOXYGEN_PROJECT_NUMBER="${LIB_VERSION}${GIT_REV:+ git rev:${GIT_REV}}" doxygen "${{ inputs.config_file }}"
       shell: bash
       
     - name: Create .nojekyll (ensures pages with underscores work on gh pages)

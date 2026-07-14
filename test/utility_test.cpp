@@ -41,6 +41,16 @@ TEST(Utility, pathToFilename)
     }
 }
 
+TEST(Utility, logMacroArgumentCount)
+{
+    // Compile both the empty variadic case and a call beyond the former
+    // fixed dispatcher limit without producing test output.
+    if (false) {
+        M5_LIB_LOGI("plain");
+        M5_LIB_LOGI("%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+    }
+}
+
 #if 0
 TEST(Utility, log) {
     M5_LIB_LOGE("Error");
