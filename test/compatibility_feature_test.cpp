@@ -189,3 +189,30 @@ TEST(CompatibilityFeature, HasElapsedAcrossWrap)
     const elapsed_time_t deadline = start_at + 1000;
     EXPECT_LT(deadline, start_at) << "a precomputed deadline overflows near the wrap";
 }
+
+TEST(CompatibilityFeature, ElapsedSinceInjectedClock)
+{
+    // The overload takes the current time from the caller, so a test can drive
+    // the clock instead of waiting for real time to pass
+    EXPECT_EQ(elapsedSince(1000, 1250), 250U);
+    EXPECT_EQ(elapsedSince(1000, 1000), 0U);
+}
+
+TEST(CompatibilityFeature, HasElapsedInjectedClock)
+{
+    EXPECT_FALSE(hasElapsed(1000, 100, 1099));
+    EXPECT_TRUE(hasElapsed(1000, 100, 1100));
+    EXPECT_TRUE(hasElapsed(1000, 100, 5000));
+}
+
+TEST(CompatibilityFeature, HasElapsedInjectedClockAcrossWrap)
+{
+    // now has wrapped past start_at, which is what a precomputed deadline
+    // cannot survive
+    const elapsed_time_t start_at = std::numeric_limits<elapsed_time_t>::max() - 100;
+    const elapsed_time_t now      = 99;  // 200ms later, across the wrap
+
+    EXPECT_EQ(elapsedSince(start_at, now), 200U);
+    EXPECT_TRUE(hasElapsed(start_at, 200, now));
+    EXPECT_FALSE(hasElapsed(start_at, 201, now));
+}

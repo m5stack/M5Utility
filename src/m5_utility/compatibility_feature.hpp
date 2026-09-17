@@ -50,15 +50,47 @@ void delayMicroseconds(const unsigned int us);
 using elapsed_time_t = unsigned long;
 
 /*!
+  @brief Gets the elapsed time between start_at and now
+  @param start_at Earlier time
+  @param now Current time
+  @return Elapsed time (ms)
+  @note Unsigned subtraction yields the correct elapsed time even across the wrap
+  of the clock, whatever the width of elapsed_time_t
+  @note Overload for code that takes its current time from somewhere other than
+  millis(), such as an injected clock that unit tests can drive
+ */
+inline elapsed_time_t elapsedSince(const elapsed_time_t start_at, const elapsed_time_t now)
+{
+    return now - start_at;
+}
+
+/*!
   @brief Gets the elapsed time since start_at
   @param start_at Time obtained by millis()
   @return Elapsed time (ms)
-  @note Unsigned subtraction yields the correct elapsed time even across the wrap
-  of millis(), whatever the width of elapsed_time_t
  */
 inline elapsed_time_t elapsedSince(const elapsed_time_t start_at)
 {
-    return millis() - start_at;
+    return elapsedSince(start_at, millis());
+}
+
+/*!
+  @brief Has the duration passed between start_at and now?
+  @param start_at Earlier time
+  @param duration Duration to wait for (ms)
+  @param now Current time
+  @return True if the duration has passed
+  @note Compares the elapsed time rather than a precomputed deadline. A deadline
+  such as (start_at + duration) overflows near the wrap of the clock and cuts the
+  wait short, so compare the elapsed time instead
+  @note Overload for code that takes its current time from somewhere other than
+  millis(), such as an injected clock that unit tests can drive. The current time
+  is the trailing argument so that the shorter form is a prefix of this one and
+  cannot be called by mistake
+ */
+inline bool hasElapsed(const elapsed_time_t start_at, const elapsed_time_t duration, const elapsed_time_t now)
+{
+    return elapsedSince(start_at, now) >= duration;
 }
 
 /*!
@@ -66,13 +98,10 @@ inline elapsed_time_t elapsedSince(const elapsed_time_t start_at)
   @param start_at Time obtained by millis()
   @param duration Duration to wait for (ms)
   @return True if the duration has passed
-  @note Compares the elapsed time rather than a precomputed deadline. A deadline
-  such as (start_at + duration) overflows near the wrap of millis() and cuts the
-  wait short, so compare the elapsed time instead
  */
 inline bool hasElapsed(const elapsed_time_t start_at, const elapsed_time_t duration)
 {
-    return elapsedSince(start_at) >= duration;
+    return hasElapsed(start_at, duration, millis());
 }
 ///@}
 
