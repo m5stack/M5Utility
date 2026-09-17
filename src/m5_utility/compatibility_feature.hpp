@@ -40,6 +40,42 @@ void delay(const unsigned long ms);
 void delayMicroseconds(const unsigned int us);
 ///@}
 
+///@name Elapsed time
+///@{
+/*!
+  @brief Elapsed time unit (ms)
+  @note Identical to the return type of millis(), so passing a value obtained
+  from millis() never narrows, neither on 32-bit targets nor on 64-bit hosted builds
+ */
+using elapsed_time_t = unsigned long;
+
+/*!
+  @brief Gets the elapsed time since start_at
+  @param start_at Time obtained by millis()
+  @return Elapsed time (ms)
+  @note Unsigned subtraction yields the correct elapsed time even across the wrap
+  of millis(), whatever the width of elapsed_time_t
+ */
+inline elapsed_time_t elapsedSince(const elapsed_time_t start_at)
+{
+    return millis() - start_at;
+}
+
+/*!
+  @brief Has the duration passed since start_at?
+  @param start_at Time obtained by millis()
+  @param duration Duration to wait for (ms)
+  @return True if the duration has passed
+  @note Compares the elapsed time rather than a precomputed deadline. A deadline
+  such as (start_at + duration) overflows near the wrap of millis() and cuts the
+  wait short, so compare the elapsed time instead
+ */
+inline bool hasElapsed(const elapsed_time_t start_at, const elapsed_time_t duration)
+{
+    return elapsedSince(start_at) >= duration;
+}
+///@}
+
 }  // namespace utility
 }  // namespace m5
 #endif

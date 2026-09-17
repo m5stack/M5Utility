@@ -120,14 +120,14 @@ void dump(const void* iaddr, const size_t len, const bool align)
     }
 }
 
-elapsed_time_t elapsedTime()
+timestamp_t elapsedTime()
 {
 #if M5UTILITY_HAS_USABLE_CHRONO
-    return std::chrono::duration_cast<elapsed_time_t>(clock::now() - start_at);
+    return std::chrono::duration_cast<timestamp_t>(clock::now() - start_at);
 #else
     // Route through m5::utility::millis() so the clock follows
     // M5UTILITY_TIME_SOURCE instead of assuming an Arduino environment.
-    return elapsed_time_t{static_cast<uint32_t>(m5::utility::millis())};
+    return timestamp_t{static_cast<uint32_t>(m5::utility::millis())};
 #endif
 }
 

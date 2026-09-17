@@ -9,8 +9,13 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 
+#include <limits>
+
 using m5::utility::delay;
 using m5::utility::delayMicroseconds;
+using m5::utility::elapsed_time_t;
+using m5::utility::elapsedSince;
+using m5::utility::hasElapsed;
 using m5::utility::micros;
 using m5::utility::millis;
 
@@ -135,4 +140,52 @@ TEST(CompatibilityFeature, ConsistencyBetweenMillisAndMicros)
 
     EXPECT_GE(us_diff + tolerance, expected_us);
     EXPECT_LE(us_diff, expected_us + tolerance);
+}
+
+TEST(CompatibilityFeature, ElapsedSince)
+{
+    const elapsed_time_t wait         = 50;
+    const elapsed_time_t tolerance_ms = 30;
+
+    const elapsed_time_t start_at = millis();
+    delay(wait);
+    const elapsed_time_t elapsed = elapsedSince(start_at);
+
+    EXPECT_GE(elapsed, wait - tolerance_ms) << "elapsedSince() should cover the delay";
+    EXPECT_LE(elapsed, wait + tolerance_ms) << "elapsedSince() should not overshoot";
+}
+
+TEST(CompatibilityFeature, HasElapsed)
+{
+    const elapsed_time_t start_at = millis();
+    EXPECT_FALSE(hasElapsed(start_at, 1000)) << "nothing has elapsed yet";
+
+    delay(30);
+    EXPECT_TRUE(hasElapsed(start_at, 10)) << "10ms has passed by now";
+    EXPECT_FALSE(hasElapsed(start_at, 10000)) << "10s has not passed";
+}
+
+TEST(CompatibilityFeature, HasElapsedZeroDuration)
+{
+    // A zero duration has always elapsed
+    EXPECT_TRUE(hasElapsed(millis(), 0));
+}
+
+TEST(CompatibilityFeature, HasElapsedAcrossWrap)
+{
+    // start_at sits just below the wrap of elapsed_time_t, so the elapsed time
+    // crosses the wrap: elapsedSince() returns millis() + 6
+    const elapsed_time_t start_at = std::numeric_limits<elapsed_time_t>::max() - 5;
+
+    const elapsed_time_t elapsed = elapsedSince(start_at);
+    EXPECT_GE(elapsed, 6U) << "unsigned subtraction stays correct across the wrap";
+
+    EXPECT_TRUE(hasElapsed(start_at, 3)) << "3ms has elapsed across the wrap";
+    EXPECT_FALSE(hasElapsed(start_at, std::numeric_limits<elapsed_time_t>::max() / 2))
+        << "a huge duration has not elapsed";
+
+    // The deadline form is what this helper exists to replace: the deadline
+    // overflows here and lands before start_at, cutting any wait short
+    const elapsed_time_t deadline = start_at + 1000;
+    EXPECT_LT(deadline, start_at) << "a precomputed deadline overflows near the wrap";
 }
