@@ -10,6 +10,8 @@
 #ifndef M5_UTILITY_COMPATIBILITY_FEATURE_HPP
 #define M5_UTILITY_COMPATIBILITY_FEATURE_HPP
 
+#include <type_traits>
+
 namespace m5 {
 namespace utility {
 
@@ -44,8 +46,9 @@ void delayMicroseconds(const unsigned int us);
 ///@{
 /*!
   @brief Elapsed time unit (ms)
-  @note Identical to the return type of millis(), so passing a value obtained
-  from millis() never narrows, neither on 32-bit targets nor on 64-bit hosted builds
+  @note Identical to the return type of millis(), so the elapsed time is computed
+  at the width at which millis() itself wraps. Code driven by a clock of a
+  different width should keep that width instead (see elapsedSince(const T, const T))
  */
 using elapsed_time_t = unsigned long;
 
@@ -55,11 +58,16 @@ using elapsed_time_t = unsigned long;
   @param now Current time
   @return Elapsed time (ms)
   @note Unsigned subtraction yields the correct elapsed time even across the wrap
-  of the clock, whatever the width of elapsed_time_t
+  of the clock
   @note Overload for code that takes its current time from somewhere other than
   millis(), such as an injected clock that unit tests can drive
+  @warning The subtraction happens in the caller's own type T, because modular
+  arithmetic is only correct when its width matches the width at which the clock
+  wraps. Widening a 32-bit clock to a 64-bit type before subtracting breaks the
+  wrap, so T is deduced rather than fixed to elapsed_time_t
  */
-inline elapsed_time_t elapsedSince(const elapsed_time_t start_at, const elapsed_time_t now)
+template <typename T>
+inline T elapsedSince(const T start_at, const T now)
 {
     return now - start_at;
 }
@@ -87,8 +95,12 @@ inline elapsed_time_t elapsedSince(const elapsed_time_t start_at)
   millis(), such as an injected clock that unit tests can drive. The current time
   is the trailing argument so that the shorter form is a prefix of this one and
   cannot be called by mistake
+  @warning The elapsed time is computed in the caller's own type T; see
+  elapsedSince(const T, const T). duration is not deduced, so an integer literal
+  may be passed without making the deduction ambiguous
  */
-inline bool hasElapsed(const elapsed_time_t start_at, const elapsed_time_t duration, const elapsed_time_t now)
+template <typename T>
+inline bool hasElapsed(const T start_at, const typename std::common_type<T>::type duration, const T now)
 {
     return elapsedSince(start_at, now) >= duration;
 }

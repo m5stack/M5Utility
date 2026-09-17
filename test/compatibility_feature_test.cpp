@@ -194,15 +194,33 @@ TEST(CompatibilityFeature, ElapsedSinceInjectedClock)
 {
     // The overload takes the current time from the caller, so a test can drive
     // the clock instead of waiting for real time to pass
-    EXPECT_EQ(elapsedSince(1000, 1250), 250U);
-    EXPECT_EQ(elapsedSince(1000, 1000), 0U);
+    EXPECT_EQ(elapsedSince<uint32_t>(1000, 1250), 250U);
+    EXPECT_EQ(elapsedSince<uint32_t>(1000, 1000), 0U);
 }
 
 TEST(CompatibilityFeature, HasElapsedInjectedClock)
 {
-    EXPECT_FALSE(hasElapsed(1000, 100, 1099));
-    EXPECT_TRUE(hasElapsed(1000, 100, 1100));
-    EXPECT_TRUE(hasElapsed(1000, 100, 5000));
+    EXPECT_FALSE(hasElapsed<uint32_t>(1000, 100, 1099));
+    EXPECT_TRUE(hasElapsed<uint32_t>(1000, 100, 1100));
+    EXPECT_TRUE(hasElapsed<uint32_t>(1000, 100, 5000));
+}
+
+TEST(CompatibilityFeature, InjectedClockKeepsItsOwnWidth)
+{
+    // A 32-bit clock must be subtracted at 32 bits: widening it to a 64-bit type
+    // before subtracting turns the wrap into a huge value. The overloads deduce
+    // the caller's type so the width is kept even on a 64-bit host.
+    const uint32_t start_at = 0xFFFFFF9CUL;  // 100ms before the wrap
+    const uint32_t now      = 99;            // 199ms later, across the wrap
+
+    EXPECT_EQ(elapsedSince(start_at, now), 199U);
+    EXPECT_TRUE(hasElapsed(start_at, 199, now));
+    EXPECT_FALSE(hasElapsed(start_at, 200, now));
+
+    // What the non-deduced form would have done on a 64-bit host
+    const unsigned long widened = static_cast<unsigned long>(now) - static_cast<unsigned long>(start_at);
+    EXPECT_EQ(widened == 199UL, sizeof(unsigned long) == sizeof(uint32_t))
+        << "widening only stays correct where unsigned long is 32-bit";
 }
 
 TEST(CompatibilityFeature, HasElapsedInjectedClockAcrossWrap)
