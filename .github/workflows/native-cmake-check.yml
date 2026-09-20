@@ -98,7 +98,13 @@ jobs:
           # every "#if __cplusplus >= ..." in the library and the tests read the
           # wrong language level
           if(MSVC)
-            target_compile_options(m5utility_native_cmake PRIVATE /Zc:__cplusplus)
+            target_compile_options(m5utility_native_cmake PRIVATE
+              /Zc:__cplusplus
+              # C5272: MSVC's exception machinery wants a copy constructor, so it
+              # flags throwing a move-only type. That is valid C++11, and the
+              # throw is in upstream tl::expected, so silence it rather than
+              # diverge from upstream
+              /wd5272)
           endif()
           target_include_directories(m5utility_native_cmake
             PRIVATE "${M5UTILITY_DIR}/src" "${M5UTILITY_DIR}/test")
