@@ -94,6 +94,12 @@ jobs:
           file(GLOB test_sources "${M5UTILITY_DIR}/test/*.cpp")
 
           add_executable(m5utility_native_cmake ${test_sources} ${m5utility_sources})
+          # MSVC reports __cplusplus as 199711L unless asked not to, which makes
+          # every "#if __cplusplus >= ..." in the library and the tests read the
+          # wrong language level
+          if(MSVC)
+            target_compile_options(m5utility_native_cmake PRIVATE /Zc:__cplusplus)
+          endif()
           target_include_directories(m5utility_native_cmake
             PRIVATE "${M5UTILITY_DIR}/src" "${M5UTILITY_DIR}/test")
           # common_main.cpp provides main(), so link gtest rather than gtest_main,
