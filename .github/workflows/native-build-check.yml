@@ -1,0 +1,92 @@
+name: Build(native)
+
+on:
+  push:
+    tags-ignore:
+      - '*.*.*'
+      - 'v*.*.*'
+    branches:
+      - '*'
+    paths:
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
+      - '.github/workflows/native-build-check.yml'
+  pull_request:
+    paths:
+      - 'src/**.cpp'
+      - 'src/**.hpp'
+      - 'src/**.h'
+      - 'src/**.c'
+      - '.github/workflows/native-build-check.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+  # The host tests in platformio-build-check.yml cover GCC and Clang, but
+  # PlatformIO's native platform hardcodes env.Tool("gcc"), so MSVC can only be
+  # reached by driving the compiler directly. This is a compile + link check
+  # only: the tests themselves stay on PlatformIO. Linux and macOS are kept as
+  # the baseline, so a Windows failure can be read as an MSVC problem rather
+  # than a problem with this project.
+  native-build:
+    name: Native:Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 12
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: M5Utility
+
+      - name: Generate the check project
+        run: |
+          mkdir -p native_check
+          cat > native_check/main.cpp <<'EOF'
+          #include <M5Utility.hpp>
+
+          int main()
+          {
+              return 0;
+          }
+          EOF
+          cat > native_check/CMakeLists.txt <<'EOF'
+          cmake_minimum_required(VERSION 3.16)
+          project(m5utility_native_check CXX)
+
+          set(CMAKE_CXX_STANDARD 11)
+          set(CMAKE_CXX_STANDARD_REQUIRED ON)
+          set(CMAKE_CXX_EXTENSIONS OFF)
+
+          file(GLOB_RECURSE m5utility_sources "${M5UTILITY_DIR}/src/*.cpp")
+
+          add_executable(m5utility_native_check main.cpp ${m5utility_sources})
+          target_include_directories(m5utility_native_check PRIVATE "${M5UTILITY_DIR}/src")
+          EOF
+
+      - name: Configure
+        run: |
+          cmake -S native_check -B native_check/build \
+            -DM5UTILITY_DIR="${{ github.workspace }}/M5Utility"
+
+      - name: Build
+        run: |
+          cmake --build native_check/build --config Release
