@@ -60,10 +60,11 @@ TEST(CompatibilityFeature, DelayApproximateTime)
     delay(delay_ms);
     unsigned long elapsed = millis() - start;
 
+    // Only the lower bound is checked: delay() promises to wait at least the given
+    // time, and how much longer is up to the OS scheduler. An upper bound cannot
+    // hold on a shared CI runner.
     EXPECT_GE(elapsed, delay_ms - tolerance_ms)
         << "delay() should pause for at least " << (delay_ms - tolerance_ms) << "ms";
-    EXPECT_LE(elapsed, delay_ms + tolerance_ms)
-        << "delay() should not pause for more than " << (delay_ms + tolerance_ms) << "ms";
 }
 
 TEST(CompatibilityFeature, DelayMicrosecondsApproximateTime)
@@ -76,10 +77,9 @@ TEST(CompatibilityFeature, DelayMicrosecondsApproximateTime)
     delayMicroseconds(delay_us);
     unsigned long elapsed = micros() - start;
 
+    // Lower bound only; see DelayApproximateTime
     EXPECT_GE(elapsed, delay_us - tolerance_us)
         << "delayMicroseconds() should pause for at least " << (delay_us - tolerance_us) << "us";
-    EXPECT_LE(elapsed, delay_us + tolerance_us)
-        << "delayMicroseconds() should not pause for more than " << (delay_us + tolerance_us) << "us";
 }
 
 TEST(CompatibilityFeature, DelayZero)
@@ -89,7 +89,9 @@ TEST(CompatibilityFeature, DelayZero)
     delay(0);
     unsigned long elapsed = millis() - start;
 
-    EXPECT_LE(elapsed, 5U) << "delay(0) should return quickly";
+    // A hang check, not a precision check: the bound is generous on purpose so that
+    // a loaded CI runner does not fail it
+    EXPECT_LE(elapsed, 1000U) << "delay(0) should return without waiting";
 }
 
 TEST(CompatibilityFeature, DelayMicrosecondsZero)
@@ -99,7 +101,8 @@ TEST(CompatibilityFeature, DelayMicrosecondsZero)
     delayMicroseconds(0);
     unsigned long elapsed = micros() - start;
 
-    EXPECT_LE(elapsed, 1000U) << "delayMicroseconds(0) should return quickly";
+    // A hang check, not a precision check; see DelayZero
+    EXPECT_LE(elapsed, 1000000U) << "delayMicroseconds(0) should return without waiting";
 }
 
 TEST(CompatibilityFeature, MultipleDelays)
@@ -116,8 +119,8 @@ TEST(CompatibilityFeature, MultipleDelays)
     unsigned long elapsed = millis() - start;
 
     unsigned long expected = delay_ms * count;
+    // Lower bound only; see DelayApproximateTime
     EXPECT_GE(elapsed, expected - tolerance_ms);
-    EXPECT_LE(elapsed, expected + tolerance_ms);
 }
 
 TEST(CompatibilityFeature, ConsistencyBetweenMillisAndMicros)
@@ -151,8 +154,8 @@ TEST(CompatibilityFeature, ElapsedSince)
     delay(wait);
     const elapsed_time_t elapsed = elapsedSince(start_at);
 
+    // Lower bound only; see DelayApproximateTime
     EXPECT_GE(elapsed, wait - tolerance_ms) << "elapsedSince() should cover the delay";
-    EXPECT_LE(elapsed, wait + tolerance_ms) << "elapsedSince() should not overshoot";
 }
 
 TEST(CompatibilityFeature, HasElapsed)
