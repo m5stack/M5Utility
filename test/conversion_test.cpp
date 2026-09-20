@@ -102,3 +102,27 @@ TEST(Conversion, Conversion)
         }
     }
 }
+
+TEST(Conversion, saturate_cast)
+{
+    using m5::utility::saturate_cast;
+
+    // Narrowing: saturates instead of wrapping
+    EXPECT_EQ(saturate_cast<uint16_t>(size_t{0x0000}), 0x0000U);
+    EXPECT_EQ(saturate_cast<uint16_t>(size_t{0xFFFE}), 0xFFFEU);
+    EXPECT_EQ(saturate_cast<uint16_t>(size_t{0xFFFF}), 0xFFFFU);
+    EXPECT_EQ(saturate_cast<uint16_t>(size_t{0x10000}), 0xFFFFU);
+    EXPECT_EQ(saturate_cast<uint16_t>(size_t{0x1FFFF}), 0xFFFFU);
+    EXPECT_EQ(saturate_cast<uint8_t>(uint32_t{0x1FF}), 0xFFU);
+
+    // Widening: the value is kept
+    EXPECT_EQ(saturate_cast<uint32_t>(uint8_t{0xFF}), 0xFFU);
+    EXPECT_EQ(saturate_cast<uint64_t>(uint16_t{0x1234}), 0x1234U);
+
+    // Same width
+    EXPECT_EQ(saturate_cast<uint16_t>(uint16_t{0xFFFF}), 0xFFFFU);
+
+    // Usable at compile time
+    constexpr uint16_t c = saturate_cast<uint16_t>(size_t{0x20000});
+    EXPECT_EQ(c, 0xFFFFU);
+}

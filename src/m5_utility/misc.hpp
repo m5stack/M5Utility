@@ -51,6 +51,19 @@ inline uint16_t reverseBitOrderPortable(const uint16_t u16)
     v = ((v & 0xAAAA) >> 1) | ((v & 0x5555) << 1);
     return v;
 }
+/*!
+  @brief Parity without a compiler builtin
+  @note Always compiled, so that it can be unit-tested on a toolchain whose
+  parity() takes the builtin path
+ */
+inline bool parityPortable(const uint8_t u8)
+{
+    uint8_t v{u8};
+    v ^= static_cast<uint8_t>(v >> 4);
+    v ^= static_cast<uint8_t>(v >> 2);
+    v ^= static_cast<uint8_t>(v >> 1);
+    return (v & 0x01) != 0;
+}
 }  // namespace detail
 ///@endcond
 
@@ -72,6 +85,31 @@ inline uint16_t reverseBitOrder(const uint16_t u16)
 #else
     return detail::reverseBitOrderPortable(u16);
 #endif
+}
+
+/*!
+  @brief Is the number of set bits odd?
+  @param u8 Input byte
+  @return True if the byte has an odd number of set bits
+ */
+inline bool parity(const uint8_t u8)
+{
+#if defined(__GNUC__) || defined(__clang__)
+    return __builtin_parity(u8) != 0;
+#else
+    return detail::parityPortable(u8);
+#endif
+}
+
+/*!
+  @brief Gets the bit that makes the byte odd parity
+  @param u8 Input byte
+  @return 1 if the byte has an even number of set bits, 0 otherwise
+  @note The bit to append in protocols that specify odd parity, such as NFC-A
+ */
+inline uint8_t oddParityBit(const uint8_t u8)
+{
+    return parity(u8) ? 0 : 1;
 }
 
 /*!

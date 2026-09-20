@@ -131,3 +131,48 @@ TEST(Misc, reverseBitOrderPortableInvolution)
         EXPECT_EQ(detail::reverseBitOrderPortable(detail::reverseBitOrderPortable(v)), v) << "u16 " << i;
     }
 }
+
+TEST(Misc, parity)
+{
+    EXPECT_FALSE(parity(0x00));  // 0 bits
+    EXPECT_TRUE(parity(0x01));   // 1 bit
+    EXPECT_FALSE(parity(0x03));  // 2 bits
+    EXPECT_TRUE(parity(0x07));   // 3 bits
+    EXPECT_FALSE(parity(0xFF));  // 8 bits
+    EXPECT_TRUE(parity(0x80));   // 1 bit
+    EXPECT_FALSE(parity(0xAA));  // 4 bits
+    EXPECT_FALSE(parity(0x55));  // 4 bits
+    EXPECT_TRUE(parity(0x0F ^ 0x01));
+}
+
+TEST(Misc, parityPortableEquivalence)
+{
+    // parity() takes a compiler builtin on GCC/Clang, so on those toolchains the
+    // portable implementation is never executed. Compare them exhaustively.
+    for (unsigned int i = 0; i <= 0xFF; ++i) {
+        const uint8_t v = static_cast<uint8_t>(i);
+        EXPECT_EQ(parity(v), detail::parityPortable(v)) << i;
+
+        // Cross-check against a plain bit count
+        unsigned int bits = 0;
+        for (unsigned int b = 0; b < 8; ++b) {
+            bits += (v >> b) & 1U;
+        }
+        EXPECT_EQ(parity(v), (bits & 1U) != 0) << i;
+    }
+}
+
+TEST(Misc, oddParityBit)
+{
+    // Appending the bit must always make the number of set bits odd
+    for (unsigned int i = 0; i <= 0xFF; ++i) {
+        const uint8_t v   = static_cast<uint8_t>(i);
+        unsigned int bits = oddParityBit(v);
+        for (unsigned int b = 0; b < 8; ++b) {
+            bits += (v >> b) & 1U;
+        }
+        EXPECT_EQ(bits & 1U, 1U) << i;
+    }
+    EXPECT_EQ(oddParityBit(0x00), 1);
+    EXPECT_EQ(oddParityBit(0x01), 0);
+}

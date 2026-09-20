@@ -11,6 +11,8 @@
 #define M5_UTILITY_CONVERSION_HPP
 
 #include <type_traits>
+#include <limits>
+#include <cstdint>
 #include <cstdint>
 #include <cstddef>
 
@@ -37,6 +39,31 @@ constexpr auto unsigned_to_signed(const T v) -> typename std::make_signed<T>::ty
     using S = typename std::make_signed<T>::type;
     return static_cast<S>((v & (1ULL << (Bits - 1))) ? (v & ((1ULL << Bits) - 1)) - (1ULL << Bits)
                                                      : (v & ((1ULL << Bits) - 1)));
+}
+
+/*!
+  @brief Narrows an unsigned integer, saturating at the maximum of the destination
+  @tparam To Destination unsigned integer type
+  @tparam From Source unsigned integer type
+  @param v Value to convert
+  @return v, or the maximum of To when v exceeds it
+  @code {.cpp}
+  // 0x1FFFF does not fit in uint16_t
+  uint16_t u16 = saturate_cast<uint16_t>(size_t{0x1FFFF});
+  // u16 is 0xFFFF (Not 0xFFFF & 0x1FFFF == 0xFFFF... it saturates, it does not wrap)
+  @endcode
+  @note Only unsigned to unsigned for now. The comparison goes through uintmax_t,
+  so a From narrower than To is handled as well
+ */
+template <typename To, typename From>
+constexpr To saturate_cast(const From v)
+{
+    static_assert(std::is_integral<To>::value && std::is_unsigned<To>::value, "To must be an unsigned integer");
+    static_assert(std::is_integral<From>::value && std::is_unsigned<From>::value, "From must be an unsigned integer");
+
+    return static_cast<To>(static_cast<uintmax_t>(v) > static_cast<uintmax_t>(std::numeric_limits<To>::max())
+                               ? std::numeric_limits<To>::max()
+                               : v);
 }
 
 }  // namespace utility
