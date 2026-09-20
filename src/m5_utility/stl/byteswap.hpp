@@ -207,6 +207,70 @@ inline constexpr T byteswap_with_portable(T v) noexcept
 template <typename T, typename std::enable_if<!detail::is_integer_or_enum<T>::value, std::nullptr_t>::type = nullptr>
 T byteswap(T) = delete;
 
+///@cond
+namespace detail {
+
+struct byteswap_value_int_tag {  //
+};
+struct byteswap_value_float_tag {  //
+};
+
+template <typename T>
+struct byteswap_value_tag_of {
+    using type =
+        typename std::conditional<is_integer_or_enum<T>::value, byteswap_value_int_tag, byteswap_value_float_tag>::type;
+};
+
+template <typename T>
+inline T byteswap_value_impl(T v, byteswap_value_int_tag) noexcept
+{
+    return byteswap(v);
+}
+
+template <typename T>
+inline T byteswap_value_impl(T v, byteswap_value_float_tag) noexcept
+{
+    static_assert(sizeof(T) == 4 || sizeof(T) == 8, "Only 32-bit / 64-bit floating-point is supported");
+
+    typename std::conditional<sizeof(T) == 4, uint32_t, uint64_t>::type u{};
+    std::memcpy(&u, &v, sizeof(T));
+    u = byteswap(u);
+    T out{};
+    std::memcpy(&out, &u, sizeof(T));
+    return out;
+}
+
+template <typename T>
+struct byteswap_value_supported
+    : std::integral_constant<bool, is_integer_or_enum<T>::value ||
+                                       std::is_floating_point<typename std::remove_cv<T>::type>::value> {  //
+};
+
+}  // namespace detail
+///@endcond
+
+/*!
+  @brief byteswap for integral, enum and floating-point types
+  @param v Value to reverse
+  @return v with its bytes reversed
+  @note Integral and enum types are handed to byteswap(). A floating-point value is
+  bit-cast to a same-size unsigned integer, reversed, and bit-cast back; special values
+  (NaN, +/-inf, +/-0) are reversed as raw bit patterns without special-casing
+  @note Aggregates stay prohibited, as with byteswap(): reversing the bytes of a whole
+  object is not meaningful, and letting it through would hide the mistake
+ */
+template <typename T,
+          typename std::enable_if<detail::byteswap_value_supported<T>::value, std::nullptr_t>::type = nullptr>
+inline T byteswap_value(T v) noexcept
+{
+    return detail::byteswap_value_impl(v, typename detail::byteswap_value_tag_of<T>::type{});
+}
+
+// If the type is neither integral, enum nor floating-point, it is prohibited
+template <typename T,
+          typename std::enable_if<!detail::byteswap_value_supported<T>::value, std::nullptr_t>::type = nullptr>
+T byteswap_value(T) = delete;
+
 }  // namespace stl
 }  // namespace m5
 

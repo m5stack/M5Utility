@@ -126,3 +126,57 @@ TEST(Conversion, saturate_cast)
     constexpr uint16_t c = saturate_cast<uint16_t>(size_t{0x20000});
     EXPECT_EQ(c, 0xFFFFU);
 }
+
+TEST(Conversion, unsigned_to_signed_runtime_bits)
+{
+    using m5::utility::unsigned_to_signed;
+
+    // The runtime-width overload must agree with the compile-time one
+    EXPECT_EQ(unsigned_to_signed(uint32_t{0x00FFFFFF}, 24), unsigned_to_signed<24>(uint32_t{0x00FFFFFF}));
+    EXPECT_EQ(unsigned_to_signed(uint32_t{0x00FFFFFF}, 24), -1);
+    EXPECT_EQ(unsigned_to_signed(uint32_t{0x007FFFFF}, 24), 0x7FFFFF);
+    EXPECT_EQ(unsigned_to_signed(uint32_t{0x00800000}, 24), -8388608);
+
+    // Every width of a 16-bit value, against the compile-time overload
+    EXPECT_EQ(unsigned_to_signed(uint16_t{0x0FFF}, 12), unsigned_to_signed<12>(uint16_t{0x0FFF}));
+    EXPECT_EQ(unsigned_to_signed(uint16_t{0x0800}, 12), unsigned_to_signed<12>(uint16_t{0x0800}));
+    EXPECT_EQ(unsigned_to_signed(uint16_t{0xFFFF}, 16), unsigned_to_signed<16>(uint16_t{0xFFFF}));
+
+    // 1 bit: 0 or -1
+    EXPECT_EQ(unsigned_to_signed(uint8_t{0x00}, 1), 0);
+    EXPECT_EQ(unsigned_to_signed(uint8_t{0x01}, 1), -1);
+
+    // The full width of the type, which must not shift by the width itself
+    EXPECT_EQ(unsigned_to_signed(uint8_t{0xFF}, 8), -1);
+    EXPECT_EQ(unsigned_to_signed(uint8_t{0x7F}, 8), 127);
+    EXPECT_EQ(unsigned_to_signed(uint64_t{0xFFFFFFFFFFFFFFFFULL}, 64), -1);
+    EXPECT_EQ(unsigned_to_signed(uint64_t{0x7FFFFFFFFFFFFFFFULL}, 64), 0x7FFFFFFFFFFFFFFFLL);
+
+    // 0 bits yields 0
+    EXPECT_EQ(unsigned_to_signed(uint32_t{0xFFFFFFFF}, 0), 0);
+
+    // Bits above the requested width are ignored
+    EXPECT_EQ(unsigned_to_signed(uint32_t{0xFFFFF001}, 12), 1);
+
+    // Usable at compile time
+    constexpr auto c = unsigned_to_signed(uint16_t{0x0FFF}, 12);
+    EXPECT_EQ(c, -1);
+}
+
+TEST(Conversion, unsigned_to_signed_runtime_bits_sweep)
+{
+    using m5::utility::unsigned_to_signed;
+
+    // Sweep every width of a 16-bit value and compare against a reference
+    for (size_t bits = 1; bits <= 16; ++bits) {
+        for (unsigned int i = 0; i <= 0xFFFF; i += 97) {
+            const uint16_t v       = static_cast<uint16_t>(i);
+            const uint32_t mask    = (1U << bits) - 1U;
+            const uint32_t low     = v & mask;
+            const int32_t expected = (low & (1U << (bits - 1)))
+                                         ? static_cast<int32_t>(low) - static_cast<int32_t>(1U << bits)
+                                         : static_cast<int32_t>(low);
+            EXPECT_EQ(unsigned_to_signed(v, bits), static_cast<int16_t>(expected)) << "bits=" << bits << " v=" << i;
+        }
+    }
+}
