@@ -66,7 +66,7 @@ const std::vector<uint8_t> tdata = {
 
 using namespace m5::utility;
 
-TEST(Utility, CRC8)
+TEST(CRC, CRC8)
 {
     for (auto&& e : crc8_table) {
         SCOPED_TRACE(e.name);
@@ -84,7 +84,7 @@ TEST(Utility, CRC8)
     }
 }
 
-TEST(Utility, CRC16)
+TEST(CRC, CRC16)
 {
     for (auto&& e : crc16_table) {
         SCOPED_TRACE(e.name);
@@ -97,7 +97,7 @@ TEST(Utility, CRC16)
 
 // Test whether calculation from the whole and calculation from split chunks are
 // equivalent
-TEST(Utility, Chunk)
+TEST(CRC, Chunk)
 {
     constexpr uint8_t d8[32] = {0x04, 0x67, 0xfc, 0x4d, 0xf4, 0xe7, 0x9c, 0x3b, 0x05, 0xb8, 0xad,
                                 0x31, 0x97, 0xb1, 0x21, 0x72, 0x59, 0x5d, 0x80, 0x26, 0x66, 0x0c,
@@ -143,4 +143,27 @@ TEST(Utility, Chunk)
         EXPECT_EQ(crc_all, crc_chunk);
         EXPECT_EQ(crc_all, crc.value());
     }
+}
+
+TEST(CRC, CRC8_Checksum)
+{
+    // The derived class only fixes the parameters of its base, so it must agree
+    // with a CRC8 constructed with the same ones (init 0xFF / poly 0x31 /
+    // no reflection / xorout 0x00)
+    const uint8_t data[] = {0xBE, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF};
+
+    CRC8_Checksum checksum{};
+    CRC8 explicit_crc(0xFF, 0x31, false, false, 0x00);
+
+    EXPECT_EQ(checksum.range(data, m5::stl::size(data)), explicit_crc.range(data, m5::stl::size(data)));
+
+    // ...and with the static calculate() taking the same parameters
+    CRC8_Checksum checksum2{};
+    EXPECT_EQ(checksum2.range(data, m5::stl::size(data)),
+              CRC8::calculate(data, m5::stl::size(data), 0xFF, 0x31, false, false, 0x00));
+
+    // Sensirion (SHT/SCD) use these parameters; 0xBEEF is their datasheet example
+    const uint8_t beef[] = {0xBE, 0xEF};
+    CRC8_Checksum sensirion{};
+    EXPECT_EQ(sensirion.range(beef, m5::stl::size(beef)), 0x92);
 }

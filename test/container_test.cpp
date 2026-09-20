@@ -751,7 +751,7 @@ void cb_dynamic_buffer_test()
 
 }  // namespace
 
-TEST(Utility, CircularBuffer)
+TEST(Container, CircularBuffer)
 {
     cb_basic_test();
     cb_constructor_test();

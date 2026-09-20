@@ -37,7 +37,7 @@ uint16_t prng_successor16(uint16_t x, uint32_t n)
 
 }  // namespace
 
-TEST(Utility, FibonacciLFSR16)
+TEST(LFSR, FibonacciLFSR16)
 {
     {
         using LFSR16 = FibonacciLFSR_Right<16, 16, 14, 13, 11>;
@@ -60,7 +60,7 @@ TEST(Utility, FibonacciLFSR16)
     }
 }
 
-TEST(Utility, FibonacciLFSR32)
+TEST(LFSR, FibonacciLFSR32)
 {
     {
         using LFSR32 = FibonacciLFSR_Right<32, 16, 14, 13, 11>;
@@ -124,7 +124,7 @@ public:
     }
 };
 
-TEST(Utility, DruagaLFSR)
+TEST(LFSR, DruagaLFSR)
 {
     {  // 1 cycle
         DruagaLFSR d(255);

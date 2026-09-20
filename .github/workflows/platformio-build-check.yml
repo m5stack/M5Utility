@@ -45,9 +45,16 @@ concurrency:
 
 jobs:
   native-test:
-    name: Native:Test
-    runs-on: ubuntu-latest
+    name: Native:Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 12
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
 
     steps:
       - name: Checkout

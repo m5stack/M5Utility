@@ -12,7 +12,7 @@
 
 using namespace m5::utility;
 
-TEST(Utility, reverseBitOrder)
+TEST(Misc, reverseBitOrder)
 {
     EXPECT_EQ(reverseBitOrder((uint8_t)0), 0);
     EXPECT_EQ(reverseBitOrder((uint16_t)0), 0);
@@ -43,7 +43,7 @@ TEST(Utility, reverseBitOrder)
     EXPECT_EQ(reverseBitOrder((uint16_t)0x5555), 0xAAAA);
 }
 
-TEST(Utility, isValidI2CAddress)
+TEST(Misc, isValidI2CAddress)
 {
     // 7-bit address: Reserved addresses (0x00-0x07)
     EXPECT_FALSE(isValidI2CAddress(0x00));
@@ -71,7 +71,7 @@ TEST(Utility, isValidI2CAddress)
     EXPECT_FALSE(isValidI2CAddress(0xFFFF));
 }
 
-TEST(Utility, uint_least_for_bits)
+TEST(Misc, uint_least_for_bits)
 {
     // 1-8 bits -> uint8_t
     static_assert(std::is_same<uint_least_for_bits<1>::type, uint8_t>::value, "1 bit should be uint8_t");
@@ -102,4 +102,32 @@ TEST(Utility, uint_least_for_bits)
     EXPECT_EQ(sizeof(uint_least_for_bits<32>::type), 4U);
     EXPECT_EQ(sizeof(uint_least_for_bits<33>::type), 8U);
     EXPECT_EQ(sizeof(uint_least_for_bits<64>::type), 8U);
+}
+
+TEST(Misc, reverseBitOrderPortableEquivalence)
+{
+    // reverseBitOrder() takes a compiler builtin on clang and the portable
+    // implementation elsewhere, so on any single toolchain one of the two is
+    // never executed. Compare them exhaustively to cover both.
+    for (unsigned int i = 0; i <= 0xFF; ++i) {
+        const uint8_t v = static_cast<uint8_t>(i);
+        EXPECT_EQ(reverseBitOrder(v), detail::reverseBitOrderPortable(v)) << "u8 " << i;
+    }
+    for (unsigned int i = 0; i <= 0xFFFF; ++i) {
+        const uint16_t v = static_cast<uint16_t>(i);
+        EXPECT_EQ(reverseBitOrder(v), detail::reverseBitOrderPortable(v)) << "u16 " << i;
+    }
+}
+
+TEST(Misc, reverseBitOrderPortableInvolution)
+{
+    // Reversing twice must return the original value
+    for (unsigned int i = 0; i <= 0xFF; ++i) {
+        const uint8_t v = static_cast<uint8_t>(i);
+        EXPECT_EQ(detail::reverseBitOrderPortable(detail::reverseBitOrderPortable(v)), v) << "u8 " << i;
+    }
+    for (unsigned int i = 0; i <= 0xFFFF; ++i) {
+        const uint16_t v = static_cast<uint16_t>(i);
+        EXPECT_EQ(detail::reverseBitOrderPortable(detail::reverseBitOrderPortable(v)), v) << "u16 " << i;
+    }
 }

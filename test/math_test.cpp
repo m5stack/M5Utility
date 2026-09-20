@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 
-TEST(Utility, is_powerof2)
+TEST(Math, is_powerof2)
 {
     EXPECT_FALSE(m5::math::is_powerof2(0));
     EXPECT_TRUE(m5::math::is_powerof2(1));

@@ -395,7 +395,7 @@ constexpr uint8_t TEST_LINE_WIDTH = 5;
 
 }  // namespace
 
-TEST(Utility, Base64)
+TEST(Base64, Encode)
 {
     SCOPED_TRACE("Base64");
 
@@ -510,7 +510,7 @@ TEST(Utility, Base64)
     }
 }
 
-TEST(Utility, Base64Decode)
+TEST(Base64, Decode)
 {
     SCOPED_TRACE("Base64Decode");
 
@@ -601,7 +601,7 @@ TEST(Utility, Base64Decode)
     }
 }
 
-TEST(Utility, Base64DecodeErrors)
+TEST(Base64, DecodeErrors)
 {
     SCOPED_TRACE("Base64DecodeErrors");
 
@@ -695,7 +695,7 @@ TEST(Utility, Base64DecodeErrors)
     }
 }
 
-TEST(Utility, Base64Roundtrip)
+TEST(Base64, Roundtrip)
 {
     SCOPED_TRACE("Base64Roundtrip");
 
@@ -774,7 +774,7 @@ TEST(Utility, Base64Roundtrip)
     }
 }
 
-TEST(Utility, Base64LineBreakPositions)
+TEST(Base64, LineBreakPositions)
 {
     SCOPED_TRACE("Base64LineBreakPositions");
 
@@ -905,7 +905,7 @@ TEST(Utility, Base64LineBreakPositions)
     }
 }
 
-TEST(Utility, Base64EncodeErrors)
+TEST(Base64, EncodeErrors)
 {
     SCOPED_TRACE("Base64EncodeErrors");
 

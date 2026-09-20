@@ -31,7 +31,7 @@ constexpr i128_t make_i128(int64_t hi, uint64_t lo)
 
 #endif
 
-TEST(Utility, Byteswap)
+TEST(Byteswap, Fixed)
 {
     constexpr uint8_t u8{127};
     constexpr int8_t i8{-128};
@@ -102,7 +102,7 @@ TEST(Utility, Byteswap)
 }
 
 // Verify portable and default (builtin on GCC/Clang) implementations produce identical results
-TEST(Utility, ByteswapPortable)
+TEST(Byteswap, Portable)
 {
     constexpr uint8_t u8{127};
     constexpr int8_t i8{-128};

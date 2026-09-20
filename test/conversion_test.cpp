@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 
-TEST(Utility, Conversion)
+TEST(Conversion, Conversion)
 {
     {
         SCOPED_TRACE("8bit:4");
