@@ -116,8 +116,10 @@ TEST(Expected, swap)
     should_throw = 1;
 
 #ifdef _MSC_VER
-    // this seems to break catch on GCC and Clang
-    EXPECT_TRUE_THROWS(swap(a, b));
+    // Only MSVC: this seems to break on GCC and Clang.
+    // EXPECT_TRUE_THROWS was left behind by the port from Catch2 and does not
+    // exist, so this line never compiled until MSVC was added to CI.
+    EXPECT_ANY_THROW(swap(a, b));
 #endif
 
     EXPECT_TRUE(a->i == s1);
