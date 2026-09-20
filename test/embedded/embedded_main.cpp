@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <M5Unified.h>
 
-#pragma message "Embedded setup/loop"
+#pragma message("Embedded setup/loop")
 
 #if __has_include(<esp_idf_version.h>)
 #include <esp_idf_version.h>

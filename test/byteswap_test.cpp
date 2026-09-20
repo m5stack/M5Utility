@@ -11,7 +11,7 @@
 #include <limits>
 
 #if defined(__SIZEOF_INT128__)
-#pragma message "Support I128"
+#pragma message("Support I128")
 namespace {
 
 using u128_t = unsigned __int128;
