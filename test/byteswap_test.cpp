@@ -9,9 +9,10 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 #include <limits>
+#include <cstring>
 
 #if defined(__SIZEOF_INT128__)
-#pragma message "Support I128"
+#pragma message("Support I128")
 namespace {
 
 using u128_t = unsigned __int128;
@@ -31,7 +32,7 @@ constexpr i128_t make_i128(int64_t hi, uint64_t lo)
 
 #endif
 
-TEST(Utility, Byteswap)
+TEST(Byteswap, Fixed)
 {
     constexpr uint8_t u8{127};
     constexpr int8_t i8{-128};
@@ -102,7 +103,7 @@ TEST(Utility, Byteswap)
 }
 
 // Verify portable and default (builtin on GCC/Clang) implementations produce identical results
-TEST(Utility, ByteswapPortable)
+TEST(Byteswap, Portable)
 {
     constexpr uint8_t u8{127};
     constexpr int8_t i8{-128};
@@ -135,4 +136,43 @@ TEST(Utility, ByteswapPortable)
     EXPECT_EQ(m5::stl::byteswap_with_portable(i128), m5::stl::byteswap(i128));
     EXPECT_EQ(m5::stl::byteswap_with_portable(m5::stl::byteswap_with_portable(u128)), u128);
 #endif
+}
+
+TEST(Byteswap, ValueIntegral)
+{
+    using m5::stl::byteswap;
+    using m5::stl::byteswap_value;
+
+    // Integral and enum are handed to byteswap()
+    EXPECT_EQ(byteswap_value(uint16_t{0x1234}), byteswap(uint16_t{0x1234}));
+    EXPECT_EQ(byteswap_value(uint32_t{0x12345678}), byteswap(uint32_t{0x12345678}));
+    EXPECT_EQ(byteswap_value(int16_t{0x1234}), byteswap(int16_t{0x1234}));
+
+    enum class E : uint16_t { Value = 0x1234 };
+    EXPECT_EQ(byteswap_value(E::Value), byteswap(E::Value));
+}
+
+TEST(Byteswap, ValueFloat)
+{
+    using m5::stl::byteswap_value;
+
+    // Reversing twice must return the original value
+    const float f = 1.25f;
+    EXPECT_FLOAT_EQ(byteswap_value(byteswap_value(f)), f);
+
+    const double d = -3.5;
+    EXPECT_DOUBLE_EQ(byteswap_value(byteswap_value(d)), d);
+
+    // The bytes really are reversed: 1.0f is 0x3F800000, so the swap is 0x0000803F
+    const float one     = 1.0f;
+    const float swapped = byteswap_value(one);
+    uint32_t bits{};
+    std::memcpy(&bits, &swapped, sizeof(bits));
+    EXPECT_EQ(bits, 0x0000803FU);
+
+    // Special values are reversed as raw bit patterns
+    const float zero = 0.0f;
+    EXPECT_FLOAT_EQ(byteswap_value(byteswap_value(zero)), zero);
+    const double inf = std::numeric_limits<double>::infinity();
+    EXPECT_DOUBLE_EQ(byteswap_value(byteswap_value(inf)), inf);
 }

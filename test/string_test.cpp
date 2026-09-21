@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 #include <M5Utility.hpp>
 
-TEST(Utility, String_Trim)
+TEST(String, Trim)
 {
     // Basic trim
     std::string s = "\t\r\n\v STRING \v\n\r\t";
@@ -47,7 +47,7 @@ TEST(Utility, String_Trim)
     EXPECT_STREQ(s.c_str(), "hello world");
 }
 
-TEST(Utility, String_TrimLeft)
+TEST(String, TrimLeft)
 {
     std::string s = "  \tTest  \t";
     s             = m5::utility::trimLeft(s);
@@ -73,7 +73,7 @@ TEST(Utility, String_TrimLeft)
     EXPECT_STREQ(s.c_str(), "trailing   ");
 }
 
-TEST(Utility, String_TrimRight)
+TEST(String, TrimRight)
 {
     std::string s = "  \tTest  \t";
     s             = m5::utility::trimRight(s);
@@ -99,7 +99,7 @@ TEST(Utility, String_TrimRight)
     EXPECT_STREQ(s.c_str(), "   leading");
 }
 
-TEST(Utility, String_FormatString)
+TEST(String, FormatString)
 {
     // Basic string formatting
     auto s = m5::utility::formatString("Hello %s", "World");
@@ -142,7 +142,7 @@ TEST(Utility, String_FormatString)
     }
 }
 
-TEST(Utility, HexString)
+TEST(String, Hex)
 {
     {
         std::pair<uint8_t, char> table_upper[] = {
@@ -197,7 +197,7 @@ TEST(Utility, HexString)
     }
 }
 
-TEST(Utility, HexString_LowerCase)
+TEST(String, HexLowerCase)
 {
     std::string s;
 

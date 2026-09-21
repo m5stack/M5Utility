@@ -14,7 +14,7 @@ using namespace m5::types;
 // ============================================================
 // U16 tests
 // ============================================================
-TEST(Utility, Types_U16)
+TEST(Types, U16)
 {
     // Constructor
     constexpr big_uint16_t bg0;
@@ -126,7 +126,7 @@ TEST(Utility, Types_U16)
     }
 }
 
-TEST(Utility, Types_U16_Accessors)
+TEST(Types, U16_Accessors)
 {
     // high() and low()
     {
@@ -194,7 +194,7 @@ TEST(Utility, Types_U16_Accessors)
     }
 }
 
-TEST(Utility, Types_U16_SetGet)
+TEST(Types, U16_SetGet)
 {
     // set<> and get<> with explicit endianness
     {
@@ -222,7 +222,7 @@ TEST(Utility, Types_U16_SetGet)
     }
 }
 
-TEST(Utility, Types_U16_BoundaryValues)
+TEST(Types, U16_BoundaryValues)
 {
     // Zero
     {
@@ -269,7 +269,7 @@ TEST(Utility, Types_U16_BoundaryValues)
     }
 }
 
-TEST(Utility, Types_U16_Compare)
+TEST(Types, U16_Compare)
 {
     // Same value across endianness
     big_uint16_t bg0{0x1234};
@@ -405,7 +405,7 @@ TEST(Utility, Types_U16_Compare)
 // ============================================================
 // S16 tests
 // ============================================================
-TEST(Utility, Types_S16)
+TEST(Types, S16)
 {
     // Constructor
     constexpr big_int16_t bg0;
@@ -500,7 +500,7 @@ TEST(Utility, Types_S16)
     }
 }
 
-TEST(Utility, Types_S16_Accessors)
+TEST(Types, S16_Accessors)
 {
     // high() and low()
     {
@@ -546,7 +546,7 @@ TEST(Utility, Types_S16_Accessors)
     }
 }
 
-TEST(Utility, Types_S16_SetGet)
+TEST(Types, S16_SetGet)
 {
     // set/get with explicit endianness
     {
@@ -586,7 +586,7 @@ TEST(Utility, Types_S16_SetGet)
     }
 }
 
-TEST(Utility, Types_S16_BoundaryValues)
+TEST(Types, S16_BoundaryValues)
 {
     // Zero
     {
@@ -633,7 +633,7 @@ TEST(Utility, Types_S16_BoundaryValues)
     }
 }
 
-TEST(Utility, Types_S16_Compare)
+TEST(Types, S16_Compare)
 {
     // Same value across endianness
     big_int16_t bg0{int16_t(0x1234)};
@@ -746,7 +746,7 @@ TEST(Utility, Types_S16_Compare)
 // ============================================================
 // U32 tests
 // ============================================================
-TEST(Utility, Types_U32)
+TEST(Types, U32)
 {
     // Constructor
     constexpr big_uint32_t bg0;
@@ -788,7 +788,7 @@ TEST(Utility, Types_U32)
     EXPECT_EQ(lt1.low(), 0x12);
 }
 
-TEST(Utility, Types_U32_SetGet)
+TEST(Types, U32_SetGet)
 {
     {
         big_uint32_t bg;
@@ -810,7 +810,7 @@ TEST(Utility, Types_U32_SetGet)
     }
 }
 
-TEST(Utility, Types_U32_Compare)
+TEST(Types, U32_Compare)
 {
     // Same value
     big_uint32_t bg0{0x12345678U};
@@ -845,7 +845,7 @@ TEST(Utility, Types_U32_Compare)
 // ============================================================
 // S32 tests
 // ============================================================
-TEST(Utility, Types_S32)
+TEST(Types, S32)
 {
     // Constructor
     constexpr big_int32_t bg0;
@@ -880,7 +880,7 @@ TEST(Utility, Types_S32)
     EXPECT_EQ(bg0.size(), 4U);
 }
 
-TEST(Utility, Types_S32_Compare)
+TEST(Types, S32_Compare)
 {
     // Negative vs positive
     {
@@ -926,7 +926,7 @@ TEST(Utility, Types_S32_Compare)
 // ============================================================
 // 64-bit tests
 // ============================================================
-TEST(Utility, Types_U64)
+TEST(Types, U64)
 {
     constexpr big_uint64_t bg0;
     EXPECT_EQ(bg0.value, 0U);
@@ -953,7 +953,7 @@ TEST(Utility, Types_U64)
     }
 }
 
-TEST(Utility, Types_S64)
+TEST(Types, S64)
 {
     big_int64_t bg_neg{int64_t(-1)};
     big_int64_t bg_pos{int64_t(1)};
@@ -970,7 +970,7 @@ TEST(Utility, Types_S64)
 // 128-bit tests
 // ============================================================
 #if defined(__SIZEOF_INT128__)
-TEST(Utility, Types_U128)
+TEST(Types, U128)
 {
     using unsigned128 = unsigned __int128;
 
@@ -1031,7 +1031,7 @@ TEST(Utility, Types_U128)
     }
 }
 
-TEST(Utility, Types_S128)
+TEST(Types, S128)
 {
     using signed128   = __int128;
     using unsigned128 = unsigned __int128;

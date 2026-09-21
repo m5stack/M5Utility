@@ -61,9 +61,9 @@ TEST(Endianness, ConstexprValues)
 TEST(Endianness, EnumClass)
 {
     // Verify enum class exists and has expected members
-    [[maybe_unused]] m5::stl::endian e_little = m5::stl::endian::little;
-    [[maybe_unused]] m5::stl::endian e_big    = m5::stl::endian::big;
-    [[maybe_unused]] m5::stl::endian e_native = m5::stl::endian::native;
+    m5::stl::endian e_little = m5::stl::endian::little;
+    m5::stl::endian e_big    = m5::stl::endian::big;
+    m5::stl::endian e_native = m5::stl::endian::native;
 
     // Native should match either little or big (or neither for exotic platforms)
     bool native_is_little = (e_native == e_little);

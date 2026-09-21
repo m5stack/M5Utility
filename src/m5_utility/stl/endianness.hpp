@@ -11,16 +11,16 @@
 #define M5_UTILITY_STL_ENDIANNESS_HPP
 
 #if __cplusplus >= 202002L
-// #pragma message "Using std::endian"
+// #pragma message("Using std::endian")
 #include <bit>
 #elif __has_include(<endian.h>)
-// #pragma message "Using endian.h"
+// #pragma message("Using endian.h")
 #include <endian.h>
 #elif __has_include(<machine/endian.h>)
-// #pragma message "Using machine/endian.h"
+// #pragma message("Using machine/endian.h")
 #include <machine/endian.h>
 #else
-// #pragma message "Using hacked"
+// #pragma message("Using hacked")
 #include <cstdint>
 #endif
 
@@ -59,9 +59,16 @@ enum class endian {
 
 enum class endian { little = __ORDER_LITTLE_ENDIAN__, big = __ORDER_BIG_ENDIAN__, native = __BYTE_ORDER__ };
 
+// MSVC defines none of the macros above, so say it outright: every target it
+// supports (x86, x64, ARM64) is little endian. Without this the runtime
+// detection below would be taken, and that one violates strict aliasing.
+#elif defined(_MSC_VER)
+
+enum class endian { little = 0, big = 1, native = little };
+
 #else
-#pragma message \
-    "Cannot determine byte order at compile time. Falling back to runtime detection (strict aliasing violation)."
+#pragma message( \
+    "Cannot determine byte order at compile time. Falling back to runtime detection (strict aliasing violation).")
 /// @cond
 constexpr uint32_t val32 = 0x11223344;
 constexpr uint8_t ref8   = static_cast<const uint8_t&>(val32);

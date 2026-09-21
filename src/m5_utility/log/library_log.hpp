@@ -111,11 +111,11 @@ void dump(const void* addr, const size_t len, const bool align = true);
   `period` on `elapsedTime()`'s return value will need to adapt when
   building for this environment.
  */
-struct elapsed_time_t {
-    constexpr elapsed_time_t() : ms(0)
+struct timestamp_t {
+    constexpr timestamp_t() : ms(0)
     {
     }
-    constexpr explicit elapsed_time_t(uint32_t value) : ms(value)
+    constexpr explicit timestamp_t(uint32_t value) : ms(value)
     {
     }
 
@@ -126,12 +126,12 @@ struct elapsed_time_t {
     }
 };
 #else
-using elapsed_time_t                 = std::chrono::milliseconds;
-// using elapsed_time_t = std::chrono::microseconds;
+using timestamp_t                    = std::chrono::milliseconds;
+// using timestamp_t = std::chrono::microseconds;
 #endif
 
 //! @brief Gets the elapsed time for log
-elapsed_time_t elapsedTime();
+timestamp_t elapsedTime();
 
 ///@cond
 // ESP-IDF newlib-nano printf does not support %lld; misaligned varargs cause a
@@ -140,7 +140,7 @@ elapsed_time_t elapsedTime();
 // The no-<chrono> fallback takes the same 32-bit branch: those bare-metal
 // cores commonly link newlib-nano too (e.g. the Arduino/Adafruit SAMD core
 // passes --specs=nano.specs) without defining CONFIG_NEWLIB_NANO_FORMAT, and
-// its elapsed_time_t::count() is 32-bit to begin with.
+// its timestamp_t::count() is 32-bit to begin with.
 #if defined(CONFIG_NEWLIB_NANO_FORMAT) || !M5UTILITY_HAS_USABLE_CHRONO
 #define M5_UTILITY_LOG_TS_FMT "%6" PRIu32
 #define M5_UTILITY_LOG_TS_VAL (uint32_t) m5::utility::log::elapsedTime().count()
