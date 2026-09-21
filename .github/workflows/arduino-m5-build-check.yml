@@ -12,7 +12,7 @@ on:
       - 'src/**.hpp'
       - 'src/**.h'
       - 'src/**.c'
-      - '.github/arduino_compile_check/**'
+      - 'extras/arduino_compile_check/**'
       - '.github/workflows/arduino-m5-build-check.yml'
   pull_request:
     paths:
@@ -20,7 +20,7 @@ on:
       - 'src/**.hpp'
       - 'src/**.h'
       - 'src/**.c'
-      - '.github/arduino_compile_check/**'
+      - 'extras/arduino_compile_check/**'
       - '.github/workflows/arduino-m5-build-check.yml'
   workflow_dispatch:
 
@@ -98,4 +98,4 @@ jobs:
           libraries: |
             - source-path: ./
           sketch-paths: |
-            - .github/arduino_compile_check
+            - extras/arduino_compile_check

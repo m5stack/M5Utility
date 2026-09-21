@@ -14,12 +14,16 @@ dependencies:
 # declares a chip absent from it.
 
 files:
+  # .github/** and build/** are part of the Component Manager's default exclusions,
+  # so listing them here would be redundant
   exclude:
     - "docs/**"
     - "examples/**"
+    - "extras/**"
     - "test/**"
-    - ".github/**"
     - "boards/**"
     - "platformio.ini"
     - "library.json"
     - "library.properties"
+    - ".clang-format"
+    - ".gitignore"
