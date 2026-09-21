@@ -12,7 +12,7 @@ on:
       - 'src/**.hpp'
       - 'src/**.h'
       - 'src/**.c'
-      - '.github/arduino_compile_check/**'
+      - 'extras/arduino_compile_check/**'
       - '.github/workflows/arduino-non-esp32-build-check.yml'
   pull_request:
     paths:
@@ -20,7 +20,7 @@ on:
       - 'src/**.hpp'
       - 'src/**.h'
       - 'src/**.c'
-      - '.github/arduino_compile_check/**'
+      - 'extras/arduino_compile_check/**'
       - '.github/workflows/arduino-non-esp32-build-check.yml'
   workflow_dispatch:
 
@@ -75,7 +75,7 @@ jobs:
           libraries: |
             - source-path: ./
           sketch-paths: |
-            - .github/arduino_compile_check
+            - extras/arduino_compile_check
 
   # AVR has no C++ standard library; the build must fail, and must fail
   # with the single clear #error from platform_detect.hpp
@@ -99,7 +99,7 @@ jobs:
       - name: Expect the defined error on AVR
         run: |
           set +e
-          output=$(arduino-cli compile --fqbn arduino:avr:uno --library . .github/arduino_compile_check 2>&1)
+          output=$(arduino-cli compile --fqbn arduino:avr:uno --library . extras/arduino_compile_check 2>&1)
           status=$?
           set -e
           echo "$output" | tail -20
