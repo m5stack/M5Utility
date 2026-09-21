@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.0 git rev:41a629c</span>
    </div>
   </td>
  </tr>
@@ -137,10 +137,86 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>m5::utility::rever
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>m5::utility::reverseBitOrder</b> (const uint16_t u16)</td></tr>
 <tr class="memdesc:a365805b33d8236cb16669bdaf24d2082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reversing the bit order. <br /></td></tr>
 <tr class="separator:a365805b33d8236cb16669bdaf24d2082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ca1225c5e442ca3245ce298a092be46" id="r_a4ca1225c5e442ca3245ce298a092be46"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ca1225c5e442ca3245ce298a092be46">m5::utility::parity</a> (const uint8_t u8)</td></tr>
+<tr class="memdesc:a4ca1225c5e442ca3245ce298a092be46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the number of set bits odd?  <br /></td></tr>
+<tr class="separator:a4ca1225c5e442ca3245ce298a092be46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64c59636969d6812cf00e22dc4d980c6" id="r_a64c59636969d6812cf00e22dc4d980c6"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64c59636969d6812cf00e22dc4d980c6">m5::utility::oddParityBit</a> (const uint8_t u8)</td></tr>
+<tr class="memdesc:a64c59636969d6812cf00e22dc4d980c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the bit that makes the byte odd parity.  <br /></td></tr>
+<tr class="separator:a64c59636969d6812cf00e22dc4d980c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Miscellaneous features. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a64c59636969d6812cf00e22dc4d980c6" name="a64c59636969d6812cf00e22dc4d980c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64c59636969d6812cf00e22dc4d980c6">&#9670;&#160;</a></span>oddParityBit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t m5::utility::oddParityBit </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>u8</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the bit that makes the byte odd parity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">u8</td><td>Input byte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the byte has an even number of set bits, 0 otherwise </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The bit to append in protocols that specify odd parity, such as NFC-A </dd></dl>
+
+</div>
+</div>
+<a id="a4ca1225c5e442ca3245ce298a092be46" name="a4ca1225c5e442ca3245ce298a092be46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ca1225c5e442ca3245ce298a092be46">&#9670;&#160;</a></span>parity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::utility::parity </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>u8</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Is the number of set bits odd? </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">u8</td><td>Input byte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the byte has an odd number of set bits </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

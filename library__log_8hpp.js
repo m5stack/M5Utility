@@ -1,6 +1,6 @@
 var library__log_8hpp =
 [
-    [ "m5::utility::log::elapsed_time_t", "structm5_1_1utility_1_1log_1_1elapsed__time__t.html", null ],
+    [ "m5::utility::log::timestamp_t", "structm5_1_1utility_1_1log_1_1timestamp__t.html", null ],
     [ "M5_DUMPD", "library__log_8hpp.html#a76a6b09afbb946986781119269b871a0", null ],
     [ "M5_DUMPE", "library__log_8hpp.html#a62828ad136586d0320a290a086fab7a3", null ],
     [ "M5_DUMPI", "library__log_8hpp.html#a3e70f6d52f33a8688b656e80e75a5760", null ],
@@ -20,7 +20,7 @@ var library__log_8hpp =
       [ "Verbose", "library__log_8hpp.html#a24c0e9852209aacc5a8616ff02cd99f3ad4a9fa383ab700c5bdd6f31cf7df0faf", null ]
     ] ],
     [ "dump", "library__log_8hpp.html#a6d92f8ddc68ec78653fc747ae5f5cc11", null ],
-    [ "elapsedTime", "library__log_8hpp.html#a2cdecbc4047e7b581eb204804ca71682", null ],
+    [ "elapsedTime", "library__log_8hpp.html#ae219c08f80ccd4564362461a73f47f53", null ],
     [ "logPrintf", "library__log_8hpp.html#a79915a3ac5f7fb06469373c66868d00b", null ],
     [ "pathToFilename", "library__log_8hpp.html#adff0feb6934d40359152539cfd2c231a", null ],
     [ "logOutputLevel", "library__log_8hpp.html#a5296df7ccd1dbecaa28b2136f05675a9", null ]

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.0 git rev:41a629c</span>
    </div>
   </td>
  </tr>
@@ -151,10 +151,54 @@ template&lt;typename T , typename std::enable_if&lt;!<a class="el" href="structm
 <tr class="memitem:ae3edf7d2185f0f1bce1e1d56386308b7"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>m5::stl::byteswap</b> (T)=delete</td></tr>
 <tr class="memdesc:ae3edf7d2185f0f1bce1e1d56386308b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">byteswap for integral type <br /></td></tr>
 <tr class="separator:ae3edf7d2185f0f1bce1e1d56386308b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe2f10c1569f43c9243752ccba5b480c" id="r_afe2f10c1569f43c9243752ccba5b480c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename std::enable_if&lt; detail::byteswap_value_supported&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </td></tr>
+<tr class="memitem:afe2f10c1569f43c9243752ccba5b480c"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#afe2f10c1569f43c9243752ccba5b480c">m5::stl::byteswap_value</a> (T v) noexcept</td></tr>
+<tr class="memdesc:afe2f10c1569f43c9243752ccba5b480c"><td class="mdescLeft">&#160;</td><td class="mdescRight">byteswap for integral, enum and floating-point types  <br /></td></tr>
+<tr class="separator:afe2f10c1569f43c9243752ccba5b480c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>std::byteswap for less than C++23 </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="afe2f10c1569f43c9243752ccba5b480c" name="afe2f10c1569f43c9243752ccba5b480c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe2f10c1569f43c9243752ccba5b480c">&#9670;&#160;</a></span>byteswap_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename std::enable_if&lt; detail::byteswap_value_supported&lt; T &gt;::value, std::nullptr_t &gt;::type  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T m5::stl::byteswap_value </td>
+          <td>(</td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>byteswap for integral, enum and floating-point types </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Value to reverse </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>v with its bytes reversed </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Integral and enum types are handed to byteswap(). A floating-point value is bit-cast to a same-size unsigned integer, reversed, and bit-cast back; special values (NaN, +/-inf, +/-0) are reversed as raw bit patterns without special-casing </dd>
+<dd>
+Aggregates stay prohibited, as with byteswap(): reversing the bytes of a whole object is not meaningful, and letting it through would hide the mistake </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

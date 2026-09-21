@@ -7,5 +7,6 @@ var byteswap_8hpp =
     [ "m5::stl::detail::make_unsigned_ex< T >", "structm5_1_1stl_1_1detail_1_1make__unsigned__ex.html", null ],
     [ "byteswap", "byteswap_8hpp.html#a73080885a711563fa5f0bcf78994b73b", null ],
     [ "byteswap", "byteswap_8hpp.html#ae3edf7d2185f0f1bce1e1d56386308b7", null ],
+    [ "byteswap_value", "byteswap_8hpp.html#afe2f10c1569f43c9243752ccba5b480c", null ],
     [ "byteswap_with_portable", "byteswap_8hpp.html#a4a0821b41e7548a988d3f18a6bd567aa", null ]
 ];

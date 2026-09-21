@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.0 git rev:41a629c</span>
    </div>
   </td>
  </tr>
@@ -107,25 +107,63 @@ $(function(){initNavTree('compatibility__feature_8hpp_source.html',''); initResi
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#ifndef M5_UTILITY_COMPATIBILITY_FEATURE_HPP</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define M5_UTILITY_COMPATIBILITY_FEATURE_HPP</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacem5.html">m5</a> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceutility.html">utility</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a212ab4413419cc8950b40d60700e8802">millis</a>();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a2d4b270efab41768fe9b488056fa7e3a">micros</a>();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a4d21c95e4e4584fd20525b4070300471">delay</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> ms);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keywordtype">void</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a7dc4368ab036207b55d64d7f7cf83a00">delayMicroseconds</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> us);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}  <span class="comment">// namespace utility</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}  <span class="comment">// namespace m5</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacem5.html">m5</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceutility.html">utility</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a212ab4413419cc8950b40d60700e8802">millis</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a2d4b270efab41768fe9b488056fa7e3a">micros</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a4d21c95e4e4584fd20525b4070300471">delay</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> ms);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">void</span> <a class="code hl_function" href="compatibility__feature_8cpp.html#a7dc4368ab036207b55d64d7f7cf83a00">delayMicroseconds</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> us);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="compatibility__feature_8hpp.html#a541f0a65c3dfd149b0d3ed332b4c7a1c">   53</a></span><span class="keyword">using </span><a class="code hl_typedef" href="compatibility__feature_8hpp.html#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> = <span class="keywordtype">unsigned</span> long;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="compatibility__feature_8hpp.html#acf6a313fc7fc0d8cc5dd79c3d63176a5">   70</a></span><span class="keyword">inline</span> T <a class="code hl_function" href="compatibility__feature_8hpp.html#acf6a313fc7fc0d8cc5dd79c3d63176a5">elapsedSince</a>(<span class="keyword">const</span> T start_at, <span class="keyword">const</span> T now)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>{</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">return</span> now - start_at;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="compatibility__feature_8hpp.html#afc22912a4cca604084ddc92f182179a6">   80</a></span><span class="keyword">inline</span> <a class="code hl_typedef" href="compatibility__feature_8hpp.html#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> <a class="code hl_function" href="compatibility__feature_8hpp.html#acf6a313fc7fc0d8cc5dd79c3d63176a5">elapsedSince</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="compatibility__feature_8hpp.html#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> start_at)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="compatibility__feature_8hpp.html#acf6a313fc7fc0d8cc5dd79c3d63176a5">elapsedSince</a>(start_at, <a class="code hl_function" href="compatibility__feature_8cpp.html#a212ab4413419cc8950b40d60700e8802">millis</a>());</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00103" data-start="{" data-end="}">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="compatibility__feature_8hpp.html#a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40">  103</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="compatibility__feature_8hpp.html#a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40">hasElapsed</a>(<span class="keyword">const</span> T start_at, <span class="keyword">const</span> <span class="keyword">typename</span> std::common_type&lt;T&gt;::type duration, <span class="keyword">const</span> T now)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>{</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="compatibility__feature_8hpp.html#acf6a313fc7fc0d8cc5dd79c3d63176a5">elapsedSince</a>(start_at, now) &gt;= duration;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="compatibility__feature_8hpp.html#ae8f79cb81fdf59e8fd66c06b8815799d">  114</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="compatibility__feature_8hpp.html#a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40">hasElapsed</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="compatibility__feature_8hpp.html#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> start_at, <span class="keyword">const</span> <a class="code hl_typedef" href="compatibility__feature_8hpp.html#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> duration)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>{</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="compatibility__feature_8hpp.html#a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40">hasElapsed</a>(start_at, duration, <a class="code hl_function" href="compatibility__feature_8cpp.html#a212ab4413419cc8950b40d60700e8802">millis</a>());</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}  <span class="comment">// namespace utility</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}  <span class="comment">// namespace m5</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="acompatibility__feature_8cpp_html_a212ab4413419cc8950b40d60700e8802"><div class="ttname"><a href="compatibility__feature_8cpp.html#a212ab4413419cc8950b40d60700e8802">m5::utility::millis</a></div><div class="ttdeci">IRAM_ATTR unsigned long millis()</div><div class="ttdoc">Returns the number of milliseconds passed since the Arduino board began running the current program.</div><div class="ttdef"><b>Definition</b> compatibility_feature.cpp:46</div></div>
 <div class="ttc" id="acompatibility__feature_8cpp_html_a2d4b270efab41768fe9b488056fa7e3a"><div class="ttname"><a href="compatibility__feature_8cpp.html#a2d4b270efab41768fe9b488056fa7e3a">m5::utility::micros</a></div><div class="ttdeci">IRAM_ATTR unsigned long micros()</div><div class="ttdoc">Returns the number of microseconds since the Arduino board began running the current program.</div><div class="ttdef"><b>Definition</b> compatibility_feature.cpp:57</div></div>
 <div class="ttc" id="acompatibility__feature_8cpp_html_a4d21c95e4e4584fd20525b4070300471"><div class="ttname"><a href="compatibility__feature_8cpp.html#a4d21c95e4e4584fd20525b4070300471">m5::utility::delay</a></div><div class="ttdeci">void delay(const unsigned long ms)</div><div class="ttdoc">Pauses the program for the amount of time (in milliseconds) specified as parameter.</div><div class="ttdef"><b>Definition</b> compatibility_feature.cpp:68</div></div>
 <div class="ttc" id="acompatibility__feature_8cpp_html_a7dc4368ab036207b55d64d7f7cf83a00"><div class="ttname"><a href="compatibility__feature_8cpp.html#a7dc4368ab036207b55d64d7f7cf83a00">m5::utility::delayMicroseconds</a></div><div class="ttdeci">void delayMicroseconds(const unsigned int us)</div><div class="ttdoc">Pauses the program for the amount of time (in microseconds) specified by the parameter.</div><div class="ttdef"><b>Definition</b> compatibility_feature.cpp:88</div></div>
+<div class="ttc" id="acompatibility__feature_8hpp_html_a541f0a65c3dfd149b0d3ed332b4c7a1c"><div class="ttname"><a href="compatibility__feature_8hpp.html#a541f0a65c3dfd149b0d3ed332b4c7a1c">m5::utility::elapsed_time_t</a></div><div class="ttdeci">unsigned long elapsed_time_t</div><div class="ttdoc">Elapsed time unit (ms)</div><div class="ttdef"><b>Definition</b> compatibility_feature.hpp:53</div></div>
+<div class="ttc" id="acompatibility__feature_8hpp_html_a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40"><div class="ttname"><a href="compatibility__feature_8hpp.html#a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40">m5::utility::hasElapsed</a></div><div class="ttdeci">bool hasElapsed(const T start_at, const typename std::common_type&lt; T &gt;::type duration, const T now)</div><div class="ttdoc">Has the duration passed between start_at and now?</div><div class="ttdef"><b>Definition</b> compatibility_feature.hpp:103</div></div>
+<div class="ttc" id="acompatibility__feature_8hpp_html_acf6a313fc7fc0d8cc5dd79c3d63176a5"><div class="ttname"><a href="compatibility__feature_8hpp.html#acf6a313fc7fc0d8cc5dd79c3d63176a5">m5::utility::elapsedSince</a></div><div class="ttdeci">T elapsedSince(const T start_at, const T now)</div><div class="ttdoc">Gets the elapsed time between start_at and now.</div><div class="ttdef"><b>Definition</b> compatibility_feature.hpp:70</div></div>
 <div class="ttc" id="anamespacem5_html"><div class="ttname"><a href="namespacem5.html">m5</a></div><div class="ttdoc">Top level namespace of M5.</div><div class="ttdef"><b>Definition</b> base64.cpp:39</div></div>
 <div class="ttc" id="anamespaceutility_html"><div class="ttname"><a href="namespaceutility.html">utility</a></div><div class="ttdoc">For utilities.</div></div>
 </div><!-- fragment --></div><!-- contents -->

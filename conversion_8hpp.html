@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.0 git rev:41a629c</span>
    </div>
   </td>
  </tr>
@@ -106,6 +106,7 @@ $(function(){initNavTree('conversion_8hpp.html',''); initResizable(true); });
 <p>Numeric conversion.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 </div>
@@ -123,12 +124,67 @@ Functions</h2></td></tr>
 <tr class="memitem:a910ca8acb5f1a1a69339c14afe3a4aca"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a910ca8acb5f1a1a69339c14afe3a4aca">m5::utility::unsigned_to_signed</a> (const T v) -&gt; typename std::make_signed&lt; T &gt;::type</td></tr>
 <tr class="memdesc:a910ca8acb5f1a1a69339c14afe3a4aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an unsigned integer of any maximum number of bits to a signed integer.  <br /></td></tr>
 <tr class="separator:a910ca8acb5f1a1a69339c14afe3a4aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebc72b6ae98e828918479c52598c0d4a" id="r_aebc72b6ae98e828918479c52598c0d4a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aebc72b6ae98e828918479c52598c0d4a"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aebc72b6ae98e828918479c52598c0d4a">m5::utility::unsigned_to_signed</a> (const T v, const size_t bits) -&gt; typename std::make_signed&lt; T &gt;::type</td></tr>
+<tr class="memdesc:aebc72b6ae98e828918479c52598c0d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert an unsigned integer to a signed integer, with the number of bits given at run time.  <br /></td></tr>
+<tr class="separator:aebc72b6ae98e828918479c52598c0d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5497172ab37f7c7b4788348d6bd8b392" id="r_a5497172ab37f7c7b4788348d6bd8b392"><td class="memTemplParams" colspan="2">template&lt;typename To , typename From &gt; </td></tr>
+<tr class="memitem:a5497172ab37f7c7b4788348d6bd8b392"><td class="memTemplItemLeft" align="right" valign="top">constexpr To&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5497172ab37f7c7b4788348d6bd8b392">m5::utility::saturate_cast</a> (const From v)</td></tr>
+<tr class="memdesc:a5497172ab37f7c7b4788348d6bd8b392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Narrows an unsigned integer, saturating at the maximum of the destination.  <br /></td></tr>
+<tr class="separator:a5497172ab37f7c7b4788348d6bd8b392"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Numeric conversion. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a5497172ab37f7c7b4788348d6bd8b392" name="a5497172ab37f7c7b4788348d6bd8b392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5497172ab37f7c7b4788348d6bd8b392">&#9670;&#160;</a></span>saturate_cast()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename To , typename From &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">To m5::utility::saturate_cast </td>
+          <td>(</td>
+          <td class="paramtype">const From</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Narrows an unsigned integer, saturating at the maximum of the destination. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">To</td><td>Destination unsigned integer type </td></tr>
+    <tr><td class="paramname">From</td><td>Source unsigned integer type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Value to convert </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>v, or the maximum of To when v exceeds it <div class="fragment"><div class="line"><span class="comment">// 0x1FFFF does not fit in uint16_t</span></div>
+<div class="line">uint16_t u16 = saturate_cast&lt;uint16_t&gt;(<span class="keywordtype">size_t</span>{0x1FFFF});</div>
+<div class="line"><span class="comment">// u16 is 0xFFFF (Not 0xFFFF &amp; 0x1FFFF == 0xFFFF... it saturates, it does not wrap)</span></div>
+</div><!-- fragment --> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Only unsigned to unsigned for now. The comparison goes through uintmax_t, so a From narrower than To is handled as well </dd></dl>
+
+</div>
+</div>
 <a id="a910ca8acb5f1a1a69339c14afe3a4aca" name="a910ca8acb5f1a1a69339c14afe3a4aca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a910ca8acb5f1a1a69339c14afe3a4aca">&#9670;&#160;</a></span>unsigned_to_signed()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a910ca8acb5f1a1a69339c14afe3a4aca">&#9670;&#160;</a></span>unsigned_to_signed() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,6 +220,56 @@ template&lt;size_t Bits, typename T &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aebc72b6ae98e828918479c52598c0d4a" name="aebc72b6ae98e828918479c52598c0d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebc72b6ae98e828918479c52598c0d4a">&#9670;&#160;</a></span>unsigned_to_signed() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto m5::utility::unsigned_to_signed </td>
+          <td>(</td>
+          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>v</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t</td>          <td class="paramname"><span class="paramname"><em>bits</em></span>&#160;) -&gt; typename std::make_signed&lt;T&gt;::type
+</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert an unsigned integer to a signed integer, with the number of bits given at run time. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Unsigned integer type of the value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Value to convert </td></tr>
+    <tr><td class="paramname">bits</td><td>Number of bits assumed by value (1 to the width of T; 0 yields 0) <div class="fragment"><div class="line"><span class="comment">// A table-driven field whose width is only known at run time</span></div>
+<div class="line">int32_t s = unsigned_to_signed(raw, signal.bit_length);</div>
+</div><!-- fragment --> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Use the unsigned_to_signed&lt;Bits&gt;() overload whenever the width is a constant: it can check the width against T at compile time, which this one cannot </dd></dl>
 
 </div>
 </div>

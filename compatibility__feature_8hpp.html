@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.0 git rev:41a629c</span>
    </div>
   </td>
  </tr>
@@ -104,7 +104,8 @@ $(function(){initNavTree('compatibility__feature_8hpp.html',''); initResizable(t
 
 <p>Maintain compatibility with Arduino API, etc.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
+</div>
 <p><a href="compatibility__feature_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -130,10 +131,47 @@ IRAM_ATTR unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>m5
 <tr class="memitem:a7dc4368ab036207b55d64d7f7cf83a00" id="r_a7dc4368ab036207b55d64d7f7cf83a00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="compatibility__feature_8cpp.html#a7dc4368ab036207b55d64d7f7cf83a00">m5::utility::delayMicroseconds</a> (const unsigned int us)</td></tr>
 <tr class="memdesc:a7dc4368ab036207b55d64d7f7cf83a00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses the program for the amount of time (in microseconds) specified by the parameter.  <br /></td></tr>
 <tr class="separator:a7dc4368ab036207b55d64d7f7cf83a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Elapsed time</h2></td></tr>
+<tr class="memitem:a541f0a65c3dfd149b0d3ed332b4c7a1c" id="r_a541f0a65c3dfd149b0d3ed332b4c7a1c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">m5::utility::elapsed_time_t</a> = unsigned long</td></tr>
+<tr class="memdesc:a541f0a65c3dfd149b0d3ed332b4c7a1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elapsed time unit (ms)  <br /></td></tr>
+<tr class="separator:a541f0a65c3dfd149b0d3ed332b4c7a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6a313fc7fc0d8cc5dd79c3d63176a5" id="r_acf6a313fc7fc0d8cc5dd79c3d63176a5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:acf6a313fc7fc0d8cc5dd79c3d63176a5"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#acf6a313fc7fc0d8cc5dd79c3d63176a5">m5::utility::elapsedSince</a> (const T start_at, const T now)</td></tr>
+<tr class="memdesc:acf6a313fc7fc0d8cc5dd79c3d63176a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the elapsed time between start_at and now.  <br /></td></tr>
+<tr class="separator:acf6a313fc7fc0d8cc5dd79c3d63176a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc22912a4cca604084ddc92f182179a6" id="r_afc22912a4cca604084ddc92f182179a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc22912a4cca604084ddc92f182179a6">m5::utility::elapsedSince</a> (const <a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> start_at)</td></tr>
+<tr class="memdesc:afc22912a4cca604084ddc92f182179a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the elapsed time since start_at.  <br /></td></tr>
+<tr class="separator:afc22912a4cca604084ddc92f182179a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40" id="r_a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40">m5::utility::hasElapsed</a> (const T start_at, const typename std::common_type&lt; T &gt;::type duration, const T now)</td></tr>
+<tr class="memdesc:a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has the duration passed between start_at and now?  <br /></td></tr>
+<tr class="separator:a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f79cb81fdf59e8fd66c06b8815799d" id="r_ae8f79cb81fdf59e8fd66c06b8815799d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8f79cb81fdf59e8fd66c06b8815799d">m5::utility::hasElapsed</a> (const <a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> start_at, const <a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a> duration)</td></tr>
+<tr class="memdesc:ae8f79cb81fdf59e8fd66c06b8815799d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has the duration passed since start_at?  <br /></td></tr>
+<tr class="separator:ae8f79cb81fdf59e8fd66c06b8815799d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Maintain compatibility with Arduino API, etc. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a541f0a65c3dfd149b0d3ed332b4c7a1c" name="a541f0a65c3dfd149b0d3ed332b4c7a1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">&#9670;&#160;</a></span>elapsed_time_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">m5::utility::elapsed_time_t</a> = unsigned long</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Elapsed time unit (ms) </p>
+<dl class="section note"><dt>Note</dt><dd>Identical to the return type of millis(), so the elapsed time is computed at the width at which millis() itself wraps. Code driven by a clock of a different width should keep that width instead (see elapsedSince(const T, const T)) </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a4d21c95e4e4584fd20525b4070300471" name="a4d21c95e4e4584fd20525b4070300471"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d21c95e4e4584fd20525b4070300471">&#9670;&#160;</a></span>delay()</h2>
 
@@ -183,6 +221,175 @@ IRAM_ATTR unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>m5
   </dd>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>Accuracy varies depending on the environment. </dd></dl>
+
+</div>
+</div>
+<a id="afc22912a4cca604084ddc92f182179a6" name="afc22912a4cca604084ddc92f182179a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc22912a4cca604084ddc92f182179a6">&#9670;&#160;</a></span>elapsedSince() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">elapsed_time_t m5::utility::elapsedSince </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a></td>          <td class="paramname"><span class="paramname"><em>start_at</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the elapsed time since start_at. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start_at</td><td>Time obtained by millis() </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Elapsed time (ms) </dd></dl>
+
+</div>
+</div>
+<a id="acf6a313fc7fc0d8cc5dd79c3d63176a5" name="acf6a313fc7fc0d8cc5dd79c3d63176a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf6a313fc7fc0d8cc5dd79c3d63176a5">&#9670;&#160;</a></span>elapsedSince() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T m5::utility::elapsedSince </td>
+          <td>(</td>
+          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>start_at</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>now</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the elapsed time between start_at and now. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start_at</td><td>Earlier time </td></tr>
+    <tr><td class="paramname">now</td><td>Current time </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Elapsed time (ms) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Unsigned subtraction yields the correct elapsed time even across the wrap of the clock </dd>
+<dd>
+Overload for code that takes its current time from somewhere other than millis(), such as an injected clock that unit tests can drive </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The subtraction happens in the caller's own type T, because modular arithmetic is only correct when its width matches the width at which the clock wraps. Widening a 32-bit clock to a 64-bit type before subtracting breaks the wrap, so T is deduced rather than fixed to elapsed_time_t </dd></dl>
+
+</div>
+</div>
+<a id="ae8f79cb81fdf59e8fd66c06b8815799d" name="ae8f79cb81fdf59e8fd66c06b8815799d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8f79cb81fdf59e8fd66c06b8815799d">&#9670;&#160;</a></span>hasElapsed() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::utility::hasElapsed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a></td>          <td class="paramname"><span class="paramname"><em>start_at</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a541f0a65c3dfd149b0d3ed332b4c7a1c">elapsed_time_t</a></td>          <td class="paramname"><span class="paramname"><em>duration</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Has the duration passed since start_at? </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start_at</td><td>Time obtained by millis() </td></tr>
+    <tr><td class="paramname">duration</td><td>Duration to wait for (ms) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the duration has passed </dd></dl>
+
+</div>
+</div>
+<a id="a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40" name="a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ec2b87bbb0cfd1c7d7b15fc2e3f6d40">&#9670;&#160;</a></span>hasElapsed() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool m5::utility::hasElapsed </td>
+          <td>(</td>
+          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>start_at</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename std::common_type&lt; T &gt;::type</td>          <td class="paramname"><span class="paramname"><em>duration</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T</td>          <td class="paramname"><span class="paramname"><em>now</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Has the duration passed between start_at and now? </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start_at</td><td>Earlier time </td></tr>
+    <tr><td class="paramname">duration</td><td>Duration to wait for (ms) </td></tr>
+    <tr><td class="paramname">now</td><td>Current time </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the duration has passed </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Compares the elapsed time rather than a precomputed deadline. A deadline such as (start_at + duration) overflows near the wrap of the clock and cuts the wait short, so compare the elapsed time instead </dd>
+<dd>
+Overload for code that takes its current time from somewhere other than millis(), such as an injected clock that unit tests can drive. The current time is the trailing argument so that the shorter form is a prefix of this one and cannot be called by mistake </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The elapsed time is computed in the caller's own type T; see elapsedSince(const T, const T). duration is not deduced, so an integer literal may be passed without making the deduction ambiguous </dd></dl>
 
 </div>
 </div>

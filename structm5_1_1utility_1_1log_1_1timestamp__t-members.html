@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>M5Utility: m5::utility::log::elapsed_time_t Struct Reference</title>
+<title>M5Utility: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.2.0 git rev:301a6b5</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.0 git rev:41a629c</span>
    </div>
   </td>
  </tr>
@@ -70,7 +70,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('structm5_1_1utility_1_1log_1_1elapsed__time__t.html',''); initResizable(true); });
+$(function(){initNavTree('structm5_1_1utility_1_1log_1_1timestamp__t.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,43 +96,21 @@ $(function(){initNavTree('structm5_1_1utility_1_1log_1_1elapsed__time__t.html','
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structm5_1_1utility_1_1log_1_1elapsed__time__t-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">m5::utility::log::elapsed_time_t Struct Reference</div></div>
+  <div class="headertitle"><div class="title">m5::utility::log::timestamp_t Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Millisecond duration count; only <code>.count()</code> is provided, unlike the <code>std::chrono::milliseconds</code> used everywhere else (below).  
- <a href="#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="library__log_8hpp_source.html">library_log.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:abe6e61d26d16c907245ff5c3e6b4445d" id="r_abe6e61d26d16c907245ff5c3e6b4445d"><td class="memItemLeft" align="right" valign="top"><a id="abe6e61d26d16c907245ff5c3e6b4445d" name="abe6e61d26d16c907245ff5c3e6b4445d"></a>
-constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>elapsed_time_t</b> (uint32_t value)</td></tr>
-<tr class="separator:abe6e61d26d16c907245ff5c3e6b4445d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69ea288c8de0027982ff991205675bf5" id="r_a69ea288c8de0027982ff991205675bf5"><td class="memItemLeft" align="right" valign="top"><a id="a69ea288c8de0027982ff991205675bf5" name="a69ea288c8de0027982ff991205675bf5"></a>
-constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>count</b> () const</td></tr>
-<tr class="separator:a69ea288c8de0027982ff991205675bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a256902fae355c2dab3eff147ba68c223" id="r_a256902fae355c2dab3eff147ba68c223"><td class="memItemLeft" align="right" valign="top"><a id="a256902fae355c2dab3eff147ba68c223" name="a256902fae355c2dab3eff147ba68c223"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>ms</b></td></tr>
-<tr class="separator:a256902fae355c2dab3eff147ba68c223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Millisecond duration count; only <code>.count()</code> is provided, unlike the <code>std::chrono::milliseconds</code> used everywhere else (below). </p>
-<p>Deliberate, narrowly-scoped API difference: in this environment &lt;chrono&gt; does not compile at all (see M5UTILITY_HAS_USABLE_CHRONO in <a class="el" href="platform__detect_8hpp.html" title="Build-environment detection shared by the sources that need a time source or &lt;chrono&gt;">platform_detect.hpp</a>), so there is no working <code>std::chrono::milliseconds</code> to preserve here. Code that needs duration arithmetic/comparison/<code>rep</code>/ <code>period</code> on <code><a class="el" href="library__log_8cpp.html#a2cdecbc4047e7b581eb204804ca71682" title="Gets the elapsed time for log.">elapsedTime()</a></code>'s return value will need to adapt when building for this environment. </p>
-</div></div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a>, including all inherited members.</p>
+<table class="directory">
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>count</b>() const (defined in <a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a>)</td><td class="entry"><a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>ms</b> (defined in <a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a>)</td><td class="entry"><a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>timestamp_t</b>() (defined in <a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a>)</td><td class="entry"><a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>timestamp_t</b>(uint32_t value) (defined in <a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a>)</td><td class="entry"><a class="el" href="structm5_1_1utility_1_1log_1_1timestamp__t.html">m5::utility::log::timestamp_t</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">explicit</span></td></tr>
+</table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacem5.html">m5</a></li><li class="navelem"><b>utility</b></li><li class="navelem"><b>log</b></li><li class="navelem"><a class="el" href="structm5_1_1utility_1_1log_1_1elapsed__time__t.html">elapsed_time_t</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>

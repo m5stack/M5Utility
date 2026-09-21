@@ -2,6 +2,8 @@ var misc_8hpp =
 [
     [ "m5::utility::uint_least_for_bits< N >", "structm5_1_1utility_1_1uint__least__for__bits.html", null ],
     [ "isValidI2CAddress", "misc_8hpp.html#a9ac5cdfbf1e5a40b9cff532e12485792", null ],
+    [ "oddParityBit", "misc_8hpp.html#a64c59636969d6812cf00e22dc4d980c6", null ],
+    [ "parity", "misc_8hpp.html#a4ca1225c5e442ca3245ce298a092be46", null ],
     [ "reverseBitOrder", "misc_8hpp.html#a365805b33d8236cb16669bdaf24d2082", null ],
     [ "reverseBitOrder", "misc_8hpp.html#ab7ab477202378705c5f5570cba04a9b4", null ]
 ];

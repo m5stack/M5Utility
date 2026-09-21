@@ -17,7 +17,6 @@ var hierarchy =
     [ "m5::stl::detail::expected_storage_base< void, E, false, true >::dummy", "structm5_1_1stl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01true_01_4_1_1dummy.html", null ],
     [ "m5::stl::detail::optional_storage_base< T, bool >::dummy", "structm5_1_1stl_1_1detail_1_1optional__storage__base_1_1dummy.html", null ],
     [ "m5::stl::detail::optional_storage_base< T, true >::dummy", "structm5_1_1stl_1_1detail_1_1optional__storage__base_3_01_t_00_01true_01_4_1_1dummy.html", null ],
-    [ "m5::utility::log::elapsed_time_t", "structm5_1_1utility_1_1log_1_1elapsed__time__t.html", null ],
     [ "m5::types::EndianInt< T, DataIsLittle >", "unionm5_1_1types_1_1_endian_int.html", null ],
     [ "std::exception", null, [
       [ "m5::stl::bad_expected_access< E >", "classm5_1_1stl_1_1bad__expected__access.html", null ],
@@ -139,6 +138,7 @@ var hierarchy =
     [ "m5::utility::button::Status", "classm5_1_1utility_1_1button_1_1_status.html", null ],
     [ "m5::stl::detail::swap_adl_tests::tag", "structm5_1_1stl_1_1detail_1_1swap__adl__tests_1_1tag.html", null ],
     [ "m5::stl::detail::TC< class >", "structm5_1_1stl_1_1detail_1_1_t_c.html", null ],
+    [ "m5::utility::log::timestamp_t", "structm5_1_1utility_1_1log_1_1timestamp__t.html", null ],
     [ "m5::utility::crypto::TripleDES", "classm5_1_1utility_1_1crypto_1_1_triple_d_e_s.html", null ],
     [ "std::true_type", null, [
       [ "m5::stl::detail::conjunction<... >", "structm5_1_1stl_1_1detail_1_1conjunction.html", null ],
