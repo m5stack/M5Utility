@@ -33,9 +33,11 @@ public:
       @brief Constructor
       @param hold_ms Time to be considered hold(ms)
       @param debounce_ms Debounce time(ms)
+      @param double_click_ms Time within which a second click still counts as a multiple
+      click(ms). 0 follows hold_ms
      */
-    explicit Status(const uint16_t hold_ms = 500, const uint16_t debounce_ms = 10)
-        : _msecHold{hold_ms}, _msecDebounce{debounce_ms}
+    explicit Status(const uint16_t hold_ms = 500, const uint16_t debounce_ms = 10, const uint16_t double_click_ms = 0)
+        : _msecHold{hold_ms}, _msecDebounce{debounce_ms}, _msecDoubleClick{double_click_ms}
     {
     }
 
@@ -51,6 +53,16 @@ public:
     {
         _msecHold = static_cast<uint16_t>(msec);
     }
+    /*!
+      @brief Set the time within which a second click still counts as a multiple click(ms)
+      @param msec Time(ms). 0 follows the hold threshold
+      @note The click count is decided once this time has passed since the last release,
+      so it is also how long wasSingleClicked() and friends are delayed by
+     */
+    inline void setDoubleClickThreshold(const uint32_t msec)
+    {
+        _msecDoubleClick = static_cast<uint16_t>(msec);
+    }
     //! @brief Gets the debounce time(ms)
     inline uint32_t getDebounceThreshold(void) const
     {
@@ -60,6 +72,14 @@ public:
     inline uint32_t getHoldThreshold(void) const
     {
         return _msecHold;
+    }
+    /*!
+      @brief Gets the time within which a second click still counts as a multiple click(ms)
+      @return The configured time, or the hold threshold while it is left at 0
+     */
+    inline uint32_t getDoubleClickThreshold(void) const
+    {
+        return _msecDoubleClick ? _msecDoubleClick : _msecHold;
     }
     ///@}
 
@@ -167,6 +187,8 @@ public:
 
 private:
     uint16_t _msecHold{500}, _msecDebounce{10};
+    // 0 follows _msecHold, which is what this class did before the threshold was separated
+    uint16_t _msecDoubleClick{};
     uint32_t _lastMsec{}, _lastChange{}, _lastRawChange{}, _lastClicked{};
     uint16_t _lastHoldPeriod{};
     button_state_t _currentState{button_state_t::state_nochange};
