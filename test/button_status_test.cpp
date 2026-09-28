@@ -449,3 +449,92 @@ TEST(ButtonStatus, SetState)
     btn.setState(time, button_state_t::state_hold);
     EXPECT_EQ(btn.getState(), button_state_t::state_hold);
 }
+
+TEST(ButtonStatus, DoubleClickThresholdDefault)
+{
+    // Left at 0, the double click window follows the hold threshold, which is what
+    // this class did before the threshold was separated
+    Status st{};
+    EXPECT_EQ(st.getDoubleClickThreshold(), st.getHoldThreshold());
+
+    st.setHoldThreshold(1000);
+    EXPECT_EQ(st.getDoubleClickThreshold(), 1000U) << "it must track a later hold change";
+
+    st.setDoubleClickThreshold(300);
+    EXPECT_EQ(st.getDoubleClickThreshold(), 300U);
+    EXPECT_EQ(st.getHoldThreshold(), 1000U) << "the hold threshold must be untouched";
+
+    st.setDoubleClickThreshold(0);
+    EXPECT_EQ(st.getDoubleClickThreshold(), 1000U) << "0 goes back to following hold";
+
+    // The constructor takes it too
+    Status st2{1000, 20, 300};
+    EXPECT_EQ(st2.getHoldThreshold(), 1000U);
+    EXPECT_EQ(st2.getDebounceThreshold(), 20U);
+    EXPECT_EQ(st2.getDoubleClickThreshold(), 300U);
+}
+
+namespace {
+
+/*!
+  Two clicks separated by gap_ms, polled every 10ms as update() would, and the click
+  count read at the moment it is decided
+ */
+uint8_t click_twice(Status& st, const uint32_t gap_ms, const uint32_t settle_ms)
+{
+    const uint32_t press_ms = 50;
+    uint32_t t              = 0;
+    st.setRawState(t, false);
+
+    // click #1
+    t = 100;
+    for (uint32_t e = t; e <= t + press_ms; e += 10) {
+        st.setRawState(e, true);
+    }
+    const uint32_t rel1 = t + press_ms;
+    st.setRawState(rel1, false);
+
+    // idle until the second press
+    for (uint32_t e = rel1 + 10; e < rel1 + gap_ms; e += 10) {
+        st.setRawState(e, false);
+    }
+
+    // click #2
+    const uint32_t p2 = rel1 + gap_ms;
+    for (uint32_t e = p2; e <= p2 + press_ms; e += 10) {
+        st.setRawState(e, true);
+    }
+    const uint32_t rel2 = p2 + press_ms;
+    st.setRawState(rel2, false);
+
+    // wait for the count to be decided
+    for (uint32_t e = rel2 + 10; e <= rel2 + settle_ms; e += 10) {
+        st.setRawState(e, false);
+        if (st.wasDecideClickCount()) {
+            return st.getClickCount();
+        }
+    }
+    return st.getClickCount();
+}
+
+}  // namespace
+
+TEST(ButtonStatus, DoubleClickThresholdSeparatesFromHold)
+{
+    // hold 1000 / double click 300: a 434ms gap is two single clicks, which is the
+    // case where the unit firmware and the host used to disagree
+    {
+        Status st{1000, 10, 300};
+        EXPECT_EQ(click_twice(st, 434, 400), 1) << "the second click starts a new count";
+    }
+    // The same gap with the window left at the hold threshold counts as a double click
+    {
+        Status st{1000, 10};
+        EXPECT_EQ(click_twice(st, 434, 1100), 2) << "previous behaviour is unchanged";
+    }
+    // Within the window it is still a double click
+    {
+        Status st{1000, 10, 300};
+        EXPECT_EQ(click_twice(st, 200, 400), 2);
+    }
+}

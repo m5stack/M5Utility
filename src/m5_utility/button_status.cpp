@@ -21,7 +21,7 @@ void Status::setState(const uint32_t msec, const button_state_t state)
     }
 
     _lastMsec        = msec;
-    bool flg_timeout = (msec - _lastClicked > _msecHold);
+    bool flg_timeout = (msec - _lastClicked > getDoubleClickThreshold());
     auto new_state   = state;
     switch (state) {
         case button_state_t::state_nochange:

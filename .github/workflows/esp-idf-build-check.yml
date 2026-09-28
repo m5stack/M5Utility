@@ -47,11 +47,13 @@ jobs:
       max-parallel: 20
 
       matrix:
-        # IDF boundary versions: oldest supported minor / new-driver generation / latest
+        # IDF boundary versions: oldest supported minor / new-driver generation / latest 5.x / latest
+        # (M5Unified/M5GFX support 6.x; 7.x is not verified yet)
         idf:
           - v5.1.7
           - v5.4.4
-          - v5.5.4
+          - v5.5.5
+          - v6.1
         # Cross design: esp32 (classic) / esp32c6 (single-core representative) / esp32p4 (newest)
         target:
           - esp32
