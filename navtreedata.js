@@ -53,7 +53,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_m5_utility_8hpp.html",
-"globals_defs.html"
+"functions_vars.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

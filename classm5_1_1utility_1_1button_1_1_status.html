@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.0 git rev:41a629c</span>
+   <div id="projectname">M5Utility<span id="projectnumber">&#160;0.3.1 git rev:a8c5625</span>
    </div>
   </td>
  </tr>
@@ -121,9 +121,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc472f0303b9df3c8bc0c3fb7d59d81e" id="r_adc472f0303b9df3c8bc0c3fb7d59d81e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc472f0303b9df3c8bc0c3fb7d59d81e">Status</a> (const uint16_t hold_ms=500, const uint16_t debounce_ms=10)</td></tr>
-<tr class="memdesc:adc472f0303b9df3c8bc0c3fb7d59d81e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
-<tr class="separator:adc472f0303b9df3c8bc0c3fb7d59d81e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25dd67a5c1185fb5fd07e1e5a7049a49" id="r_a25dd67a5c1185fb5fd07e1e5a7049a49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25dd67a5c1185fb5fd07e1e5a7049a49">Status</a> (const uint16_t hold_ms=500, const uint16_t debounce_ms=10, const uint16_t double_click_ms=0)</td></tr>
+<tr class="memdesc:a25dd67a5c1185fb5fd07e1e5a7049a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
+<tr class="separator:a25dd67a5c1185fb5fd07e1e5a7049a49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Settings</div></td></tr>
 <tr class="memitem:a7114700dee098ccdef3ea539de0fa6d5" id="r_a7114700dee098ccdef3ea539de0fa6d5"><td class="memItemLeft" align="right" valign="top"><a id="a7114700dee098ccdef3ea539de0fa6d5" name="a7114700dee098ccdef3ea539de0fa6d5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setDebounceThreshold</b> (const uint32_t msec)</td></tr>
@@ -133,6 +133,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setDebounceThreshold<
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setHoldThreshold</b> (const uint32_t msec)</td></tr>
 <tr class="memdesc:a54692d6cb85fcda7cb11165d6fa41f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set time to be considered hold(ms) <br /></td></tr>
 <tr class="separator:a54692d6cb85fcda7cb11165d6fa41f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af468af4fbaa9d02caddd5a5991269da8" id="r_af468af4fbaa9d02caddd5a5991269da8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af468af4fbaa9d02caddd5a5991269da8">setDoubleClickThreshold</a> (const uint32_t msec)</td></tr>
+<tr class="memdesc:af468af4fbaa9d02caddd5a5991269da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the time within which a second click still counts as a multiple click(ms)  <br /></td></tr>
+<tr class="separator:af468af4fbaa9d02caddd5a5991269da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecf86f0270be6c67555889366f5344b7" id="r_aecf86f0270be6c67555889366f5344b7"><td class="memItemLeft" align="right" valign="top"><a id="aecf86f0270be6c67555889366f5344b7" name="aecf86f0270be6c67555889366f5344b7"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getDebounceThreshold</b> (void) const</td></tr>
 <tr class="memdesc:aecf86f0270be6c67555889366f5344b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the debounce time(ms) <br /></td></tr>
@@ -141,6 +144,9 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getDebounceThresh
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getHoldThreshold</b> (void) const</td></tr>
 <tr class="memdesc:afd478ccb290e3195731224b3c878e2f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the time to be considered hold(ms) <br /></td></tr>
 <tr class="separator:afd478ccb290e3195731224b3c878e2f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0e5d93cd9aa04cb9b7353d53eefcbf" id="r_a3e0e5d93cd9aa04cb9b7353d53eefcbf"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e0e5d93cd9aa04cb9b7353d53eefcbf">getDoubleClickThreshold</a> (void) const</td></tr>
+<tr class="memdesc:a3e0e5d93cd9aa04cb9b7353d53eefcbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the time within which a second click still counts as a multiple click(ms)  <br /></td></tr>
+<tr class="separator:a3e0e5d93cd9aa04cb9b7353d53eefcbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Button status</div></td></tr>
 <tr class="memitem:adef0afe59406259f5cb936c013f1edc4" id="r_adef0afe59406259f5cb936c013f1edc4"><td class="memItemLeft" align="right" valign="top"><a id="adef0afe59406259f5cb936c013f1edc4" name="adef0afe59406259f5cb936c013f1edc4"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isPressed</b> (void) const</td></tr>
@@ -227,8 +233,8 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getUpdateMsec</b>
 <div class="textblock"><p>Button status management. </p>
 <dl class="section note"><dt>Note</dt><dd>Class compatible with Button_Class in M5Unified </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adc472f0303b9df3c8bc0c3fb7d59d81e" name="adc472f0303b9df3c8bc0c3fb7d59d81e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc472f0303b9df3c8bc0c3fb7d59d81e">&#9670;&#160;</a></span>Status()</h2>
+<a id="a25dd67a5c1185fb5fd07e1e5a7049a49" name="a25dd67a5c1185fb5fd07e1e5a7049a49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25dd67a5c1185fb5fd07e1e5a7049a49">&#9670;&#160;</a></span>Status()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +250,12 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getUpdateMsec</b>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>debounce_ms</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>&#160;)</td>
+          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>debounce_ms</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>double_click_ms</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -259,9 +270,73 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>getUpdateMsec</b>
   <table class="params">
     <tr><td class="paramname">hold_ms</td><td>Time to be considered hold(ms) </td></tr>
     <tr><td class="paramname">debounce_ms</td><td>Debounce time(ms) </td></tr>
+    <tr><td class="paramname">double_click_ms</td><td>Time within which a second click still counts as a multiple click(ms). 0 follows hold_ms </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3e0e5d93cd9aa04cb9b7353d53eefcbf" name="a3e0e5d93cd9aa04cb9b7353d53eefcbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e0e5d93cd9aa04cb9b7353d53eefcbf">&#9670;&#160;</a></span>getDoubleClickThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t m5::utility::button::Status::getDoubleClickThreshold </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the time within which a second click still counts as a multiple click(ms) </p>
+<dl class="section return"><dt>Returns</dt><dd>The configured time, or the hold threshold while it is left at 0 </dd></dl>
+
+</div>
+</div>
+<a id="af468af4fbaa9d02caddd5a5991269da8" name="af468af4fbaa9d02caddd5a5991269da8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af468af4fbaa9d02caddd5a5991269da8">&#9670;&#160;</a></span>setDoubleClickThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void m5::utility::button::Status::setDoubleClickThreshold </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>msec</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the time within which a second click still counts as a multiple click(ms) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msec</td><td>Time(ms). 0 follows the hold threshold </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The click count is decided once this time has passed since the last release, so it is also how long <a class="el" href="#a1ac3746e7b5a3328eed9f91b0e6a1a40" title="Returns true when some time has passed since the button was single clicked.">wasSingleClicked()</a> and friends are delayed by </dd></dl>
 
 </div>
 </div>
